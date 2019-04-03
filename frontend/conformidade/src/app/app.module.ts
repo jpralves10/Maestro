@@ -13,7 +13,8 @@ import { HomeComponent } from './componentes/home/home.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {ROUTES} from './app.routes'
+import { ROUTES } from './app.routes';
+import { ConformidadeModule } from './componentes/conformidade/conformidade.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {ROUTES} from './app.routes'
   imports: [
     BrowserModule,
     MaterialModule,
+    ConformidadeModule,
     BrowserAnimationsModule,
     KeycloakAngularModule,
     RouterModule.forRoot(ROUTES, {preloadingStrategy: PreloadAllModules})
