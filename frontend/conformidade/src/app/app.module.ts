@@ -3,6 +3,8 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { KeycloakService, KeycloakAngularModule } from 'keycloak-angular';
 import { initializer } from './utilitarios/app-init';
 
+import { HttpClientModule } from '@angular/common/http';
+
 import { RouterModule, PreloadAllModules } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -17,25 +19,28 @@ import { ROUTES } from './app.routes';
 import { ConformidadeModule } from './componentes/conformidade/conformidade.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavegacaoComponent,
-    HomeComponent
-  ],
-  imports: [
-    BrowserModule,
-    MaterialModule,
-    ConformidadeModule,
-    BrowserAnimationsModule,
-    KeycloakAngularModule,
-    RouterModule.forRoot(ROUTES, {preloadingStrategy: PreloadAllModules})
-  ],
-  providers: [{
-    provide: APP_INITIALIZER,
-    useFactory: initializer,
-    multi: true,
-    deps: [KeycloakService]
-  }],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        NavegacaoComponent,
+        HomeComponent
+    ],
+    imports: [
+        BrowserModule,
+        MaterialModule,
+        ConformidadeModule,
+        BrowserAnimationsModule,
+        KeycloakAngularModule,
+        HttpClientModule,
+        RouterModule.forRoot(ROUTES) //, {preloadingStrategy: PreloadAllModules})
+    ],
+    providers: [
+        {
+            provide: APP_INITIALIZER,
+            useFactory: initializer,
+            multi: true,
+            deps: [KeycloakService]
+        }
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

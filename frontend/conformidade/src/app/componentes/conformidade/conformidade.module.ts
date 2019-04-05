@@ -11,6 +11,7 @@ import { CONFORMIDADE_ROUTES } from './conformidade.routes';
 
 import { FilterComponent } from './filter/filter.component';
 import { ResultComponent } from './result/result.component';
+import { ImportersListComponent } from './filter/importers-list/importers-list.component';
 
 /*import { ImportersListComponent } from './filter/importers-list/importers-list.component';
 
@@ -27,7 +28,8 @@ import { TrendlineChartComponent } from './result/trendline-chart/trendline-char
 @NgModule({
   declarations: [
     FilterComponent,
-    ResultComponent
+    ResultComponent,
+    ImportersListComponent
     /*ImportersListComponent,
     RepresentativesListComponent,
     EntryUrfListComponent,
@@ -45,4 +47,4 @@ import { TrendlineChartComponent } from './result/trendline-chart/trendline-char
     //GoogleChartsModule.forRoot()
   ]
 })
-export class ConformidadeModule {}
+export class ConformidadeModule { }

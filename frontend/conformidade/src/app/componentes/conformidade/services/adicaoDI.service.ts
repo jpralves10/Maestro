@@ -3,25 +3,25 @@ import { AuthService } from '../../../utilitarios/auth.service';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { Filter } from '../models/filter.model'
+import { AdicaoDI } from '../models/adicaoDI.model'
 
-import {EFICILOG_API} from '../../../utilitarios/app.api'
+import { CONFORMIDADE_API } from '../../../utilitarios/app.api'
 
 @Injectable({
     providedIn: 'root'
 })
-export class DataService {
+export class DeclaracaoDIService {
 
     constructor(
         private authService: AuthService,
         private httpClient: HttpClient
     ) {
         httpClient
-            .get(`${EFICILOG_API}/relatorios/representacoes/filtros`)
+            .get(`${CONFORMIDADE_API}/relatorios/representacoes/filtros`)
             .subscribe(data => console.log('resultado request:', data));
     }
 
-    getDadosFiltro(): Observable<Filter> {
-        return this.httpClient.get<Filter>(`${EFICILOG_API}/relatorios/representacoes/filtros`);
+    getDadosResult(): Observable<AdicaoDI> {
+        return this.httpClient.get<AdicaoDI>(`${CONFORMIDADE_API}/relatorios/representacoes/filtros`);
     }
 }

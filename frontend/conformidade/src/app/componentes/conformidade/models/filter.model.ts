@@ -1,9 +1,7 @@
-import { Importador } from './importador.model';
-import { Representante } from './representante.model';
+import { Importer } from './importer.model';
 
 export interface Filter {
-  importador: Importador[];
-  representante: Representante[];
-  data_inicio?: string;
-  data_fim?: string;
+    importers: Importer[];
+    data_inicio?: string;
+    data_fim?: string;
 }

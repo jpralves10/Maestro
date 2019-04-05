@@ -4,31 +4,38 @@
 </div>
 
 <div *ngIf="!loading" class="container">
-  <h3>Filtro</h3>
-  <mat-card class="mat-elevation-z5 filtro-card">
-    <mat-card-content class="form-container">
-      <h3>Importador</h3>
-      <div class="importer-fields">
-        <mat-form-field>
-          <input
-            matInput
-            placeholder="Razão Social"
-            [(ngModel)]="current_filtro.importador.name"
-            (ngModelChange)="updateFiltro()" />
-        </mat-form-field>
-        <mat-form-field>
-          <input
-            matInput
-            placeholder="CPF / CNPJ"
-            [(ngModel)]="current_filtro.importador.cpf_cnpj"
-            (ngModelChange)="updateFiltro()" />
-        </mat-form-field-->
-      </div>
-      <!--app-importers-list
-        *ngIf="data !== null"
-        [data]="data.importers"
-      ></app-importers-list-->
-    </mat-card-content>
-  </mat-card>
+<h3>Filtro</h3>
+
+    <mat-card class="mat-elevation-z5 filtro-card">
+        <mat-card-content class="form-container">
+            <h3>Importador</h3>
+            <div class="importer-fields">
+                <mat-form-field>
+                    <input
+                        matInput
+                        placeholder="Razão Social"
+                        [(ngModel)]="current_filtro.importer.name"
+                        (ngModelChange)="updateFiltro()" />
+                </mat-form-field>
+                <mat-form-field>
+                    <input
+                        matInput
+                        placeholder="CPF / CNPJ"
+                        [(ngModel)]="current_filtro.importer.cpf_cnpj"
+                        (ngModelChange)="updateFiltro()" />
+                </mat-form-field>
+            </div>
+            <app-importers-list
+                *ngIf="data !== null" 
+                [data]="data.importers">
+            </app-importers-list>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="mat-elevation-z5">
+        <mat-card-content>
+            <button mat-raised-button (click)="generateReport()">Filtrar</button>
+        </mat-card-content>
+    </mat-card>
 
 </div>
