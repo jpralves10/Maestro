@@ -1,5 +1,5 @@
 export interface FilterResult {
-    importers: number[];
+    importers: string[];
     start_date: string;
     end_date: string;
 }

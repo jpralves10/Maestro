@@ -4,14 +4,23 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-import { MatInputModule } from '@angular/material';
+import { MatInputModule, MatChipsModule } from '@angular/material';
 import { MaterialModule } from '../../utilitarios/material.module'
+
+// Add these
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
+library.add(fas, far);
 
 import { CONFORMIDADE_ROUTES } from './conformidade.routes';
 
 import { FilterComponent } from './filter/filter.component';
 import { ResultComponent } from './result/result.component';
 import { ImportersListComponent } from './filter/importers-list/importers-list.component';
+import { ProdutosListComponent } from './result/produtos-list/produtos-list.component';
+import { ProdutosEditComponent } from './result/produtos-edit/produtos-edit.component';
 
 /*import { ImportersListComponent } from './filter/importers-list/importers-list.component';
 
@@ -29,7 +38,9 @@ import { TrendlineChartComponent } from './result/trendline-chart/trendline-char
   declarations: [
     FilterComponent,
     ResultComponent,
-    ImportersListComponent
+    ImportersListComponent,
+    ProdutosListComponent,
+    ProdutosEditComponent
     /*ImportersListComponent,
     RepresentativesListComponent,
     EntryUrfListComponent,
@@ -43,6 +54,8 @@ import { TrendlineChartComponent } from './result/trendline-chart/trendline-char
     FormsModule,
     MaterialModule,
     MatInputModule,
+    MatChipsModule,
+    FontAwesomeModule,
     RouterModule.forChild(CONFORMIDADE_ROUTES),
     //GoogleChartsModule.forRoot()
   ]

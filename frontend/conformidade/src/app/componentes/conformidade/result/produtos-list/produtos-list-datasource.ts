@@ -1,31 +1,31 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
+import { Input } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
-import { Importer } from '../../models/importer.model';
-import { Input } from '@angular/core';
-import { FilterItem } from '../../models/filter-item.model';
-import { FilterService } from '../../services/filter.service';
+import { Produto } from '../../models/produto.model';
+import { ResultItem } from '../../models/result-item.model';
+import { ResultService } from '../../services/result.service';
 
-export class ImportersListDataSource extends DataSource<Importer> {
-    
+export class ProdutosListDataSource extends DataSource<Produto> {
+
     @Input()
-    public data: Importer[];
-    public fullData: Importer[];
-    public filteredData: Importer[];
+    public data: Produto[];
+    public fullData: Produto[];
+    public filteredData: Produto[];
 
-    public filtro: FilterItem;
+    public filtro: ResultItem;
 
     constructor(
         private paginator: MatPaginator,
         private sort: MatSort,
-        private filterService: FilterService,
-        data: Importer[]
+        private resultService: ResultService,
+        data: Produto[]
     ) {
         super();
         this.data = [...data];
         this.fullData = [...data];
-        this.filterService.filterSource.subscribe(filtro => (this.filtro = filtro));
+        this.resultService.filterSource.subscribe(filtro => (this.filtro = filtro));
     }
 
     /**
@@ -33,12 +33,12 @@ export class ImportersListDataSource extends DataSource<Importer> {
      * the returned stream emits new items.
      * @returns A stream of the items to be rendered.
      */
-    connect(): Observable<Importer[]> {
+    connect(): Observable<Produto[]> {
         // Combine everything that affects the rendered data into one update
         // stream for the data-table to consume.
         const dataMutations = [
             observableOf(this.data),
-            this.filterService.filterSource,
+            this.resultService.filterSource,
             this.paginator.page,
             this.sort.sortChange
         ];
@@ -62,22 +62,20 @@ export class ImportersListDataSource extends DataSource<Importer> {
      */
     disconnect() {}
 
-    public getFilteredData(data: Importer[]): Importer[] {
-        const reReplace = /[/\/\-\.]/g;
+    public getFilteredData(data: Produto[]): Produto[] {
 
-        const { importer } = this.filtro;
+        const { produto } = this.filtro;
 
         let newData = data;
-        if (importer.cpf_cnpj !== '') {
+
+        if (produto.descricao !== '') {
             newData = newData.filter(d =>
-            d.cpf_cnpj
-                .replace(reReplace, '')
-                .includes(importer.cpf_cnpj.replace(reReplace, ''))
+                d.descricao.includes(produto.descricao)
             );
         }
-        if (importer.name !== '') {
+        if (produto.status !== '') {
             newData = newData.filter(d =>
-            d.name.toUpperCase().includes(importer.name.toUpperCase())
+                d.status.toUpperCase().includes(produto.status.toUpperCase())
             );
         }
         return [...newData];
@@ -87,7 +85,7 @@ export class ImportersListDataSource extends DataSource<Importer> {
      * Paginate the data (client-side). If you're using server-side pagination,
      * this would be replaced by requesting the appropriate data from the server.
      */
-    public getPagedData(data: Importer[]) {
+    public getPagedData(data: Produto[]) {
         const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
         return data.splice(startIndex, this.paginator.pageSize);
     }
@@ -96,7 +94,7 @@ export class ImportersListDataSource extends DataSource<Importer> {
      * Sort the data (client-side). If you're using server-side sorting,
      * this would be replaced by requesting the appropriate data from the server.
      */
-    public getSortedData(data: Importer[]) {
+    public getSortedData(data: Produto[]) {
 
         if (!this.sort.active || this.sort.direction === '') {
             return data;
@@ -105,10 +103,10 @@ export class ImportersListDataSource extends DataSource<Importer> {
         return data.sort((a, b) => {
             const isAsc = this.sort.direction === 'asc';
             switch (this.sort.active) {
-            case 'name':
-                return compare(a.name, b.name, isAsc);
-            case 'cpf_cnpj':
-                return compare(+a.cpf_cnpj, +b.cpf_cnpj, isAsc);
+            case 'descricao':
+                return compare(a.descricao, b.descricao, isAsc);
+            case 'status':
+                return compare(a.status, b.status, isAsc);
             default:
                 return 0;
             }

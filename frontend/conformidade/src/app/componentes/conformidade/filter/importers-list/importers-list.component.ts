@@ -1,21 +1,20 @@
-import { Component, OnInit, OnChanges, Input, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 
 import { Importer } from '../../models/importer.model';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { ImportersListDataSource } from './importers-list-datasource';
-import { FilterItem } from '../../models/FilterItem.model';
+import { FilterItem } from '../../models/filter-item.model';
 import { Filter } from '../../models/filter.model';
 import { FilterService } from '../../services/filter.service';
-import { FilterResultService } from '../../services/filterResult.service';
 
 @Component({
   selector: 'app-importers-list',
   templateUrl: './importers-list.component.html',
   styleUrls: ['./importers-list.component.scss']
 })
-export class ImportersListComponent implements OnInit, OnChanges {
+export class ImportersListComponent implements OnInit {
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
@@ -32,15 +31,14 @@ export class ImportersListComponent implements OnInit, OnChanges {
     public currentFilter: Filter;
 
     constructor(
-        private filterService: FilterService,
-        private filterResultService: FilterResultService
+        private filterService: FilterService
     ) {
         filterService.filter.subscribe(f => (this.filtroValue = f));
 
-        filterResultService.filterResult.subscribe(fr => (this.currentFilter = fr));
+        filterService.filterResult.subscribe(fr => (this.currentFilter = fr));
 
         this.selection.changed.subscribe(() => {
-            filterResultService.changeFilterResult({
+            filterService.changeFilterResult({
                 ...this.currentFilter,
                 importers: this.selection.selected
             });

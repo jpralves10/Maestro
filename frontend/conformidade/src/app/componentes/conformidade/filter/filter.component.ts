@@ -2,12 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Filter } from '../models/filter.model';
-import { FilterItem } from '../models/FilterItem.model';
-import { FilterResult } from '../models/filterResult.model';
+import { FilterItem } from '../models/filter-item.model';
+import { FilterResult } from '../models/filter-result.model';
 
-import { DataService } from '../services/dados.service';
+import { ConsultaService } from '../services/consulta.service';
 import { FilterService } from '../services/filter.service';
-import { DeclaracaoDIService } from '../services/adicaoDI.service';
 
 @Component({
   selector: 'app-filter',
@@ -19,7 +18,6 @@ export class FilterComponent implements OnInit {
     data: Filter = null;
     loading = false;
     errored = false;
-    declaracaoDI = false;
 
     @Input() current_filtro: FilterItem = {
         importer: {cpf_cnpj: '', name: ''}
@@ -30,16 +28,20 @@ export class FilterComponent implements OnInit {
     };
 
     constructor(
-        private dataService: DataService,
+        private consultaService: ConsultaService,
         private filterService: FilterService,
-        private declaracaoDIService: DeclaracaoDIService,
         private router: Router,
         private route: ActivatedRoute
-    ) { }
+    ) {
+        filterService.filterResult.subscribe(f => {
+            this.filtro = f;
+        });
+    }
 
     ngOnInit() {
-        //this.filterResultService.resetFilter();
-        this.dataService.getDadosFiltro().subscribe(
+        this.filterService.resetFilter();
+
+        this.consultaService.getDadosFiltro().subscribe(
             data => {
                 this.data = this.getDataTransformed(data);
                 window.sessionStorage.setItem('filter', JSON.stringify(this.data));
@@ -48,10 +50,6 @@ export class FilterComponent implements OnInit {
             error => { this.errored = true;}
         );
         this.filterService.clearFilter();
-    }
-
-    public updateFiltro() {
-        this.filterService.changeFilter(this.current_filtro);
     }
 
     public getDataTransformed(data: any): Filter {
@@ -69,6 +67,14 @@ export class FilterComponent implements OnInit {
         }
     }
 
+    public updateFiltro() {
+        this.filterService.changeFilter(this.current_filtro);
+    }
+
+    public updateFiltroFinal() {
+        this.filterService.changeFilterResult(this.filtro);
+    }
+
     public generateReport() {
         this.router.navigate([`./result`], {
             relativeTo: this.route,
@@ -80,8 +86,12 @@ export class FilterComponent implements OnInit {
     }
 
     public getFilterAsString(): string {
+        const reReplace = /[/\/\-\.]/g;
+
         return JSON.stringify({
-            importers: this.filtro.importers.map(i => parseInt(i.id, 10)),
+            importers: this.filtro.importers.map(i => 
+                i.cpf_cnpj.replace(reReplace, '').substring(0, 8)
+            ),
             start_date: this.filtro.data_inicio,
             end_date: this.filtro.data_fim
         } as FilterResult);

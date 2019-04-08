@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { MatPaginator } from '@angular/material';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Filter } from '../models/filter.model';
-import { FilterItem } from '../models/filter-item.model';
+import { MatPaginator } from '@angular/material';
+import { ResultItem } from '../models/result-item.model';
+import { Result } from '../models/result.model';
 import * as DateManagement from '../../../utilitarios/date-management';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FilterService {
+export class ResultService {
 
     constructor() {
         this.whenUpdatedSource.subscribe(p => (this.whenUpdated = p));
@@ -16,12 +16,12 @@ export class FilterService {
 
     /** Default Filter **/
 
-    private defaultFilter: FilterItem = {
-        importer: {cpf_cnpj: '', name: ''}
+    private defaultFilter: ResultItem = {
+        produto: {codigo: null, descricao: '', numeroDI: null, status: ''}
     };
 
     public filterSource: 
-        BehaviorSubject<FilterItem> = new BehaviorSubject<FilterItem>(this.defaultFilter);
+        BehaviorSubject<ResultItem> = new BehaviorSubject<ResultItem>(this.defaultFilter);
 
     public filter = this.filterSource.asObservable();
 
@@ -30,7 +30,7 @@ export class FilterService {
 
     public whenUpdated: Array<MatPaginator> = [];
 
-    public changeFilter(filter: FilterItem): void {
+    public changeFilter(filter: ResultItem): void {
         this.filterSource.next(filter);
         console.log(this.whenUpdated);
         this.whenUpdated.forEach(f2 => f2.firstPage());
@@ -42,19 +42,19 @@ export class FilterService {
 
     /** Default Filter Result **/
 
-    private readonly defaultFilterResult: Filter = {
-        importers: [],
+    private readonly defaultFilterResult: Result = {
+        produtos: [],
         data_inicio: DateManagement.BrFormatDateFromDate(actualDateDecremented()),
         data_fim: DateManagement.BrFormatDateFromDate(new Date())
     };
 
     public filterResultSource: 
-        BehaviorSubject<Filter> = new BehaviorSubject<Filter>(this.defaultFilterResult);
+        BehaviorSubject<Result> = new BehaviorSubject<Result>(this.defaultFilterResult);
 
     public filterResult: 
-        Observable<Filter> = this.filterResultSource.asObservable();
+        Observable<Result> = this.filterResultSource.asObservable();
 
-    public changeFilterResult(filter: Filter) {
+    public changeFilterResult(filter: Result) {
         this.filterResultSource.next(filter);
     }
 

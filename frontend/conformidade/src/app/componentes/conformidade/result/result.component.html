@@ -1,3 +1,35 @@
-<p>
-  result works!
-</p>
+<div *ngIf="loading" fxAlign="center" class="loading">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  <p>Carregando dados da consulta...</p>
+</div>
+
+<div *ngIf="!loading" class="container">
+<h3>Adições da DI</h3>
+
+    <mat-card class="mat-elevation-z5 filtro-card">
+        <mat-card-content class="form-container">
+            <h3>Produtos</h3>
+            <div class="produto-fields">
+                <mat-form-field>
+                    <input
+                        matInput
+                        placeholder="Descrição do Produto"
+                        [(ngModel)]="current_filtro.produto.descricao"
+                        (ngModelChange)="updateFiltro()" />
+                </mat-form-field>
+                <mat-form-field>
+                    <input
+                        matInput
+                        placeholder="Status"
+                        [(ngModel)]="current_filtro.produto.status"
+                        (ngModelChange)="updateFiltro()" />
+                </mat-form-field>
+            </div>
+            <app-produtos-list
+                *ngIf="data !== null" 
+                [data]="data.produtos">
+            </app-produtos-list>
+        </mat-card-content>
+    </mat-card>
+
+</div>
