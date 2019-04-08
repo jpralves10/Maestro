@@ -9,9 +9,9 @@ import { ConsultaService } from '../services/consulta.service';
 import { ResultService } from '../services/result.service';
 
 @Component({
-  selector: 'app-result',
-  templateUrl: './result.component.html',
-  styleUrls: ['./result.component.scss']
+    selector: 'app-result',
+    templateUrl: './result.component.html',
+    styleUrls: ['./result.component.scss']
 })
 export class ResultComponent implements OnInit {
 
@@ -65,11 +65,11 @@ export class ResultComponent implements OnInit {
 
         produto.seq = "001";
         produto.codigo = 123;
-        produto.numeroDI = "01234567"
-        produto.dataRegistro = "07/04/2019";
+        produto.numeroDI = "01234567891"
+        produto.dataRegistro = "20190403";
         produto.status = "Complementar";
         produto.descricao = "Produto de Teste 123";
-        produto.cnpjRaiz = "07171642925";
+        produto.cnpjRaiz = "00913443000173";
         produto.situacao = "ATIVADO";
         produto.modalidade = "IMPORTACAO";
         produto.ncm = "10123";

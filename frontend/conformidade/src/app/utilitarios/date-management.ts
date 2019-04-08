@@ -1,11 +1,11 @@
 export function BrFormatDateFromDate(date: Date) {
     return date.toLocaleDateString('pt-BR', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
     });
-  }
-  
+}
+
 export function DateFromBrFormatDate(date: string): Date {
     
     const split = date.split('/');
@@ -23,4 +23,17 @@ export function DateFromBrFormatDate(date: string): Date {
     } catch {
         return new Date();
     }
-}  
+}
+
+export function DateFromBrString(date: string): string {
+
+    if (date.length == 8) {
+        const year: string = date.substring(0, 4);
+        const month: string = date.substring(4, 6);
+        const day: string = date.substring(6, 8);
+
+        return day + month + year;
+    }else{
+        return date;
+    }
+}

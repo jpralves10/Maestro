@@ -16,7 +16,7 @@ import { FilterService } from '../services/filter.service';
 export class FilterComponent implements OnInit {
 
     data: Filter = null;
-    loading = false;
+    loading = true;
     errored = false;
 
     @Input() current_filtro: FilterItem = {

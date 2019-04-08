@@ -4,8 +4,20 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-import { MatInputModule, MatChipsModule } from '@angular/material';
+import { 
+    MatInputModule, 
+    MatChipsModule, 
+    MatSelectModule,
+    MatFormFieldModule,
+    MatGridListModule,
+    MatButtonModule,
+    MatRippleModule,
+    MatExpansionModule
+} from '@angular/material';
+
 import { MaterialModule } from '../../utilitarios/material.module'
+
+import {NgxMaskModule} from 'ngx-mask'
 
 // Add these
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -55,8 +67,15 @@ import { TrendlineChartComponent } from './result/trendline-chart/trendline-char
     MaterialModule,
     MatInputModule,
     MatChipsModule,
+    MatSelectModule,
     FontAwesomeModule,
+    MatFormFieldModule,
+    MatGridListModule,
+    MatButtonModule,
+    MatRippleModule,
+    MatExpansionModule,
     RouterModule.forChild(CONFORMIDADE_ROUTES),
+    NgxMaskModule.forRoot()
     //GoogleChartsModule.forRoot()
   ]
 })

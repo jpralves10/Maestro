@@ -31,7 +31,7 @@ import { ConformidadeModule } from './componentes/conformidade/conformidade.modu
         BrowserAnimationsModule,
         KeycloakAngularModule,
         HttpClientModule,
-        RouterModule.forRoot(ROUTES) //, {preloadingStrategy: PreloadAllModules})
+        RouterModule.forRoot(ROUTES, {useHash: true})
     ],
     providers: [
         {

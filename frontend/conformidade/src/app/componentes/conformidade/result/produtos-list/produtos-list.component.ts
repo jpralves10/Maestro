@@ -1,6 +1,7 @@
 import { Component, OnInit, OnChanges, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Produto } from '../../models/produto.model';
 import { ProdutosListDataSource } from './produtos-list-datasource';
@@ -9,9 +10,9 @@ import { Result } from '../../models/result.model';
 import { ResultService } from '../../services/result.service';
 
 @Component({
-  selector: 'app-produtos-list',
-  templateUrl: './produtos-list.component.html',
-  styleUrls: ['./produtos-list.component.scss']
+    selector: 'app-produtos-list',
+    templateUrl: './produtos-list.component.html',
+    styleUrls: ['./produtos-list.component.scss']
 })
 export class ProdutosListComponent implements OnInit {
 
@@ -30,6 +31,8 @@ export class ProdutosListComponent implements OnInit {
     public currentFilter: Result;
 
     constructor(
+        private router: Router,
+        private route: ActivatedRoute,
         private resultService: ResultService
     ) {
         resultService.filter.subscribe(f => (this.filtroValue = f));
@@ -92,7 +95,13 @@ export class ProdutosListComponent implements OnInit {
         this.paginator.firstPage();
     }
 
-    editRowProduto(){
-
+    editRowProduto(row: any){
+        this.router.navigate([`/produtosEdit`], {
+            relativeTo: this.route,
+            replaceUrl: false,
+            queryParams: {
+                filterProduto: JSON.stringify({...row} as Produto)
+            }
+        });
     }
 }

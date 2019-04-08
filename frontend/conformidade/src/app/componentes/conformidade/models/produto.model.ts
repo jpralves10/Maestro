@@ -1,12 +1,14 @@
+import { Atributos } from './legendas.model';
+
 export interface Produto {
 
-    seq: string;
-    codigo: number;
-
+    codigoSistema: number;
     numeroDI: string;
     dataRegistro: string;
     status: string;
     
+    seq: string;
+    codigo: number;
     descricao: string;
     cnpjRaiz: string;
     situacao: string;
@@ -19,23 +21,19 @@ export interface Produto {
     paisOrigem: string;
     fabricanteConhecido: boolean;
     codigoOperadorEstrangeiro: string;
-    atributos: [
-        {
-            atributo: string;
-            valor: string
-        }
-    ];
-    codigosInterno: string[]
+    atributos: Atributos[];
+    codigosInterno: string[];
 }
 
 export class ProdutoClass implements Produto{
-    seq: string;
-    codigo: number;
 
+    codigoSistema: number;
     numeroDI: string;
     dataRegistro: string;
     status: string;
     
+    seq: string;
+    codigo: number;
     descricao: string;
     cnpjRaiz: string;
     situacao: string;
