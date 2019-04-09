@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Produto, ProdutoClass } from '../../models/produto.model';
 import { LegendaProduto, Atributos, AtributosClass } from '../../models/legendas.model';
-import * as DateManagement from '../../../../utilitarios/date-management';
+import * as DateManagement from '../../../utilitarios/date-management';
 
 @Component({
   selector: 'app-produtos-edit',
@@ -11,43 +11,15 @@ import * as DateManagement from '../../../../utilitarios/date-management';
 })
 export class ProdutosEditComponent implements OnInit {
 
+    isLinear = false;
+
     public produto: Produto;
     public loading = true;
     public errored = false;
 
-    public situacoes: LegendaProduto[] = [
-        {value: 'ATIVADO', viewValue: 'Ativado'},
-        {value: 'DESATIVADO', viewValue: 'Desativado'},
-        {value: 'RASCUNHO', viewValue: 'Rascunho'}
-    ];
-
-    public modalidades: LegendaProduto[] = [
-        {value: 'AMBOS', viewValue: 'Ambos'},
-        {value: 'EXPORTACAO', viewValue: 'Exportação'},
-        {value: 'IMPORTACAO', viewValue: 'Importação'}
-    ];
-
-    public fabricanteConhecido: LegendaProduto[] = [
-        {value: 'FALSE', viewValue: 'Não'},
-        {value: 'TRUE', viewValue: 'Sim'}
-    ];
-
-    public atributos: Atributos[] = [
-        {atributo: 'ATT_1', valor: 'teste'},
-        {atributo: 'ATT_2', valor: 'teste 22'}
-    ];
-
-    atributosColumns: string[] = ['atributo', 'valor', 'operacao'];
-
-    atributo_form: Atributos = new AtributosClass;
-
-    codigoInternoColumns: string[] = ['valor', 'operacao'];
-
-    codigointerno_form: string = '';
-
     constructor(
         private router: Router,
-        private route: ActivatedRoute,
+        private route: ActivatedRoute
     ) {
         this.route.queryParamMap.subscribe(paramMap => {
             this.produto = JSON.parse(paramMap.get('filterProduto'));
@@ -70,17 +42,5 @@ export class ProdutosEditComponent implements OnInit {
         });
     }
 
-    ngOnInit() {
-    }
-
-    public adicionarAtributo(){
-        this.atributos.push(this.atributo_form);
-        this.atributo_form = new AtributosClass;
-
-        this.produto.atributos = this.atributos;
-    }
-
-    public removeRowAtributo(){
-
-    }
+    ngOnInit() { }
 }

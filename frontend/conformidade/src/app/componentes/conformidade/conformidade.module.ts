@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { 
     MatInputModule, 
@@ -12,10 +12,11 @@ import {
     MatGridListModule,
     MatButtonModule,
     MatRippleModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatStepperModule
 } from '@angular/material';
 
-import { MaterialModule } from '../../utilitarios/material.module'
+import { MaterialModule } from '../utilitarios/material.module'
 
 import {NgxMaskModule} from 'ngx-mask'
 
@@ -33,6 +34,9 @@ import { ResultComponent } from './result/result.component';
 import { ImportersListComponent } from './filter/importers-list/importers-list.component';
 import { ProdutosListComponent } from './result/produtos-list/produtos-list.component';
 import { ProdutosEditComponent } from './result/produtos-edit/produtos-edit.component';
+import { ProdutosOneComponent } from './result/produtos-edit/produtos-one/produtos-one.component';
+import { ProdutosTwoComponent } from './result/produtos-edit/produtos-two/produtos-two.component';
+import { ProdutosThreeComponent } from './result/produtos-edit/produtos-three/produtos-three.component';
 
 /*import { ImportersListComponent } from './filter/importers-list/importers-list.component';
 
@@ -52,7 +56,10 @@ import { TrendlineChartComponent } from './result/trendline-chart/trendline-char
     ResultComponent,
     ImportersListComponent,
     ProdutosListComponent,
-    ProdutosEditComponent
+    ProdutosEditComponent,
+    ProdutosOneComponent,
+    ProdutosTwoComponent,
+    ProdutosThreeComponent
     /*ImportersListComponent,
     RepresentativesListComponent,
     EntryUrfListComponent,
@@ -64,6 +71,7 @@ import { TrendlineChartComponent } from './result/trendline-chart/trendline-char
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MaterialModule,
     MatInputModule,
     MatChipsModule,
@@ -74,6 +82,7 @@ import { TrendlineChartComponent } from './result/trendline-chart/trendline-char
     MatButtonModule,
     MatRippleModule,
     MatExpansionModule,
+    MatStepperModule,
     RouterModule.forChild(CONFORMIDADE_ROUTES),
     NgxMaskModule.forRoot()
     //GoogleChartsModule.forRoot()

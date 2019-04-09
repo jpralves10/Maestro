@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from '../../../utilitarios/auth.service';
+import { AuthService } from '../../utilitarios/auth.service';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { Filter } from '../models/filter.model';
 import { Produto } from '../models/produto.model';
 
-import { EFICILOG_API } from '../../../utilitarios/app.api';
-import { CONFORMIDADE_API } from '../../../utilitarios/app.api';
+import { EFICILOG_API } from '../../utilitarios/app.api';
+import { CONFORMIDADE_API } from '../../utilitarios/app.api';
 
 @Injectable({
     providedIn: 'root'

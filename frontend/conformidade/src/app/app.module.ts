@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { KeycloakService, KeycloakAngularModule } from 'keycloak-angular';
-import { initializer } from './utilitarios/app-init';
+import { initializer } from './componentes/utilitarios/app-init';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -10,7 +10,7 @@ import { RouterModule, PreloadAllModules } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavegacaoComponent } from './componentes/navegacao/navegacao.component';
 
-import { MaterialModule } from './utilitarios/material.module';
+import { MaterialModule } from './componentes/utilitarios/material.module';
 import { HomeComponent } from './componentes/home/home.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
