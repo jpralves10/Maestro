@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 
 import { Importer } from '../../models/importer.model';
@@ -59,10 +59,6 @@ export class ImportersListComponent implements OnInit {
             ...this.filterService.whenUpdated,
             this.paginator
         ]);
-    }
-
-    ngOnChanges(changes: SimpleChanges) {
-        console.log('', changes.data);
     }
 
     masterToggle() {

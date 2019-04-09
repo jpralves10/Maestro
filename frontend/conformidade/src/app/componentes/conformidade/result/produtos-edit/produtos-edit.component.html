@@ -1,14 +1,13 @@
-
 <mat-horizontal-stepper [linear]="isLinear" #stepper>
 
     <mat-step>
         <ng-template matStepLabel>Associar Campos</ng-template>
-        <app-produtos-one></app-produtos-one>
+        <app-produtos-one *ngIf="produto !== null" [produto]="produto"></app-produtos-one>
     </mat-step>
 
     <mat-step>
         <ng-template matStepLabel>Verificar Versões do Produto</ng-template>
-        <app-produtos-two></app-produtos-two>
+        <app-produtos-two *ngIf="produto !== null" [produto]="produto"></app-produtos-two>
     </mat-step>
 
     <mat-step>

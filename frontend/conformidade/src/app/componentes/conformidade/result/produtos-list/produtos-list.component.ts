@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatPaginator, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -25,7 +25,7 @@ export class ProdutosListComponent implements OnInit {
 
     dataSource: ProdutosListDataSource;
 
-    displayedColumns = ['descricao', 'status', 'operacoes'];
+    displayedColumns = ['numeroDI', 'descricaoBruta', 'ncm', 'status', 'operacoes'];
 
     public filtroValue: ResultItem;
     public currentFilter: Result;
@@ -61,10 +61,6 @@ export class ProdutosListComponent implements OnInit {
             ...this.resultService.whenUpdated,
             this.paginator
         ]);
-    }
-
-    ngOnChanges(changes: SimpleChanges) {
-        console.log('', changes.data);
     }
 
     masterToggle() {

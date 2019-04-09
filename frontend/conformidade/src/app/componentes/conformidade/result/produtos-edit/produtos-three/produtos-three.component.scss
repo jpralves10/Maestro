@@ -56,6 +56,10 @@
     min-width: 70%;
 }
 
+.atributo-table tr {
+    height: 35px;
+}
+
 .produto-codigointerno-fields {
     display: grid;
     grid-template-columns: 2fr 2fr 2fr;
@@ -73,4 +77,20 @@
 
 .codigointerno-table {
     min-width: 70%;
+}
+
+.codigointerno-table tr {
+    height: 35px;
+}
+
+.atributos-panel-content {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 0 20px 16px;
+}
+
+.codigointerno-panel-content {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 0 20px 16px;
 }

@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Produto, ProdutoClass } from '../../../models/produto.model';
-import { LegendaProduto, Atributos, AtributosClass } from '../../../models/legendas.model';
+import { MatTableDataSource } from '@angular/material/table';
+import { Produto } from '../../../models/produto.model';
+import { LegendaProduto, Atributos, CodigoInterno, PaisOrigemList } from '../../../models/legendas.model';
 
 @Component({
     selector: 'app-produtos-three',
@@ -12,11 +12,12 @@ import { LegendaProduto, Atributos, AtributosClass } from '../../../models/legen
 export class ProdutosThreeComponent implements OnInit {
 
     @Input() produto: Produto;
-    
-    thirdFormGroup: FormGroup;
 
     public loading = true;
     public errored = false;
+
+    atributoDataSource = new MatTableDataSource<Atributos>();
+    codigoInternoDataSource = new MatTableDataSource<CodigoInterno>();
 
     public situacoes: LegendaProduto[] = [
         {value: 'ATIVADO', viewValue: 'Ativado'},
@@ -35,43 +36,68 @@ export class ProdutosThreeComponent implements OnInit {
         {value: 'TRUE', viewValue: 'Sim'}
     ];
 
-    public atributos: Atributos[] = [
-        {atributo: 'ATT_1', valor: 'teste'},
-        {atributo: 'ATT_2', valor: 'teste 22'}
-    ];
+    paisOrigemList: LegendaProduto[] = PaisOrigemList;
 
     atributosColumns: string[] = ['atributo', 'valor', 'operacao'];
-
-    atributo_form: Atributos = new AtributosClass;
+    atributo_form: Atributos = {atributo: '', valor: ''};
 
     codigoInternoColumns: string[] = ['valor', 'operacao'];
-
-    codigointerno_form: string = '';
+    codigointerno_form: CodigoInterno = {valor: ''};
 
     constructor(
         private router: Router,
-        private route: ActivatedRoute,
-        private _formBuilder: FormBuilder
-    ) {
-        this.loading = false;
-        this.thirdFormGroup = this._formBuilder.group({
-            firstCtrl: [ '', Validators.required ]
-        });
-
-        console.log(this.produto);
-    }
+        private route: ActivatedRoute
+    ) { }
 
     ngOnInit() {
+        this.loading = false;
+        console.log(PaisOrigemList)
+        this.initDatasSources();
+    }
+
+    private initDatasSources(){
+        if(this.produto.atributos == null){
+            this.produto.atributos = [];
+            this.atributoDataSource.data = [];
+        }else{
+            this.atributoDataSource.data = [...this.produto.atributos];
+        }
+
+        if(this.produto.codigosInterno == null){
+            this.produto.codigosInterno = [];
+            this.codigoInternoDataSource.data = [];
+        }else{
+            this.codigoInternoDataSource.data = [...this.produto.codigosInterno];
+        }
     }
 
     public adicionarAtributo(){
-        this.atributos.push(this.atributo_form);
-        this.atributo_form = new AtributosClass;
-
-        this.produto.atributos = this.atributos;
+        this.produto.atributos.push(this.atributo_form)
+        this.atributo_form = {atributo: '', valor: ''};
+        this.updateAtributos();
     }
 
-    public removeRowAtributo(){
+    public removeRowAtributo(row: Atributos){
+        this.produto.atributos.splice(this.produto.atributos.indexOf(row), 1);
+        this.updateAtributos();
+    }
 
+    public updateAtributos(){
+        this.atributoDataSource.data = [...this.produto.atributos];
+    }
+
+    public adicionarCodigoInterno(){
+        this.produto.codigosInterno.push(this.codigointerno_form)
+        this.codigointerno_form = {valor: ''};
+        this.updateCodigoInterno();
+    }
+
+    public removeRowCodigoInterno(row: CodigoInterno){
+        this.produto.codigosInterno.splice(this.produto.codigosInterno.indexOf(row), 1);
+        this.updateCodigoInterno();
+    }
+
+    public updateCodigoInterno(){
+        this.codigoInternoDataSource.data = [...this.produto.codigosInterno];
     }
 }

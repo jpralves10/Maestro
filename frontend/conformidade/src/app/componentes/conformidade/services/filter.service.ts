@@ -32,7 +32,7 @@ export class FilterService {
 
     public changeFilter(filter: FilterItem): void {
         this.filterSource.next(filter);
-        console.log(this.whenUpdated);
+        //console.log(this.whenUpdated);
         this.whenUpdated.forEach(f2 => f2.firstPage());
     }
 

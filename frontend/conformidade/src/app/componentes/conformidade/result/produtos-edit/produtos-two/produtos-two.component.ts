@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
+import { Produto } from '../../../models/produto.model';
+//import { LegendaProduto } from '../../../models/legendas.model';
 
 @Component({
   selector: 'app-produtos-two',
@@ -7,11 +11,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProdutosTwoComponent implements OnInit {
 
-    //secondFormGroup: FormGroup;
+    @Input() produto: Produto;
+
+    public loading = true;
+    public errored = false;
 
     constructor() { }
 
     ngOnInit() {
+        this.loading = false;
     }
 
 }

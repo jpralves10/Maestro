@@ -17,7 +17,7 @@ export class ResultService {
     /** Default Filter **/
 
     private defaultFilter: ResultItem = {
-        produto: {codigo: null, descricao: '', numeroDI: null, status: ''}
+        produto: {numeroDI: '', descricaoBruta: '', ncm: '', status: ''}
     };
 
     public filterSource: 
@@ -32,7 +32,7 @@ export class ResultService {
 
     public changeFilter(filter: ResultItem): void {
         this.filterSource.next(filter);
-        console.log(this.whenUpdated);
+        //console.log(this.whenUpdated);
         this.whenUpdated.forEach(f2 => f2.firstPage());
     }
 

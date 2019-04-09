@@ -1,4 +1,4 @@
-import { Atributos } from './legendas.model';
+import { Atributos, CodigoInterno } from './legendas.model';
 
 export interface Produto {
 
@@ -6,6 +6,7 @@ export interface Produto {
     numeroDI: string;
     dataRegistro: string;
     status: string;
+    descricaoBruta: string;
     
     seq: string;
     codigo: number;
@@ -22,7 +23,7 @@ export interface Produto {
     fabricanteConhecido: boolean;
     codigoOperadorEstrangeiro: string;
     atributos: Atributos[];
-    codigosInterno: string[];
+    codigosInterno: CodigoInterno[];
 }
 
 export class ProdutoClass implements Produto{
@@ -31,6 +32,7 @@ export class ProdutoClass implements Produto{
     numeroDI: string;
     dataRegistro: string;
     status: string;
+    descricaoBruta: string;
     
     seq: string;
     codigo: number;
@@ -52,5 +54,5 @@ export class ProdutoClass implements Produto{
             valor: string
         }
     ];
-    codigosInterno: string[]
+    codigosInterno: CodigoInterno[];
 }

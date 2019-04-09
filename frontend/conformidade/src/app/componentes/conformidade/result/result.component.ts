@@ -22,7 +22,7 @@ export class ResultComponent implements OnInit {
     data: Result = null;
 
     @Input() current_filtro: ResultItem = {
-        produto: {codigo: null, descricao: '', numeroDI: null, status: ''}
+        produto: {numeroDI: '', descricaoBruta: '', ncm: '', status: ''}
     };
 
     constructor(
@@ -68,11 +68,12 @@ export class ResultComponent implements OnInit {
         produto.numeroDI = "01234567891"
         produto.dataRegistro = "20190403";
         produto.status = "Complementar";
-        produto.descricao = "Produto de Teste 123";
+        produto.descricaoBruta = "410102469R PINCA DO FREIO DIANTEIRO PARA VEICULO AUTOMOVEL";
+        produto.descricao = "";
         produto.cnpjRaiz = "00913443000173";
         produto.situacao = "ATIVADO";
         produto.modalidade = "IMPORTACAO";
-        produto.ncm = "10123";
+        produto.ncm = "77083999";
         produto.codigoNaladi = null;
         produto.codigoGPC = null;
         produto.codigoGPCBrick = null;
@@ -82,10 +83,12 @@ export class ResultComponent implements OnInit {
         produto.codigoOperadorEstrangeiro = null;
         produto.atributos = null;
         produto.codigosInterno = null
-
+        
 
         var produto2 = {...produto};
-        produto2.descricao = "Vai Vai 456";
+        produto2.numeroDI = "09999967891";
+        produto2.descricaoBruta = "410004800R PINCA DO FREIO DIANTEIRO PARA VEICULO AUTOMOVEL";
+        produto2.ncm = "87083090";
         produto2.status = "Em Conformidade";
         var produto3 = {...produto};
         var produto4 = {...produto};
@@ -96,7 +99,6 @@ export class ResultComponent implements OnInit {
         var produto9 = {...produto};
         var produto10 = {...produto};
         var produto11 = {...produto};
-
 
         var produtosList: Produto[] = [];
         produtosList.push(

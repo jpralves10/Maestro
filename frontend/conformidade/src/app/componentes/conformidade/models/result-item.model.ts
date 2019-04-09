@@ -1,8 +1,8 @@
 export interface ResultItem {
     produto: {
-        codigo: number;
-        descricao: string;
         numeroDI: string;
+        descricaoBruta: string;
+        ncm: string;
         status: string;
     };
 }

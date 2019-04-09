@@ -68,9 +68,19 @@ export class ProdutosListDataSource extends DataSource<Produto> {
 
         let newData = data;
 
-        if (produto.descricao !== '') {
+        if (produto.numeroDI !== '') {
             newData = newData.filter(d =>
-                d.descricao.includes(produto.descricao)
+                d.numeroDI.includes(produto.numeroDI)
+            );
+        }
+        if (produto.descricaoBruta !== '') {
+            newData = newData.filter(d =>
+                d.descricaoBruta.includes(produto.descricaoBruta)
+            );
+        }
+        if (produto.ncm !== '') {
+            newData = newData.filter(d =>
+                d.ncm.includes(produto.ncm)
             );
         }
         if (produto.status !== '') {
@@ -103,12 +113,16 @@ export class ProdutosListDataSource extends DataSource<Produto> {
         return data.sort((a, b) => {
             const isAsc = this.sort.direction === 'asc';
             switch (this.sort.active) {
-            case 'descricao':
-                return compare(a.descricao, b.descricao, isAsc);
-            case 'status':
-                return compare(a.status, b.status, isAsc);
-            default:
-                return 0;
+                case 'numeroDI':
+                    return compare(a.numeroDI, b.numeroDI, isAsc);
+                case 'descricao':
+                    return compare(a.descricao, b.descricao, isAsc);
+                case 'ncm':
+                    return compare(a.ncm, b.ncm, isAsc);
+                case 'status':
+                    return compare(a.status, b.status, isAsc);
+                default:
+                    return 0;
             }
         });
     }

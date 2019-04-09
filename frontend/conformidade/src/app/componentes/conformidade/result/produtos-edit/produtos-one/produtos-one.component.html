@@ -1,3 +1,84 @@
-<p>
-  produtos-one works!
-</p>
+<div *ngIf="loading" fxAlign="center" class="loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <p>Carregando os dados para exibição...</p>
+</div>
+
+<div *ngIf="!loading" class="container">
+    <h3>Editar Produto</h3>
+
+    <mat-card class="mat-elevation-z5 filtro-card">
+        <mat-card-content class="form-container">
+            <mat-card-title>
+                Atenção!
+            </mat-card-title>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="mat-elevation-z5 filtro-card">
+        <mat-card-content class="form-container">
+
+                <mat-vertical-stepper #stepper>
+                    <mat-step>
+                        <ng-template matStepLabel>Selecionar 'Código' e 'Descrição' da Mercadoria</ng-template>
+                        
+                        <div class="descricao-fields">
+                            <mat-form-field>
+                                <textarea
+                                    matInput
+                                    placeholder="Descrição Atual da Mercadoria"
+                                    [(ngModel)]="produto.descricaoBruta"
+                                    onselect="selecionarTexto(event)"
+                                    class="textarea-style">
+                                </textarea>
+
+                                
+                                <textarea id="sel" rows="3" cols="50"></textarea>
+                                <br>
+
+                                <input value="4872349749823 Some text in a text input">
+                                <br>
+                                <textarea>Some text in a textarea</textarea>
+
+
+                            </mat-form-field>
+                        </div>
+                    </mat-step>
+
+                    <mat-step>
+                        <ng-template matStepLabel>Confirmar Seleções Visualmente</ng-template>
+    
+                        <div class="descricao-fields">
+                            <mat-form-field>
+                                <input
+                                    id="codigo"
+                                    matInput
+                                    placeholder="Código da Mercadoria Selecionado"
+                                    [(ngModel)]="produto.codigo"
+                                    class="input-style"
+                                    disabled/>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <textarea
+                                    id="descricao"
+                                    matInput
+                                    placeholder="Descrição da Mercadoria Selecionada"
+                                    [(ngModel)]="produto.descricao"
+                                    class="textarea-style"
+                                    disabled>
+                                </textarea>
+                            </mat-form-field>
+                        </div>
+    
+                    </mat-step>
+                </mat-vertical-stepper>
+
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="mat-elevation-z5">
+        <mat-card-content>
+            <button mat-raised-button (click)="confirmarSelecao()">Confirmar Seleção</button>
+        </mat-card-content>
+    </mat-card>
+
+</div>
