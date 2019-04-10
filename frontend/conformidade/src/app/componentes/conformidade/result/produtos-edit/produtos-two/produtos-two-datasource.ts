@@ -3,11 +3,11 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { Input } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
-import { Produto } from '../../models/produto.model';
-import { ResultItem } from '../../models/result-item.model';
-import { ResultService } from '../../services/result.service';
+import { Produto } from '../../../models/produto.model';
+import { ResultItem } from '../../../models/result-item.model';
+import { ResultService } from '../../../services/result.service';
 
-export class ProdutosListDataSource extends DataSource<Produto> {
+export class ProdutosTwoDataSource extends DataSource<Produto> {
 
     @Input()
     public data: Produto[];
@@ -68,24 +68,9 @@ export class ProdutosListDataSource extends DataSource<Produto> {
 
         let newData = data;
 
-        if (produto.numeroDI !== '') {
-            newData = newData.filter(d =>
-                d.numeroDI.includes(produto.numeroDI)
-            );
-        }
         if (produto.descricaoBruta !== '') {
             newData = newData.filter(d =>
                 d.descricaoBruta.includes(produto.descricaoBruta)
-            );
-        }
-        if (produto.ncm !== '') {
-            newData = newData.filter(d =>
-                d.ncm.includes(produto.ncm)
-            );
-        }
-        if (produto.status !== '') {
-            newData = newData.filter(d =>
-                d.status.toUpperCase().includes(produto.status.toUpperCase())
             );
         }
         return [...newData];
@@ -113,14 +98,8 @@ export class ProdutosListDataSource extends DataSource<Produto> {
         return data.sort((a, b) => {
             const isAsc = this.sort.direction === 'asc';
             switch (this.sort.active) {
-                case 'numeroDI':
-                    return compare(a.numeroDI, b.numeroDI, isAsc);
                 case 'descricaoBruta':
                     return compare(a.descricaoBruta, b.descricaoBruta, isAsc);
-                case 'ncm':
-                    return compare(a.ncm, b.ncm, isAsc);
-                case 'status':
-                    return compare(a.status, b.status, isAsc);
                 default:
                     return 0;
             }

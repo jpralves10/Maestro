@@ -20,7 +20,11 @@ export class ConsultaService {
         return this.httpClient.get<Filter>(`${EFICILOG_API}/relatorios/representacoes/filtros`);
     }
 
-    getProdutosPorImportador(importers: number[]): Observable<Produto[]> {
-        return this.httpClient.post<Produto[]>(`${ CONFORMIDADE_API }/produtos/conformidade`, importers);
+    getProdutosPorImportador(cnpjRaiz: string): Observable<Produto[]> {
+        return this.httpClient.post<Produto[]>(`${ CONFORMIDADE_API }/produtos/conformidade/cnpjimportador`, cnpjRaiz);
+    }
+
+    getProdutosPorCodigoProduto(codigo: string): Observable<Produto[]> {
+        return this.httpClient.post<Produto[]>(`${ CONFORMIDADE_API }/produtos/conformidade/codigoproduto`, codigo);
     }
 }
