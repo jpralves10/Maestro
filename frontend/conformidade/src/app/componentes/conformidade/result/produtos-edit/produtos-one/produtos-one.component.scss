@@ -48,3 +48,40 @@
     color: rgba(0,0,0,.70);
     min-height:80px;
 }
+
+.step-config {
+    margin: 0 0 20px 16px;
+}
+
+.step-title {
+    outline: 0;
+    cursor: pointer;
+    position: relative;
+    box-sizing: content-box;
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.step-icon {
+    margin-right: 8px;
+    background-color: #673ab7;
+    color: #fff;
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
+    position: relative;
+}
+
+.step-icon-number {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.step-hint {
+    font-size: 1.4em;
+}

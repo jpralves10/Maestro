@@ -24,6 +24,12 @@ export class ProdutosOneComponent implements OnInit {
         this.loading = false;
     }
 
+    stepIndex: number = 0;
+    
+    cambiaStep(e) {
+        this.stepIndex = e.selectedIndex;
+    }
+
     selecionarTexto(){
         console.log("Teste")
     }

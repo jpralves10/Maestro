@@ -29,7 +29,7 @@
 
 .produto-fields {
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 1fr 3fr 1fr 1fr;
     grid-column-gap: 10px;
     @media screen and (max-width: 750px) {
         display: flex;
@@ -39,7 +39,7 @@
 
 .period-fields {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 3fr 1fr;
     grid-column-gap: 10px;
     @media screen and (max-width: 750px) {
         display: flex;

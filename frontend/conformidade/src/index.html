@@ -44,12 +44,13 @@
             return text;
         }
 
-        var selecao;
+        var select; //onmouseout
 
-        document.onmouseup = document.onkeyup = document.onselectionchange = function() {
+        document.onmouseup = document.onkeyup = document.onmouseout = document.onselectionchange = function() {
             //document.getElementById("sel").value = getSelectionText();
-            selecao = selecao + getSelectionText();
-            $("#sel").val(selecao);
-        };
+
+            select = getSelectionText();
+            $("#descricao").val(select);
+        };        
     </script>
 </html>

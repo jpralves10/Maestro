@@ -4,7 +4,7 @@
 </div>
 
 <div *ngIf="!loading" class="container">
-    <h3>Editar Produto</h3>
+    <h3>Associar Campos</h3>
 
     <mat-card class="mat-elevation-z5 filtro-card">
         <mat-card-content class="form-container">
@@ -17,60 +17,58 @@
     <mat-card class="mat-elevation-z5 filtro-card">
         <mat-card-content class="form-container">
 
-                <mat-vertical-stepper #stepper>
-                    <mat-step>
-                        <ng-template matStepLabel>Selecionar 'Código' e 'Descrição' da Mercadoria</ng-template>
-                        
-                        <div class="descricao-fields">
-                            <mat-form-field>
-                                <textarea
-                                    matInput
-                                    placeholder="Descrição Atual da Mercadoria"
-                                    [(ngModel)]="produto.descricaoBruta"
-                                    onselect="selecionarTexto(event)"
-                                    class="textarea-style">
-                                </textarea>
+            <div style="margin: 0 0 20px 16px;">
 
-                                
-                                <textarea id="sel" rows="3" cols="50"></textarea>
-                                <br>
+                <div class="step-title">
+                    <div class="step-icon">
+                        <span class="step-icon-number">1</span>
+                    </div>
+                    <h3>Selecionar 'Código' e 'Descrição' da Mercadoria</h3>
+                </div>                
+                    
+                <div class="descricao-fields">
+                    <mat-form-field>
+                        <textarea
+                            matInput
+                            [(ngModel)]="produto.descricaoBruta"
+                            class="textarea-style">
+                        </textarea>
+                        <mat-hint class="step-hint">Descrição Atual da Mercadoria</mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
 
-                                <input value="4872349749823 Some text in a text input">
-                                <br>
-                                <textarea>Some text in a textarea</textarea>
+            <div style="margin: 0 0 20px 16px;">
 
+                <div class="step-title">
+                    <div class="step-icon">
+                        <span class="step-icon-number">2</span>
+                    </div>
+                    <h3>Confirmar Seleções Visualmente</h3>
+                </div>
 
-                            </mat-form-field>
-                        </div>
-                    </mat-step>
-
-                    <mat-step>
-                        <ng-template matStepLabel>Confirmar Seleções Visualmente</ng-template>
-    
-                        <div class="descricao-fields">
-                            <mat-form-field>
-                                <input
-                                    id="codigo"
-                                    matInput
-                                    placeholder="Código da Mercadoria Selecionado"
-                                    [(ngModel)]="produto.codigo"
-                                    class="input-style"
-                                    disabled/>
-                            </mat-form-field>
-                            <mat-form-field>
-                                <textarea
-                                    id="descricao"
-                                    matInput
-                                    placeholder="Descrição da Mercadoria Selecionada"
-                                    [(ngModel)]="produto.descricao"
-                                    class="textarea-style"
-                                    disabled>
-                                </textarea>
-                            </mat-form-field>
-                        </div>
-    
-                    </mat-step>
-                </mat-vertical-stepper>
+                <div class="descricao-fields">
+                    <mat-form-field>
+                        <input
+                            id="codigo"
+                            matInput
+                            [(ngModel)]="produto.codigo"
+                            class="input-style"
+                            disabled/>
+                        <mat-hint class="step-hint">Código da Mercadoria Selecionado</mat-hint>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <textarea
+                            id="descricao"
+                            matInput
+                            [(ngModel)]="produto.descricao"
+                            class="textarea-style"
+                            disabled>
+                        </textarea>
+                        <mat-hint class="step-hint">Descrição da Mercadoria Selecionada</mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
 
         </mat-card-content>
     </mat-card>
