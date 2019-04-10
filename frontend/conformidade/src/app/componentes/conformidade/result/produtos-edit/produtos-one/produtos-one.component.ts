@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { Produto } from '../../../models/produto.model';
+import { CodigoInterno } from '../../../models/legendas.model';
 //import { LegendaProduto } from '../../../models/legendas.model';
 
 @Component({
@@ -11,12 +12,12 @@ import { Produto } from '../../../models/produto.model';
 })
 export class ProdutosOneComponent implements OnInit {
 
-    //https://stackoverflow.com/questions/5379120/get-the-highlighted-selected-text
-
     @Input() produto: Produto;
 
     public loading = true;
     public errored = false;
+
+    codigoSelecionado: string = '';
     
     constructor() { }
 
@@ -24,13 +25,19 @@ export class ProdutosOneComponent implements OnInit {
         this.loading = false;
     }
 
-    stepIndex: number = 0;
-    
-    cambiaStep(e) {
-        this.stepIndex = e.selectedIndex;
+    public selecionarCodigoDescricao(event: any){        
+        var selectionStart = event.target.selectionStart;
+        var selectionEnd = event.target.selectionEnd;
+
+        this.codigoSelecionado = this.produto.descricaoBruta.substring(selectionStart, selectionEnd);
+
+        if(this.produto.codigosInterno.length == 0){
+            this.produto.codigosInterno.push({valor: ''});
+        }
+        this.produto.codigosInterno[0].valor = this.codigoSelecionado.trim();
     }
 
-    selecionarTexto(){
-        console.log("Teste")
+    proximaEtapa(){
+        
     }
 }

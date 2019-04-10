@@ -256,7 +256,12 @@
 
     <mat-card class="mat-elevation-z5">
         <mat-card-content>
-            <button mat-raised-button (click)="generateReport()">Salvar</button>
+            <button 
+                mat-raised-button 
+                (click)="finalizarPreenchimento()"
+                class="step-button-finish">
+                Finalizar Preenchimento
+            </button>
         </mat-card-content>
     </mat-card>
 

@@ -100,4 +100,8 @@ export class ProdutosThreeComponent implements OnInit {
     public updateCodigoInterno(){
         this.codigoInternoDataSource.data = [...this.produto.codigosInterno];
     }
+
+    public finalizarPreenchimento(){
+
+    }
 }

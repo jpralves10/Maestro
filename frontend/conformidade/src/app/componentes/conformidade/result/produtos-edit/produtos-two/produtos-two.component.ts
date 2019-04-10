@@ -31,6 +31,7 @@ export class ProdutosTwoComponent implements OnInit {
     selection = new SelectionModel<Produto>(true, []);
 
     dataSource: ProdutosTwoDataSource;
+    //produtoDataSource = new MatTableDataSource<Produto>();
 
     displayedColumns = ['select', 'descricaoBruta', 'operacoes'];
 
@@ -58,9 +59,7 @@ export class ProdutosTwoComponent implements OnInit {
 
             this.loading = false;
         },
-        error => { this.errored = true;})*/
-
-        
+        error => { this.errored = true;})*/        
     }
 
     ngOnInit() {
@@ -111,6 +110,17 @@ export class ProdutosTwoComponent implements OnInit {
     deselectAll() {
         this.selection.clear();
         this.paginator.firstPage();
+    }
+
+    inativarProduto(row: Produto) {
+        this.data.splice(this.data.indexOf(row), 1);
+        row.status = 'Inativado';
+        this.data.push(row);
+        this.dataSource.data = [...this.data];
+    }
+
+    proximaEtapa(){
+        
     }
 
     public getMockDados(): Produto[]{

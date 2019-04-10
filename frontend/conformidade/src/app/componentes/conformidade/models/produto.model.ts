@@ -7,7 +7,8 @@ export interface Produto {
     dataRegistro: string;
     status: string;
     descricaoBruta: string;
-    
+    percentual: number; //compatibilidade
+
     seq: string;
     codigo: number;
     descricao: string;
@@ -33,6 +34,7 @@ export class ProdutoClass implements Produto{
     dataRegistro: string;
     status: string;
     descricaoBruta: string;
+    percentual: number; //compatibilidade
     
     seq: string;
     codigo: number;

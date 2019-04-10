@@ -11,7 +11,7 @@ import * as DateManagement from '../../../utilitarios/date-management';
 })
 export class ProdutosEditComponent implements OnInit {
 
-    isLinear = false;
+    isLinear = true;
 
     public produto: Produto = null;
     public loading = true;

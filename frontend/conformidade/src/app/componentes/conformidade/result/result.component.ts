@@ -61,13 +61,22 @@ export class ResultComponent implements OnInit {
 
     public getMockDados(): Produto[]{
 
+        /*
+        Pendente
+        Completo
+        Inativo
+        Aprovado
+        Integrado
+        */
+
+
         var produto: Produto = new ProdutoClass();
 
         produto.seq = "001";
         produto.codigo = 123;
         produto.numeroDI = "01234567891"
         produto.dataRegistro = "20190403";
-        produto.status = "Complementar";
+        produto.status = "Pendente";
         produto.descricaoBruta = "410102469R PINCA DO FREIO DIANTEIRO PARA VEICULO AUTOMOVEL";
         produto.descricao = "";
         produto.cnpjRaiz = "00913443000173";
@@ -89,7 +98,7 @@ export class ResultComponent implements OnInit {
         produto2.numeroDI = "09999967891";
         produto2.descricaoBruta = "410004800R PINCA DO FREIO DIANTEIRO PARA VEICULO AUTOMOVEL";
         produto2.ncm = "87083090";
-        produto2.status = "Em Conformidade";
+        produto2.status = "Completo";
         var produto3 = {...produto};
         var produto4 = {...produto};
         var produto5 = {...produto};

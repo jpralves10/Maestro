@@ -9,8 +9,16 @@
     <mat-card class="mat-elevation-z5 filtro-card">
         <mat-card-content class="form-container">
             <mat-card-title>
+                <fa-icon
+                    icon="exclamation-triangle" 
+                    size="fa-sm" 
+                    style="color:darkgrey;">
+                </fa-icon>
                 Atenção!
             </mat-card-title>
+            <span style="font-weight:500;">
+                Indentifique o 'Código' da mercadoria selecionando-o na descrição abaixo!
+            </span>            
         </mat-card-content>
     </mat-card>
 
@@ -23,18 +31,25 @@
                     <div class="step-icon">
                         <span class="step-icon-number">1</span>
                     </div>
-                    <h3>Selecionar 'Código' e 'Descrição' da Mercadoria</h3>
+                    <h3>Selecionar 'Código' da Mercadoria:</h3>
                 </div>                
                     
-                <div class="descricao-fields">
-                    <mat-form-field>
-                        <textarea
-                            matInput
-                            [(ngModel)]="produto.descricaoBruta"
-                            class="textarea-style">
-                        </textarea>
-                        <mat-hint class="step-hint">Descrição Atual da Mercadoria</mat-hint>
-                    </mat-form-field>
+                <div class="step-content descricao-fields">
+                    <div class="step-content-form">
+                        <mat-form-field class="step-form-field">
+                            <textarea
+                                matInput
+                                [(ngModel)]="produto.descricaoBruta"
+                                class="textarea-style"
+                                (blur)="selecionarCodigoDescricao($event)">
+                            </textarea>
+                            <mat-hint class="step-hint">Descrição Atual da Mercadoria</mat-hint>
+                        </mat-form-field>
+
+                        <div class="step-form-button">
+                            <button mat-raised-button>Confirmar Seleção</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -44,29 +59,21 @@
                     <div class="step-icon">
                         <span class="step-icon-number">2</span>
                     </div>
-                    <h3>Confirmar Seleções Visualmente</h3>
-                </div>
+                    <h3>Confirmar Seleção Visualmente:</h3>
+                </div>                
 
-                <div class="descricao-fields">
-                    <mat-form-field>
-                        <input
-                            id="codigo"
-                            matInput
-                            [(ngModel)]="produto.codigo"
-                            class="input-style"
-                            disabled/>
-                        <mat-hint class="step-hint">Código da Mercadoria Selecionado</mat-hint>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <textarea
-                            id="descricao"
-                            matInput
-                            [(ngModel)]="produto.descricao"
-                            class="textarea-style"
-                            disabled>
-                        </textarea>
-                        <mat-hint class="step-hint">Descrição da Mercadoria Selecionada</mat-hint>
-                    </mat-form-field>
+                <div class="step-content descricao-fields">
+                    <div class="step-content-form">
+                        <mat-form-field class="step-form-field">
+                            <textarea
+                                matInput
+                                [(ngModel)]="codigoSelecionado"
+                                class="textarea-style codigo-selecionado"
+                                disabled>
+                            </textarea>
+                            <mat-hint class="step-hint">Código da Mercadoria Selecionado</mat-hint>
+                        </mat-form-field>
+                    </div>
                 </div>
             </div>
 
@@ -75,7 +82,12 @@
 
     <mat-card class="mat-elevation-z5">
         <mat-card-content>
-            <button mat-raised-button (click)="confirmarSelecao()">Confirmar Seleção</button>
+            <button 
+                mat-button matStepperNext
+                (click)="proximaEtapa()"
+                class="step-button-next">
+                Próxima Etapa
+            </button>
         </mat-card-content>
     </mat-card>
 

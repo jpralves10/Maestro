@@ -48,3 +48,13 @@ th.mat-header-cell {
         flex-direction: column;
     }
 }
+
+.td-descricao-descarte {
+    text-decoration: line-through;
+    font-style: italic;
+}
+
+.step-button-next {
+    background-color: #A569BD;
+    color: #fff;
+}

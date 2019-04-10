@@ -45,8 +45,13 @@
 
 .textarea-style {
     font-size: 1.3em;
+    //font-weight: 600;
     color: rgba(0,0,0,.70);
-    min-height:80px;
+    min-height:80px;    
+}
+
+.codigo-selecionado {
+    font-weight: 600;
 }
 
 .step-config {
@@ -67,12 +72,17 @@
 
 .step-icon {
     margin-right: 8px;
-    background-color: #673ab7;
+    background-color: #A569BD;
     color: #fff;
     border-radius: 50%;
     height: 24px;
     width: 24px;
     position: relative;
+}
+
+.step-button-next {
+    background-color: #A569BD;
+    color: #fff;
 }
 
 .step-icon-number {
@@ -84,4 +94,34 @@
 
 .step-hint {
     font-size: 1.4em;
+}
+
+.step-content {
+    margin-left: 10px;
+    border: 0;
+    position: relative;
+}
+
+.step-content::before {
+    content: '';
+    position: absolute;
+    top: -16px;
+    bottom: -16px;
+    left: 0;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: rgba(0,0,0,.12);
+}
+
+.step-content-form {
+    padding: 0 24px 24px 24px;
+}
+
+.step-form-field {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.step-form-button {
+    width: 100%;
 }
