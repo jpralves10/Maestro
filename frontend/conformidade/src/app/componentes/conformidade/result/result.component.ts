@@ -38,12 +38,14 @@ export class ResultComponent implements OnInit {
 
             this.data.produtos = this.getMockDados();
             window.sessionStorage.setItem('result', JSON.stringify(this.data));
-            this.loading = false;            
+            this.loading = false;
 
-            /*this.consultaService.getProdutosPorImportador(this.filter.importers).subscribe(adicoes =>{
-                this.data.produtos = adicoes; //this.getDataTransformed(adicoes);
-                window.sessionStorage.setItem('result', JSON.stringify(this.data));
-                this.loading = false;
+            /*this.consultaService
+                .getProdutosPorImportador(this.filter)
+                .subscribe(adicoes =>{
+                    this.data.produtos = adicoes; //this.getDataTransformed(adicoes);
+                    window.sessionStorage.setItem('result', JSON.stringify(this.data));
+                    this.loading = false;
             },
             error => { this.errored = true;})*/
         });
@@ -68,7 +70,6 @@ export class ResultComponent implements OnInit {
         Aprovado
         Integrado
         */
-
 
         var produto: Produto = new ProdutoClass();
 

@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Filter } from '../models/filter.model';
 import { Produto } from '../models/produto.model';
+import { FilterResult } from '../models/filter-result.model';
 
 import { EFICILOG_API } from '../../utilitarios/app.api';
 import { CONFORMIDADE_API } from '../../utilitarios/app.api';
@@ -20,8 +21,9 @@ export class ConsultaService {
         return this.httpClient.get<Filter>(`${EFICILOG_API}/relatorios/representacoes/filtros`);
     }
 
-    getProdutosPorImportador(cnpjRaiz: string): Observable<Produto[]> {
-        return this.httpClient.post<Produto[]>(`${ CONFORMIDADE_API }/produtos/conformidade/cnpjimportador`, cnpjRaiz);
+    getProdutosPorImportador(filter: FilterResult): Observable<Produto[]> {
+        return this.httpClient.post<Produto[]>(
+            `${ CONFORMIDADE_API }/produtos/conformidade/cnpjimportador`, filter);
     }
 
     getProdutosPorCodigoProduto(codigo: string): Observable<Produto[]> {

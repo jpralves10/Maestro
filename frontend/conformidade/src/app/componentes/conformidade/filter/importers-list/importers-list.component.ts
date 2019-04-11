@@ -88,4 +88,8 @@ export class ImportersListComponent implements OnInit {
         this.selection.clear();
         this.paginator.firstPage();
     }
+
+    clearCheckbox(row: any){
+        this.selection.clear();
+    }
 }
