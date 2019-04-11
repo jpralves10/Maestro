@@ -78,6 +78,7 @@ export class ResultComponent implements OnInit {
         produto.numeroDI = "01234567891"
         produto.dataRegistro = "20190403";
         produto.status = "Pendente";
+        produto.etapaConformidade = 0;
         produto.descricaoBruta = "410102469R PINCA DO FREIO DIANTEIRO PARA VEICULO AUTOMOVEL";
         produto.descricao = "";
         produto.cnpjRaiz = "00913443000173";
@@ -124,6 +125,12 @@ export class ResultComponent implements OnInit {
             produto10,
             produto11
         );
+
+        let codigo = 0;
+
+        produtosList.forEach(produto =>{
+            produto.codigoSistema = ++codigo;
+        })
 
         return produtosList;
     }

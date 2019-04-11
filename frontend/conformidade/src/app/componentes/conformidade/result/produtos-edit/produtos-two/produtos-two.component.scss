@@ -41,7 +41,7 @@ th.mat-header-cell {
 
 .produto-fields {
     display: grid;
-    grid-template-columns: 2fr 2fr;
+    grid-template-columns: 1fr;
     grid-column-gap: 50px;
     @media screen and (max-width: 750px) {
         display: flex;
@@ -55,6 +55,57 @@ th.mat-header-cell {
 }
 
 .step-button-next {
-    background-color: #A569BD;
+    background-color: #BB8FCE;
     color: #fff;
+}
+
+.step-button-return {
+    color:darkgrey;
+}
+
+.step-content {
+    margin-left: 10px;
+    border: 0;
+    position: relative;
+}
+
+.step-form-field {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.textarea-style {
+    font-size: 1.3em;
+    //font-weight: 600;
+    color: rgba(0,0,0,.70);
+    min-height:80px;    
+}
+
+.step-hint {
+    font-size: 1.4em;
+}
+
+.mat-card-div {
+    /*background: #fff;
+    color: rgba(0,0,0,.87);*/
+
+    transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+    display: block;
+    position: relative;
+    padding: 16px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 5px 8px 0 rgba(0,0,0,.14), 0 1px 14px 0 rgba(0,0,0,.12);
+}
+
+.mat-card-content-div {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+}
+
+.mat-card-content-div:first-child {
+    margin-top: 0;
 }

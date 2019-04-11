@@ -70,7 +70,7 @@ export class ProdutosTwoDataSource extends DataSource<Produto> {
 
         if (produto.descricaoBruta !== '') {
             newData = newData.filter(d =>
-                d.descricaoBruta.includes(produto.descricaoBruta)
+                d.descricaoBruta.toUpperCase().includes(produto.descricaoBruta.toUpperCase())
             );
         }
         return [...newData];

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
@@ -23,6 +23,9 @@ export class ProdutosTwoComponent implements OnInit {
     @ViewChild(MatSort) sort: MatSort;
 
     @Input() produto: Produto;
+    @Output() produtoAlterado = new EventEmitter();
+
+    inativos: Produto[] = [];
 
     data: Produto[];
     public loading = true;
@@ -31,7 +34,10 @@ export class ProdutosTwoComponent implements OnInit {
     selection = new SelectionModel<Produto>(true, []);
 
     dataSource: ProdutosTwoDataSource;
-    //produtoDataSource = new MatTableDataSource<Produto>();
+
+    current_filtro: ResultItem = {
+        produto: {numeroDI: '', descricaoBruta: '', ncm: '', status: ''}
+    };
 
     displayedColumns = ['select', 'descricaoBruta', 'operacoes'];
 
@@ -64,10 +70,11 @@ export class ProdutosTwoComponent implements OnInit {
 
     ngOnInit() {
         this.loading = false;
-
-        console.log(this.produto)
-
         this.data = this.getMockDados();
+
+        if(this.produto.descricao !== null && this.produto.descricao.length <= 0){
+            this.produto.descricao = this.produto.descricaoBruta;
+        }
 
         this.dataSource = new ProdutosTwoDataSource(
             this.paginator,
@@ -75,6 +82,10 @@ export class ProdutosTwoComponent implements OnInit {
             this.resultService,
             this.data
         );
+    }
+
+    public updateFiltro() {
+        this.resultService.changeFilter(this.current_filtro);
     }
 
     ngAfterViewInit() {
@@ -103,7 +114,9 @@ export class ProdutosTwoComponent implements OnInit {
     isAllSelected() {
         const visibleData = this.dataSource.getUpdatedData();
         return !visibleData.some(
-            ds => !this.selection.selected.some(s => s.descricao === ds.descricao)
+            ds => !this.selection.selected.some(
+                s => s.codigoSistema === ds.codigoSistema
+            )
         );
     }
 
@@ -114,13 +127,39 @@ export class ProdutosTwoComponent implements OnInit {
 
     inativarProduto(row: Produto) {
         this.data.splice(this.data.indexOf(row), 1);
-        row.status = 'Inativado';
-        this.data.push(row);
         this.dataSource.data = [...this.data];
+        this.dataSource.fullData = [...this.data];
+
+        row.status = 'Inativo';
+        this.inativos.push(row);
+
+        setTimeout(() => {
+            this.selection.toggle(row);
+            this.dataSource.getUpdatedData();
+            this.updateFiltro();
+        }, 500);
+    }
+
+    inativarTodos(){
+        const visibleData = this.getVisibleData();
+        visibleData.forEach(row =>{
+            this.inativarProduto(row)
+        })
     }
 
     proximaEtapa(){
-        
+        /*this.consultaService.setProdutosInativos(this.inativos).subscribe(inativos =>{
+            return
+        },
+        error => { this.errored = true;})*/
+
+        this.produto.etapaConformidade++;
+        this.produtoAlterado.emit(this.produto);
+    }
+
+    public voltarEtapa(){
+        this.produto.etapaConformidade--;
+        this.produtoAlterado.emit(this.produto);
     }
 
     public getMockDados(): Produto[]{
@@ -132,6 +171,7 @@ export class ProdutosTwoComponent implements OnInit {
         produto.numeroDI = "01234567891"
         produto.dataRegistro = "20190403";
         produto.status = "Complementar";
+        produto.etapaConformidade = 0;
         produto.descricaoBruta = "410102469R PINCA DO FREIO DIANTEIRO PARA VEICULO AUTOMOVEL";
         produto.descricao = "";
         produto.cnpjRaiz = "00913443000173";
@@ -178,6 +218,12 @@ export class ProdutosTwoComponent implements OnInit {
             produto10,
             produto11
         );
+
+        let codigo = 0;
+
+        produtosList.forEach(produto =>{
+            produto.codigoSistema = ++codigo;
+        })
 
         return produtosList;
     }

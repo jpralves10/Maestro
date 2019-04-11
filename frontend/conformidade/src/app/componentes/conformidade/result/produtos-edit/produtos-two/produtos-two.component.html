@@ -6,6 +6,12 @@
 <div [hidden]="!loading" class="container">
     <h3>Verificar Versões da Mercadoria</h3>
 
+    <div class="mat-card-div filtro-card alert alert-info">
+        <div class="mat-card-content-div form-container">
+            <span class="alert-text">Erro: Campo descrição não pode ser vazio!</span>
+        </div>
+    </div>
+
     <mat-card class="mat-elevation-z5 filtro-card">
         <mat-card-content class="form-container">
             <mat-card-title>
@@ -27,6 +33,37 @@
 
     <mat-card class="mat-elevation-z5 filtro-card">
         <mat-card-content class="form-container">
+
+            <h3>Digíte a descrição da mercadoria a ser cadastrada:</h3>
+                
+            <div class="step-content descricao-fields">
+                <div class="step-content-form">
+                    <mat-form-field class="step-form-field">
+                        <textarea
+                            matInput
+                            [(ngModel)]="produto.descricao"
+                            class="textarea-style">
+                        </textarea>
+                        <mat-hint class="step-hint">Descrição Atual da Mercadoria</mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="mat-elevation-z5 filtro-card">
+        <mat-card-content class="form-container">
+
+            <div class="produto-fields">
+                <mat-form-field>
+                    <input
+                        matInput
+                        placeholder="Descrição da Mercadoria"
+                        [(ngModel)]="current_filtro.produto.descricaoBruta"
+                        (ngModelChange)="updateFiltro()" />
+                </mat-form-field>
+            </div>
 
             <div class="table-list">
                 <table
@@ -62,7 +99,7 @@
                             Descrição da Mercadoria
                         </th>
                         <td
-                            [ngClass]="{'td-descricao-descarte': row.status === 'Inativado'}"
+                            [ngClass]="{'td-descricao-descarte': row.status === 'Inativo'}"
                             mat-cell 
                             *matCellDef="let row">
                                 {{ row.descricaoBruta }}
@@ -71,9 +108,13 @@
             
                     <!-- Column -->
                     <ng-container matColumnDef="operacoes">
-                        <th mat-header-cell *matHeaderCellDef>Operações</th>
+                        <th mat-header-cell *matHeaderCellDef></th>
                         <td mat-cell *matCellDef="let row">
-                            <button mat-button (click)="inativarProduto(row)">
+                            <button
+                                mat-button
+                                title="Inativar"
+                                [disabled]="!selection.isSelected(row)"
+                                (click)="inativarProduto(row)">
                                 <fa-icon icon="times" size="lg"></fa-icon>
                             </button>
                         </td>
@@ -94,12 +135,27 @@
                 <h5 *ngIf="selection.selected.length > 0">
                     {{ selection.selected.length }}
                     {{
-                    selection.selected.length > 1
-                        ? 'produtos selecionados'
-                        : 'produto selecionado'
+                        selection.selected.length > 1
+                            ? 'produtos selecionados'
+                            : 'produto selecionado'
                     }}
-                    <button mat-button color="warn" (click)="deselectAll()">
+                    <button
+                        mat-button 
+                        color="warn" 
+                        (click)="deselectAll()">
                         Desmarcar tudo
+                    </button>
+                    {{
+                        selection.hasValue() && isAllSelected()
+                            ? '/'
+                            : ''
+                    }}
+                    <button
+                        mat-button
+                        *ngIf="selection.hasValue() && isAllSelected()"
+                        color="warn" 
+                        (click)="inativarTodos()">
+                        Inativar todos
                     </button>
                 </h5>
             </div>
@@ -108,14 +164,24 @@
     </mat-card>
 
     <mat-card class="mat-elevation-z5">
-        <mat-card-content>
-            <button 
-                mat-button matStepperNext
-                (click)="confirmarSelecao()"
+        <mat-card-actions align="end" style="padding:0;margin:0;">
+            <button
+                mat-raised-button matStepperPrevious
+                (click)="voltarEtapa()"
+                class="step-button-return">
+                <fa-icon
+                    icon="angle-double-left"
+                    size="fa-sm">
+                </fa-icon>
+                Voltar Etapa Anterior
+            </button>
+            <button
+                mat-raised-button matStepperNext
+                (click)="proximaEtapa()"
                 class="step-button-next">
                 Próxima Etapa
             </button>
-        </mat-card-content>
+        </mat-card-actions>
     </mat-card>
 
 </div>

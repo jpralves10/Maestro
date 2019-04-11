@@ -1,18 +1,33 @@
-<mat-horizontal-stepper [linear]="isLinear" #stepper>
+<mat-horizontal-stepper
+    #stepper
+    [linear]="isLinear"
+    (selectionChange)="stepClick($event);">
 
     <mat-step>
         <ng-template matStepLabel>Associar Campos</ng-template>
-        <app-produtos-one *ngIf="produto !== null" [produto]="produto"></app-produtos-one>
+        <app-produtos-one 
+            *ngIf="produto !== null && produto.etapaConformidade == 1"
+            [produto]="produto"
+            (produtoAlterado)="reciverProduto($event)">
+        </app-produtos-one>
     </mat-step>
 
     <mat-step>
         <ng-template matStepLabel>Verificar Versões da Mercadoria</ng-template>
-        <app-produtos-two *ngIf="produto !== null" [produto]="produto"></app-produtos-two>
+        <app-produtos-two 
+            *ngIf="produto !== null && produto.etapaConformidade == 2"
+            [produto]="produto"
+            (produtoAlterado)="reciverProduto($event)">
+        </app-produtos-two>
     </mat-step>
 
     <mat-step>
         <ng-template matStepLabel>Finalizar Preenchimento</ng-template>        
-        <app-produtos-three *ngIf="produto !== null" [produto]="produto"></app-produtos-three>
+        <app-produtos-three 
+            *ngIf="produto !== null && produto.etapaConformidade == 3"
+            [produto]="produto"
+            (produtoAlterado)="reciverProduto($event)">
+        </app-produtos-three>
     </mat-step>
 
 </mat-horizontal-stepper>

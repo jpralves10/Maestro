@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { Produto } from '../../../models/produto.model';
@@ -13,6 +13,7 @@ import { CodigoInterno } from '../../../models/legendas.model';
 export class ProdutosOneComponent implements OnInit {
 
     @Input() produto: Produto;
+    @Output() produtoAlterado = new EventEmitter();
 
     public loading = true;
     public errored = false;
@@ -23,6 +24,10 @@ export class ProdutosOneComponent implements OnInit {
 
     ngOnInit() {
         this.loading = false;
+
+        if(this.produto.codigosInterno !== null && this.produto.codigosInterno[0].valor.length > 0 ){
+            this.codigoSelecionado = this.produto.codigosInterno[0].valor;
+        }
     }
 
     public selecionarCodigoDescricao(event: any){        
@@ -31,13 +36,15 @@ export class ProdutosOneComponent implements OnInit {
 
         this.codigoSelecionado = this.produto.descricaoBruta.substring(selectionStart, selectionEnd);
 
-        if(this.produto.codigosInterno.length == 0){
+        if(this.produto.codigosInterno == null || this.produto.codigosInterno.length == 0){
+            this.produto.codigosInterno = [];
             this.produto.codigosInterno.push({valor: ''});
         }
         this.produto.codigosInterno[0].valor = this.codigoSelecionado.trim();
     }
 
     proximaEtapa(){
-        
+        this.produto.etapaConformidade++;
+        this.produtoAlterado.emit(this.produto);
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { Produto } from '../../../models/produto.model';
@@ -12,6 +12,7 @@ import { LegendaProduto, Atributos, CodigoInterno, PaisOrigemList } from '../../
 export class ProdutosThreeComponent implements OnInit {
 
     @Input() produto: Produto;
+    @Output() produtoAlterado = new EventEmitter();
 
     public loading = true;
     public errored = false;
@@ -102,6 +103,12 @@ export class ProdutosThreeComponent implements OnInit {
     }
 
     public finalizarPreenchimento(){
+        this.produto.etapaConformidade++;
+        this.produtoAlterado.emit(this.produto);
+    }
 
+    public voltarEtapa(){
+        this.produto.etapaConformidade--;
+        this.produtoAlterado.emit(this.produto);
     }
 }

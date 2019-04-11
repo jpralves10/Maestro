@@ -18,15 +18,26 @@ export class ConsultaService {
     constructor(private httpClient: HttpClient){}
 
     getDadosFiltro(): Observable<Filter> {
-        return this.httpClient.get<Filter>(`${EFICILOG_API}/relatorios/representacoes/filtros`);
+        return this.httpClient.get<Filter>(
+            `${ EFICILOG_API }/relatorios/representacoes/filtros`
+        );
     }
 
     getProdutosPorImportador(filter: FilterResult): Observable<Produto[]> {
         return this.httpClient.post<Produto[]>(
-            `${ CONFORMIDADE_API }/produtos/conformidade/cnpjimportador`, filter);
+            `${ EFICILOG_API }/produtos/conformidade/cnpjimportador`, filter
+        );
+    }
+
+    setProdutosInativos(inativos: Produto[]): Observable<Produto[]> {
+        return this.httpClient.post<Produto[]>(
+            `${ EFICILOG_API }/produtos/conformidade/inativos`, inativos
+        );
     }
 
     getProdutosPorCodigoProduto(codigo: string): Observable<Produto[]> {
-        return this.httpClient.post<Produto[]>(`${ CONFORMIDADE_API }/produtos/conformidade/codigoproduto`, codigo);
+        return this.httpClient.post<Produto[]>(
+            `${ CONFORMIDADE_API }/produtos/conformidade/codigoproduto`, codigo
+        );
     }
 }
