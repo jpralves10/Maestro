@@ -135,6 +135,40 @@ app-root {
     font-weight: 400;
 }
 
+/** Style Formulários **/
 
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+/** Material Div Style **/
+
+
+
+.mat-card-div {
+    /*background: #fff;
+    color: rgba(0,0,0,.87);*/
+
+    transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+    display: block;
+    position: relative;
+    padding: 16px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 5px 8px 0 rgba(0,0,0,.14), 0 1px 14px 0 rgba(0,0,0,.12);
+}
+
+.mat-card-content-div {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+}
+
+.mat-card-content-div:first-child {
+    margin-top: 0;
+}
 
 

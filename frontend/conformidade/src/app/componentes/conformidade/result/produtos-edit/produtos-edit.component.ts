@@ -25,22 +25,15 @@ export class ProdutosEditComponent implements OnInit {
     ) {
         this.route.queryParamMap.subscribe(paramMap => {
             this.produto = JSON.parse(paramMap.get('filterProduto'));
+
             this.produto.dataRegistro = DateManagement.DateFromBrString(this.produto.dataRegistro),
             this.produto.etapaConformidade = 1;
+
+            if(this.produto.descricao == null || this.produto.descricao == undefined){
+                this.produto.descricao = '';
+            }
+
             this.loading = false;
-
-            /*this.data = new ResultClass();
-
-            this.data.produtos = this.getMockDados();
-            window.sessionStorage.setItem('result', JSON.stringify(this.data));
-                        
-
-            /*this.consultaService.getProdutosPorImportador(this.filter.importers).subscribe(adicoes =>{
-                this.data.produtos = adicoes; //this.getDataTransformed(adicoes);
-                window.sessionStorage.setItem('result', JSON.stringify(this.data));
-                this.loading = false;
-            },
-            error => { this.errored = true;})*/
         });
     }
 

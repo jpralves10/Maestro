@@ -3,6 +3,9 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
+import $ from "jquery";
+
+import models from '../../../../utilitarios/mensagens.module';
 
 import { Produto, ProdutoClass } from '../../../models/produto.model';
 import { ProdutosTwoDataSource } from './produtos-two-datasource';
@@ -30,6 +33,9 @@ export class ProdutosTwoComponent implements OnInit {
     data: Produto[];
     public loading = true;
     public errored = false;
+ 
+    mensagem: any = {chave: '', valor: '', class: ''};
+    mensagem_alert: string = '';
 
     selection = new SelectionModel<Produto>(true, []);
 
@@ -59,26 +65,51 @@ export class ProdutosTwoComponent implements OnInit {
             });
         });
 
-        /*this.consultaService.getProdutosPorCodigoProduto(this.produto.codigosInterno[0].valor).subscribe(mercadorias =>{
-            this.data = mercadorias; //this.getDataTransformed(adicoes);
-            window.sessionStorage.setItem('mercadorias', JSON.stringify(this.data));
-
-            this.loading = false;
-        },
-        error => { this.errored = true;})*/        
+                
     }
 
     ngOnInit() {
-        this.loading = false;
+        if(this.produto !== null && this.produto !== undefined){
 
-        if(this.produto.versoesProduto === null || this.produto.versoesProduto === undefined){
-            this.produto.versoesProduto = this.getMockDados();
+            if(this.produto.descricao !== null && this.produto.descricao !== undefined){
+                this.produto.descricao = this.produto.descricaoBruta;
+            }
+
+            if(this.produto.codigosInterno !== null && this.produto.codigosInterno !== undefined){
+
+                this.consultaService.getProdutosPorCodigoProduto(
+                    this.produto.cnpjRaiz,
+                    this.produto.codigosInterno[0].valor
+                ).subscribe(versoes =>{
+
+                    var produtos: Produto[] = (versoes as any).produtos;
+
+                    produtos.forEach(produto => {
+                        if(this.produto._id !== produto._id){
+                            this.produto.versoesProduto.push(produto);
+                        }
+                    });
+
+                    window.sessionStorage.setItem('mercadorias', JSON.stringify(this.data));
+
+                    this.setDataSource();
+                },
+                error => { this.errored = true;})
+            }else{
+                this.produto.codigosInterno = [];
+            }
+
+            this.produto.versoesProduto = [];
+            this.setDataSource();
+            this.loading = false;
+
+            /*if(this.produto.versoesProduto === null || this.produto.versoesProduto === undefined){
+                this.produto.versoesProduto = this.getMockDados();
+            }*/
         }
+    }
 
-        if(this.produto.descricao !== null && this.produto.descricao.length <= 0){
-            this.produto.descricao = this.produto.descricaoBruta;
-        }
-
+    setDataSource(){
         this.dataSource = new ProdutosTwoDataSource(
             this.paginator,
             this.sort,
@@ -87,7 +118,7 @@ export class ProdutosTwoComponent implements OnInit {
         );
     }
 
-    public updateFiltro() {
+    updateFiltro() {
         this.resultService.changeFilter(this.current_filtro);
     }
 
@@ -118,7 +149,7 @@ export class ProdutosTwoComponent implements OnInit {
         const visibleData = this.dataSource.getUpdatedData();
         return !visibleData.some(
             ds => !this.selection.selected.some(
-                s => s.codigoSistema === ds.codigoSistema
+                s => s._id === ds._id
             )
         );
     }
@@ -156,8 +187,28 @@ export class ProdutosTwoComponent implements OnInit {
         },
         error => { this.errored = true;})*/
 
-        this.produto.etapaConformidade++;
-        this.produtoAlterado.emit(this.produto);
+        if(this.produto.descricao == null || this.produto.descricao == undefined){
+            this.setMensagem('message-alert-warning');
+            $( "#next-two, #previous-two" ).attr("style","pointer-events: none !important"); 
+
+
+            this.produto.etapaConformidade++;
+            this.produtoAlterado.emit(this.produto);
+
+
+        }else if(this.produto.descricao.length <= 0){
+            
+                    
+        }else{
+            this.produto.etapaConformidade++;
+            this.produtoAlterado.emit(this.produto);
+        }
+    }
+
+    public setMensagem(tpMensagem: string){
+        models.forEach(msg =>{
+            msg.chave === tpMensagem ? this.mensagem = msg : null;
+        })
     }
 
     public voltarEtapa(){
@@ -170,7 +221,7 @@ export class ProdutosTwoComponent implements OnInit {
         var produto: Produto = new ProdutoClass();
 
         produto.seq = "001";
-        produto.codigo = 123;
+        produto.codigo = null;
         produto.numeroDI = "01234567891"
         produto.dataRegistro = "20190403";
         produto.status = "Complementar";
@@ -225,7 +276,7 @@ export class ProdutosTwoComponent implements OnInit {
         let codigo = 0;
 
         produtosList.forEach(produto =>{
-            produto.codigoSistema = ++codigo;
+            produto._id = ++codigo + '';
         })
 
         return produtosList;

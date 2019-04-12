@@ -36,18 +36,16 @@ export class ResultComponent implements OnInit {
 
             this.data = new ResultClass();
 
-            this.data.produtos = this.getMockDados();
-            window.sessionStorage.setItem('result', JSON.stringify(this.data));
-            this.loading = false;
+            //this.data.produtos = this.getMockDados();
 
-            /*this.consultaService
+            this.consultaService
                 .getProdutosPorImportador(this.filter)
-                .subscribe(adicoes =>{
-                    this.data.produtos = adicoes; //this.getDataTransformed(adicoes);
+                .subscribe(adicoes => {
+                    this.data.produtos = (adicoes as any).produtos; //this.getDataTransformed(adicoes);
                     window.sessionStorage.setItem('result', JSON.stringify(this.data));
                     this.loading = false;
             },
-            error => { this.errored = true;})*/
+            error => { this.errored = true;})
         });
 
         this.resultService.clearFilter();
@@ -74,7 +72,7 @@ export class ResultComponent implements OnInit {
         var produto: Produto = new ProdutoClass();
 
         produto.seq = "001";
-        produto.codigo = 123;
+        produto.codigo = null;
         produto.numeroDI = "01234567891"
         produto.dataRegistro = "20190403";
         produto.status = "Pendente";
@@ -94,7 +92,9 @@ export class ResultComponent implements OnInit {
         produto.codigoOperadorEstrangeiro = null;
         produto.atributos = null;
         produto.codigosInterno = null
-        
+        produto.dataCriacao = null;
+        produto.dataAtualizacao = null;
+        produto.usuarioAtualizacao = null;
 
         var produto2 = {...produto};
         produto2.numeroDI = "09999967891";
@@ -129,7 +129,7 @@ export class ResultComponent implements OnInit {
         let codigo = 0;
 
         produtosList.forEach(produto =>{
-            produto.codigoSistema = ++codigo;
+            produto._id = ++codigo + '';
         })
 
         return produtosList;

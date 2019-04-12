@@ -1,16 +1,21 @@
-import { Atributos, CodigoInterno } from './legendas.model';
+import { Atributos, CodigoInterno, Compatibilidade } from './legendas.model';
 
 export interface Produto {
 
     /** Controle Interno **/
-    codigoSistema: number;
+    _id: string;
     numeroDI: string;
     dataRegistro: string;
     status: string;
     descricaoBruta: string;
-    percentual: number; //compatibilidade
+    compatibilidade: Compatibilidade;
     etapaConformidade: number;
     versoesProduto: Produto[];
+
+    /** Histórico **/
+    dataCriacao: Date;
+    dataAtualizacao: Date;
+    usuarioAtualizacao: string;
 
     /** Integração API **/
     seq: string;
@@ -33,14 +38,18 @@ export interface Produto {
 
 export class ProdutoClass implements Produto{
 
-    codigoSistema: number;
+    _id: string;
     numeroDI: string;
     dataRegistro: string;
     status: string;
     descricaoBruta: string;
-    percentual: number; //compatibilidade
+    compatibilidade: Compatibilidade;
     etapaConformidade: number;
     versoesProduto: Produto[];
+
+    dataCriacao: Date;
+    dataAtualizacao: Date;
+    usuarioAtualizacao: string;
     
     seq: string;
     codigo: number;

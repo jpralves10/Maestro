@@ -6,9 +6,9 @@
 <div [hidden]="!loading" class="container">
     <h3>Verificar Versões da Mercadoria</h3>
 
-    <div class="mat-card-div filtro-card alert alert-info">
-        <div class="mat-card-content-div form-container">
-            <span class="alert-text">Erro: Campo descrição não pode ser vazio!</span>
+    <div *ngIf="mensagem !== null" [ngClass]="{mensagem_alert : mensagem !== null}">
+        <div class="mat-card-content-div">
+            <span class="alert-text">{{mensagem.valor}}</span>
         </div>
     </div>
 
@@ -42,7 +42,7 @@
                             [(ngModel)]="produto.descricao"
                             class="textarea-style">
                         </textarea>
-                        <mat-hint class="step-hint">Descrição Atual da Mercadoria</mat-hint>
+                        <mat-hint class="step-hint">Descrição da mercadoria a ser considerada</mat-hint>
                     </mat-form-field>
                 </div>
             </div>
@@ -164,6 +164,7 @@
     <mat-card class="mat-elevation-z5">
         <mat-card-actions align="end" style="padding:0;margin:0;">
             <button
+                id="previous-two"
                 mat-raised-button matStepperPrevious
                 (click)="voltarEtapa()"
                 class="step-button-return">
@@ -174,6 +175,7 @@
                 Voltar Etapa Anterior
             </button>
             <button
+                id="next-two"
                 mat-raised-button matStepperNext
                 (click)="proximaEtapa()"
                 class="step-button-next">

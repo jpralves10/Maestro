@@ -3,6 +3,11 @@ export interface LegendaProduto {
     viewValue: string;
 }
 
+export interface Compatibilidade {
+    rating: number;
+    matches: number;
+}
+
 export interface Atributos {
     atributo: string;
     valor: string;
