@@ -72,7 +72,7 @@
 
 .step-icon {
     margin-right: 8px;
-    background-color: #D2B4DE;
+    background-color: #CEBEEB; //#D2B4DE;
     color: #fff;
     border-radius: 50%;
     height: 24px;
@@ -81,7 +81,7 @@
 }
 
 .step-button-next {
-    background-color: #BB8FCE;
+    background-color: #673AB7; //#BB8FCE;
     color: #fff;
 }
 
@@ -124,4 +124,9 @@
 
 .step-form-button {
     width: 100%;
+}
+
+.info-etapa {
+    font-weight:500;
+    padding-left: 30px;
 }

@@ -70,7 +70,10 @@ export class ProdutosTwoComponent implements OnInit {
 
     ngOnInit() {
         this.loading = false;
-        this.data = this.getMockDados();
+
+        if(this.produto.versoesProduto === null || this.produto.versoesProduto === undefined){
+            this.produto.versoesProduto = this.getMockDados();
+        }
 
         if(this.produto.descricao !== null && this.produto.descricao.length <= 0){
             this.produto.descricao = this.produto.descricaoBruta;
@@ -80,7 +83,7 @@ export class ProdutosTwoComponent implements OnInit {
             this.paginator,
             this.sort,
             this.resultService,
-            this.data
+            this.produto.versoesProduto
         );
     }
 
@@ -126,9 +129,9 @@ export class ProdutosTwoComponent implements OnInit {
     }
 
     inativarProduto(row: Produto) {
-        this.data.splice(this.data.indexOf(row), 1);
-        this.dataSource.data = [...this.data];
-        this.dataSource.fullData = [...this.data];
+        this.produto.versoesProduto.splice(this.produto.versoesProduto.indexOf(row), 1);
+        this.dataSource.data = [...this.produto.versoesProduto];
+        this.dataSource.fullData = [...this.produto.versoesProduto];
 
         row.status = 'Inativo';
         this.inativos.push(row);

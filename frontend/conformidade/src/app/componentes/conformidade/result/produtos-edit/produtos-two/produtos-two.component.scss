@@ -55,7 +55,7 @@ th.mat-header-cell {
 }
 
 .step-button-next {
-    background-color: #BB8FCE;
+    background-color: #673AB7; //#BB8FCE;
     color: #fff;
 }
 
@@ -108,4 +108,9 @@ th.mat-header-cell {
 
 .mat-card-content-div:first-child {
     margin-top: 0;
+}
+
+.info-etapa {
+    font-weight:500;
+    padding-left: 30px;
 }

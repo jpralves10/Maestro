@@ -25,8 +25,10 @@ export class ProdutosOneComponent implements OnInit {
     ngOnInit() {
         this.loading = false;
 
-        if(this.produto.codigosInterno !== null && this.produto.codigosInterno[0].valor.length > 0 ){
-            this.codigoSelecionado = this.produto.codigosInterno[0].valor;
+        if(this.produto.codigosInterno !== null && this.produto.codigosInterno !== undefined){
+            if(this.produto.codigosInterno.length > 0){
+                this.codigoSelecionado = this.produto.codigosInterno[0].valor;
+            }
         }
     }
 

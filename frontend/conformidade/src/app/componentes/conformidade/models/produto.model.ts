@@ -10,6 +10,7 @@ export interface Produto {
     descricaoBruta: string;
     percentual: number; //compatibilidade
     etapaConformidade: number;
+    versoesProduto: Produto[];
 
     /** Integração API **/
     seq: string;
@@ -39,6 +40,7 @@ export class ProdutoClass implements Produto{
     descricaoBruta: string;
     percentual: number; //compatibilidade
     etapaConformidade: number;
+    versoesProduto: Produto[];
     
     seq: string;
     codigo: number;
