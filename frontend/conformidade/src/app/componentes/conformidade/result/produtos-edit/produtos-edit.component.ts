@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Produto, ProdutoClass } from '../../models/produto.model';
-import { LegendaProduto, Atributos } from '../../models/legendas.model';
+import { Atributos } from '../../models/legendas.model';
 import * as DateManagement from '../../../utilitarios/date-management';
 import $ from "jquery";
 
@@ -31,6 +31,11 @@ export class ProdutosEditComponent implements OnInit {
 
             if(this.produto.descricao == null || this.produto.descricao == undefined){
                 this.produto.descricao = '';
+            }
+
+            if(this.produto.codigosInterno == null && this.produto.codigosInterno == undefined){
+                this.produto.codigosInterno = []
+                this.produto.codigosInterno.push({valor: ''})
             }
 
             this.loading = false;

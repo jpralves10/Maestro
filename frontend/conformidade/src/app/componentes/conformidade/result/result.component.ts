@@ -36,7 +36,9 @@ export class ResultComponent implements OnInit {
 
             this.data = new ResultClass();
 
-            //this.data.produtos = this.getMockDados();
+            /*this.data.produtos = this.getMockDados();
+            window.sessionStorage.setItem('result', JSON.stringify(this.data));
+            this.loading = false;*/
 
             this.consultaService
                 .getProdutosPorImportador(this.filter)
@@ -80,18 +82,18 @@ export class ResultComponent implements OnInit {
         produto.descricaoBruta = "410102469R PINCA DO FREIO DIANTEIRO PARA VEICULO AUTOMOVEL";
         produto.descricao = "";
         produto.cnpjRaiz = "00913443000173";
-        produto.situacao = "ATIVADO";
-        produto.modalidade = "IMPORTACAO";
+        produto.situacao = null; //"ATIVADO";
+        produto.modalidade = undefined //"IMPORTACAO";
         produto.ncm = "77083999";
         produto.codigoNaladi = null;
         produto.codigoGPC = null;
         produto.codigoGPCBrick = null;
         produto.codigoUNSPSC = null;
         produto.paisOrigem = "FR";
-        produto.fabricanteConhecido = false;
+        produto.fabricanteConhecido = "FALSE";
         produto.codigoOperadorEstrangeiro = null;
         produto.atributos = null;
-        produto.codigosInterno = null
+        produto.codigosInterno = null;
         produto.dataCriacao = null;
         produto.dataAtualizacao = null;
         produto.usuarioAtualizacao = null;

@@ -18,12 +18,15 @@ export class ProdutosOneComponent implements OnInit {
     public loading = true;
     public errored = false;
 
+    descricaoBruta: string = '';
     codigoSelecionado: string = '';
     
     constructor() { }
 
     ngOnInit() {
         this.loading = false;
+
+        this.descricaoBruta = this.produto.descricaoBruta;
 
         if(this.produto.codigosInterno !== null && this.produto.codigosInterno !== undefined){
             if(this.produto.codigosInterno.length > 0){
@@ -36,7 +39,7 @@ export class ProdutosOneComponent implements OnInit {
         var selectionStart = event.target.selectionStart;
         var selectionEnd = event.target.selectionEnd;
 
-        this.codigoSelecionado = this.produto.descricaoBruta.substring(selectionStart, selectionEnd);
+        this.codigoSelecionado = this.descricaoBruta.substring(selectionStart, selectionEnd);
 
         if(this.produto.codigosInterno == null || this.produto.codigosInterno.length == 0){
             this.produto.codigosInterno = [];

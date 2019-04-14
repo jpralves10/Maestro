@@ -30,7 +30,8 @@ export interface Produto {
     codigoGPCBrick: number;
     codigoUNSPSC: number;
     paisOrigem: string;
-    fabricanteConhecido: boolean;
+    fabricanteConhecido: string;
+    cpfCnpjFabricante: string;
     codigoOperadorEstrangeiro: string;
     atributos: Atributos[];
     codigosInterno: CodigoInterno[];
@@ -63,7 +64,8 @@ export class ProdutoClass implements Produto{
     codigoGPCBrick: number;
     codigoUNSPSC: number;
     paisOrigem: string;
-    fabricanteConhecido: boolean;
+    fabricanteConhecido: string;
+    cpfCnpjFabricante: string;
     codigoOperadorEstrangeiro: string;
     atributos: [
         {

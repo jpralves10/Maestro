@@ -3,14 +3,20 @@
     <p>Carregando os dados para exibição...</p>
 </div>
 
-<div *ngIf="!loading" class="container">
+<div *ngIf="!loading && !finish" class="container">
     <h3>Finalizar Preenchimento</h3>
 
+    <div *ngIf="mensagem !== null" class="{{mensagem.class}}">
+        <div *ngFor="let msg of mensagem.lista" class="mat-card-content-div">
+            <span class="alert-text">{{msg.valor}}</span>
+        </div>
+    </div>
+    
     <mat-card class="mat-elevation-z5 filtro-card">
         <mat-card-content class="form-container">
             <mat-card-title>
-                DI Nº {{produto.numeroDI | mask: '00/0000000-0'}} 
-                ({{produto.dataRegistro | mask: 'AA/AA/AAAA'}}) / 
+                DI Nº {{produto.numeroDI | mask: '00/0000000-0'}}
+                ({{produto.dataRegistro | mask: 'AA/AA/AAAA'}}) /
                 Adição {{produto.seq}}
             </mat-card-title>
             <mat-card-subtitle>
@@ -22,27 +28,24 @@
     <mat-card class="mat-elevation-z5 filtro-card">
         <mat-card-content class="form-container">
 
-            <div class="produto-fields">
-            
-                <mat-form-field>
-                    <input
-                        matInput
-                        placeholder="Código do Produto"
-                        [ngModel]="produto?.codigo"
-                        (ngModelChange)="produto.codigo=$event"/>
-                </mat-form-field>
-            
+            <div class="produto-fields-textarea">
+
                 <mat-form-field>
                     <textarea
                         matInput
                         placeholder="Descrição do Produto"
-                        [(ngModel)]="produto.descricao">
+                        [(ngModel)]="produto.descricao"
+                        class="produto-descricao">
                     </textarea>
                 </mat-form-field>
+
+            </div>
+
+            <div class="produto-fields">
             
                 <mat-form-field>
                     <mat-label>Situação do Produto</mat-label>
-                    <mat-select>
+                    <mat-select [(ngModel)]="produto.situacao">
                         <mat-option
                             *ngFor="let situacao of situacoes"
                             [value]="situacao.value">
@@ -53,7 +56,7 @@
             
                 <mat-form-field>
                     <mat-label>Modalidade do Produto</mat-label>
-                    <mat-select>
+                    <mat-select [(ngModel)]="produto.modalidade">
                         <mat-option
                             *ngFor="let modalidade of modalidades"
                             [value]="modalidade.value">
@@ -105,17 +108,10 @@
                 </mat-form-field>
 
                 <mat-form-field>
-                    <input
-                        matInput
-                        placeholder="País de Origem"
-                        [(ngModel)]="produto.paisOrigem"/>
-                </mat-form-field>
-
-                <mat-form-field>
                     <mat-label>País de Origem</mat-label>
-                    <mat-select>
+                    <mat-select [(ngModel)]="produto.paisOrigem">
                         <mat-option
-                            *ngFor="let pais of paisOrigemList"
+                            *ngFor="let pais of paises"
                             [value]="pais.value">
                                 {{pais.viewValue}}
                         </mat-option>
@@ -124,16 +120,23 @@
 
                 <mat-form-field>
                     <mat-label>Fabricante Conhecido</mat-label>
-                    <mat-select>
+                    <mat-select [(ngModel)]="produto.fabricanteConhecido">
                         <mat-option
-                            *ngFor="let conhecido of fabricanteConhecido"
-                            [value]="conhecido.value">
-                                {{conhecido.viewValue}}
+                            *ngFor="let fabricante of fabricantes"
+                            [value]="fabricante.value">
+                                {{fabricante.viewValue}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
 
-                <mat-form-field>
+                <mat-form-field *ngIf="produto.fabricanteConhecido == 'TRUE' && produto.paisOrigem == 'BR'">
+                    <input
+                        matInput
+                        placeholder="CPF/CNPJ do Fabricante"
+                        [(ngModel)]="produto.cpfCnpjFabricante"/>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="produto.fabricanteConhecido == 'TRUE' && produto.paisOrigem != 'BR'">
                     <input
                         matInput
                         placeholder="Código Operador Estrangeiro"
@@ -255,11 +258,16 @@
     </mat-card>
 
     <mat-card class="mat-elevation-z5">
+        
         <mat-card-actions align="end" style="padding:0;margin:0;">
+
+            <img *ngIf="spinner" src="assets/spinner.gif" style="height:30px;padding-right:10px;">
+
             <button
                 mat-raised-button matStepperPrevious
                 (click)="voltarEtapa()"
-                class="step-button-return">
+                class="step-button-return"
+                style="margin: 0 8px;">
                 <fa-icon
                     icon="angle-double-left"
                     size="fa-sm">
@@ -267,7 +275,7 @@
                 Voltar Etapa Anterior
             </button>
             <button
-                mat-raised-button 
+                mat-raised-button
                 (click)="finalizarPreenchimento()"
                 class="step-button-finish">
                 <fa-icon
@@ -278,5 +286,15 @@
             </button>
         </mat-card-actions>
     </mat-card>
+
+</div>
+
+<div *ngIf="!loading && finish" class="container">
+
+    <div *ngIf="mensagem !== null" class="{{mensagem.class}}">
+        <div *ngFor="let msg of mensagem.lista" class="mat-card-content-div">
+            <span class="alert-text">{{msg.valor}}</span>
+        </div>
+    </div>
 
 </div>

@@ -46,6 +46,12 @@ export class ConsultaService {
         );
     }
 
+    setAlterarProdutos(produto: Produto): Observable<Produto> {
+        return this.httpClient.post<Produto>(
+            `${ EFICILOG_API_HOMOLOCACAO }/catalogo-produtos/alterar`, produto
+        );
+    }
+
     setProdutosInativos(inativos: Produto[]): Observable<Produto[]> {
         return this.httpClient.post<Produto[]>(
             `${ EFICILOG_API }/produtos/conformidade/inativos`, inativos

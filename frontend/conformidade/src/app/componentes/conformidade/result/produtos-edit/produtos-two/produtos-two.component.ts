@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import $ from "jquery";
 
-import models from '../../../../utilitarios/mensagens.module';
+import { msg_produtos_two } from '../../../../utilitarios/mensagens.module';
 
 import { Produto, ProdutoClass } from '../../../models/produto.model';
 import { ProdutosTwoDataSource } from './produtos-two-datasource';
@@ -34,8 +34,7 @@ export class ProdutosTwoComponent implements OnInit {
     public loading = true;
     public errored = false;
  
-    mensagem: any = {chave: '', valor: '', class: ''};
-    mensagem_alert: string = '';
+    mensagem: any = {id: 0, tipo: '', class: '', lista: []};
 
     selection = new SelectionModel<Produto>(true, []);
 
@@ -63,19 +62,17 @@ export class ProdutosTwoComponent implements OnInit {
                 ...this.currentFilter,
                 produtos: this.selection.selected
             });
-        });
-
-                
+        });   
     }
 
     ngOnInit() {
         if(this.produto !== null && this.produto !== undefined){
 
-            if(this.produto.descricao !== null && this.produto.descricao !== undefined){
+            if(this.produto.descricao.length <= 0){
                 this.produto.descricao = this.produto.descricaoBruta;
             }
 
-            if(this.produto.codigosInterno !== null && this.produto.codigosInterno !== undefined){
+            if(this.produto.codigosInterno[0].valor.length > 0){
 
                 this.consultaService.getProdutosPorCodigoProduto(
                     this.produto.cnpjRaiz,
@@ -91,12 +88,9 @@ export class ProdutosTwoComponent implements OnInit {
                     });
 
                     window.sessionStorage.setItem('mercadorias', JSON.stringify(this.data));
-
                     this.setDataSource();
                 },
                 error => { this.errored = true;})
-            }else{
-                this.produto.codigosInterno = [];
             }
 
             this.produto.versoesProduto = [];
@@ -187,28 +181,27 @@ export class ProdutosTwoComponent implements OnInit {
         },
         error => { this.errored = true;})*/
 
-        if(this.produto.descricao == null || this.produto.descricao == undefined){
-            this.setMensagem('message-alert-warning');
-            $( "#next-two, #previous-two" ).attr("style","pointer-events: none !important"); 
+        this.produto.etapaConformidade++;
+        this.produtoAlterado.emit(this.produto);
+    }
 
-
-            this.produto.etapaConformidade++;
-            this.produtoAlterado.emit(this.produto);
-
-
-        }else if(this.produto.descricao.length <= 0){
+    public validaDescricao(event: any){
+        if(this.produto.descricao.length <= 0){
             
-                    
+            this.setMensagem('message-alert-warning');
+
+            $( "#next-two" ).prop("disabled", true);
+            $( "#next-two" ).attr("style", "background-color:#673AB7; color:#fff;");
         }else{
-            this.produto.etapaConformidade++;
-            this.produtoAlterado.emit(this.produto);
+            this.mensagem = null;
+            $( "#next-two" ).prop("disabled", false);
         }
     }
 
     public setMensagem(tpMensagem: string){
-        models.forEach(msg =>{
-            msg.chave === tpMensagem ? this.mensagem = msg : null;
-        })
+        for(let msg of msg_produtos_two) {
+            msg.tipo == tpMensagem ? this.mensagem = msg : this.mensagem = null;
+        }
     }
 
     public voltarEtapa(){
@@ -237,7 +230,7 @@ export class ProdutosTwoComponent implements OnInit {
         produto.codigoGPCBrick = null;
         produto.codigoUNSPSC = null;
         produto.paisOrigem = "FR";
-        produto.fabricanteConhecido = false;
+        produto.fabricanteConhecido = 'FALSE';
         produto.codigoOperadorEstrangeiro = null;
         produto.atributos = null;
         produto.codigosInterno = null

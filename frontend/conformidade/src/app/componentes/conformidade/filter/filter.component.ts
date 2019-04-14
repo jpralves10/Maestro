@@ -23,9 +23,7 @@ export class FilterComponent implements OnInit {
         importer: {cpf_cnpj: '', name: ''}
     };
 
-    filtro: Filter = {
-        importers: []
-    };
+    filtro: Filter = { importers: [] };
 
     constructor(
         private consultaService: ConsultaService,

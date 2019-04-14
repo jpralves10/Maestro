@@ -6,9 +6,9 @@
 <div [hidden]="!loading" class="container">
     <h3>Verificar Versões da Mercadoria</h3>
 
-    <div *ngIf="mensagem !== null" [ngClass]="{mensagem_alert : mensagem !== null}">
-        <div class="mat-card-content-div">
-            <span class="alert-text">{{mensagem.valor}}</span>
+    <div *ngIf="mensagem !== null" class="{{mensagem.class}}">
+        <div *ngFor="let msg of mensagem.lista" class="mat-card-content-div">
+            <span class="alert-text">{{msg}}</span>
         </div>
     </div>
 
@@ -17,7 +17,7 @@
             <mat-card-title>
                 <fa-icon
                     icon="exclamation-triangle"
-                    size="fa-xs" 
+                    size="fa-xs"
                     style="color:darkgrey;">
                 </fa-icon>
                 Atenção!
@@ -32,7 +32,7 @@
     <mat-card class="mat-elevation-z5 filtro-card">
         <mat-card-content class="form-container">
 
-            <h3>Digíte a descrição da mercadoria a ser cadastrada:</h3>
+            <h3>Digíte a descrição da mercadoria a ser considerada:</h3>
                 
             <div class="step-content descricao-fields">
                 <div class="step-content-form">
@@ -40,6 +40,7 @@
                         <textarea
                             matInput
                             [(ngModel)]="produto.descricao"
+                            (input)="validaDescricao($event)"
                             class="textarea-style">
                         </textarea>
                         <mat-hint class="step-hint">Descrição da mercadoria a ser considerada</mat-hint>
@@ -167,7 +168,8 @@
                 id="previous-two"
                 mat-raised-button matStepperPrevious
                 (click)="voltarEtapa()"
-                class="step-button-return">
+                class="step-button-return"
+                style="margin: 0 8px;">
                 <fa-icon
                     icon="angle-double-left"
                     size="fa-sm">

@@ -32,6 +32,21 @@
     }
 }
 
+.produto-fields-textarea {
+    display: grid;
+    //grid-template-columns: 2fr 2fr;
+    grid-column-gap: 50px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.produto-descricao {
+    min-height: 60px;
+}
+
+
 .produto-atributo-fields {
     display: grid;
     grid-template-columns: 2fr 2fr 2fr;

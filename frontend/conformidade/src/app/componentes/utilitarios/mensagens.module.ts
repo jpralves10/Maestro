@@ -1,15 +1,23 @@
-/*export var Mensagens: [
-    {chave: 'message-alert-warning', valor: 'Erro: Campo descrição não pode ser vazio!', class: 'alert alert-danger'},
-    {chave: 'message-alert-success', valor: 'Mercadoria cadastrada com sucesso!', class: 'alert alert-success'}
+export const msg_produtos_two = [
+    {
+        id: 0,
+        tipo: 'message-alert-warning',
+        class: 'alert alert-danger',
+        lista: ['Atenção: Campo \'Descrição da Mercadoria\' não pode ser vazio!']
+    }
 ]
 
-export class Mensagem {
-    chave: string;
-    valor: string;
-    class: string;
-}*/
-
-export default [
-    {chave: 'message-alert-warning', valor: 'Erro: Campo descrição não pode ser vazio!', class: 'alert alert-danger'},
-    {chave: 'message-alert-success', valor: 'Mercadoria cadastrada com sucesso!', class: 'alert alert-success'}
+export const msg_produtos_three = [
+    {
+        id: 0,
+        tipo: 'message-alert-warning',
+        class: 'alert alert-danger',
+        lista: []
+    },
+    {
+        id: 1,
+        tipo: 'message-alert-success',
+        class: 'alert alert-success',
+        lista: []
+    }
 ]
