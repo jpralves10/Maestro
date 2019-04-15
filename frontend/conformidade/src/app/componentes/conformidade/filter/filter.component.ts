@@ -45,7 +45,7 @@ export class FilterComponent implements OnInit {
                 window.sessionStorage.setItem('filter', JSON.stringify(this.data));
                 this.loading = false;
             },
-            error => { this.errored = true;}
+            error => { this.errored = true; }
         );
         this.filterService.clearFilter();
     }
@@ -84,14 +84,33 @@ export class FilterComponent implements OnInit {
     }
 
     public getFilterAsString(): string {
-        const reReplace = /[/\/\-\.]/g;
+
+        var cnpjRaiz = this.filtro.importers.map(i => 
+            i.cpf_cnpj.replace(/[/\/\-\.]/g, '').substring(0, 8)
+        );
 
         return JSON.stringify({
-            importers: this.filtro.importers.map(i => 
-                i.cpf_cnpj.replace(reReplace, '').substring(0, 8)
-            ),
+            importers: cnpjRaiz,
+            listaCnpjs: this.listaCNPJ(cnpjRaiz),
             start_date: this.filtro.data_inicio,
             end_date: this.filtro.data_fim
         } as FilterResult);
+    }
+
+    public listaCNPJ(cnpjRaiz: string[]): string[]{
+
+        let listaCNPJ: string[] = [];
+
+        if(cnpjRaiz.length > 0){
+
+            for(let importer of this.data.importers){
+                let cpf_cnpj = importer.cpf_cnpj.replace(/[/\/\-\.]/g, '');
+    
+                if(cpf_cnpj.includes(cnpjRaiz[0])){
+                    listaCNPJ.push(cpf_cnpj);
+                }
+            }
+        }
+        return listaCNPJ;
     }
 }

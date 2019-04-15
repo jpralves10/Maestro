@@ -1,4 +1,4 @@
-import { Atributos, CodigoInterno, Compatibilidade } from './legendas.model';
+import { Atributos, Compatibilidade } from './legendas.model';
 
 export interface Produto {
 
@@ -30,11 +30,11 @@ export interface Produto {
     codigoGPCBrick: number;
     codigoUNSPSC: number;
     paisOrigem: string;
-    fabricanteConhecido: string;
+    fabricanteConhecido: any;
     cpfCnpjFabricante: string;
     codigoOperadorEstrangeiro: string;
     atributos: Atributos[];
-    codigosInterno: CodigoInterno[];
+    codigosInterno: string[];
 }
 
 export class ProdutoClass implements Produto{
@@ -64,7 +64,7 @@ export class ProdutoClass implements Produto{
     codigoGPCBrick: number;
     codigoUNSPSC: number;
     paisOrigem: string;
-    fabricanteConhecido: string;
+    fabricanteConhecido: any;
     cpfCnpjFabricante: string;
     codigoOperadorEstrangeiro: string;
     atributos: [
@@ -73,5 +73,5 @@ export class ProdutoClass implements Produto{
             valor: string
         }
     ];
-    codigosInterno: CodigoInterno[];
+    codigosInterno: string[];
 }

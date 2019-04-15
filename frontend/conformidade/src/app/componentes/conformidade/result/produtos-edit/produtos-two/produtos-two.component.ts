@@ -1,7 +1,5 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import $ from "jquery";
 
@@ -72,11 +70,11 @@ export class ProdutosTwoComponent implements OnInit {
                 this.produto.descricao = this.produto.descricaoBruta;
             }
 
-            if(this.produto.codigosInterno[0].valor.length > 0){
+            if(this.produto.codigosInterno.length > 0){
 
                 this.consultaService.getProdutosPorCodigoProduto(
                     this.produto.cnpjRaiz,
-                    this.produto.codigosInterno[0].valor
+                    this.produto.codigosInterno[0]
                 ).subscribe(versoes =>{
 
                     var produtos: Produto[] = (versoes as any).produtos;

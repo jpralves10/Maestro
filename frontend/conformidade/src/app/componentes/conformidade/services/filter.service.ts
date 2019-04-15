@@ -65,6 +65,6 @@ export class FilterService {
 
 const actualDateDecremented = (): Date => {
     const actualDate = new Date();
-    actualDate.setMonth(actualDate.getMonth() - 11);
+    actualDate.setMonth(actualDate.getMonth() - 12);
     return actualDate;
 };

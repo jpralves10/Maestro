@@ -9,6 +9,11 @@ export interface Atributos {
     valor: string;
 }
 
-export interface CodigoInterno {
-    valor: string;
-}
+export interface Resumo {
+    periodoInicial: string, 
+    periodoFinal: string, 
+    listaCnpjs: string[], 
+    qtdDeclaracoes: number, 
+    qtdItens: number, 
+    qtdItensCadastrados: number
+};

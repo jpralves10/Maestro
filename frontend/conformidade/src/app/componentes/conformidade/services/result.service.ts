@@ -65,6 +65,6 @@ export class ResultService {
 
 const actualDateDecremented = (): Date => {
     const actualDate = new Date();
-    actualDate.setMonth(actualDate.getMonth() - 3);
+    actualDate.setMonth(actualDate.getMonth() - 12);
     return actualDate;
 };

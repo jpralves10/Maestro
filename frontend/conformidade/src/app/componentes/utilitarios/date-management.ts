@@ -27,7 +27,12 @@ export function DateFromBrFormatDate(date: string): Date {
 
 export function DateFromBrString(date: string): string {
 
-    if (date.length == 8) {
+    if(date.length == 24){
+        var dateTime = date.split("T");
+        date = dateTime[0].replace(/[/\/\-\.]/g, '')
+    }
+
+    if(date.length == 8) {
         const year: string = date.substring(0, 4);
         const month: string = date.substring(4, 6);
         const day: string = date.substring(6, 8);

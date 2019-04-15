@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { Produto } from '../../../models/produto.model';
-import { Atributos, CodigoInterno } from '../../../models/legendas.model';
+import { Atributos } from '../../../models/legendas.model';
 
 import { FilterResult } from '../../../models/filter-result.model';
 import { ConsultaService } from '../../../services/consulta.service';
@@ -32,7 +32,7 @@ export class ProdutosThreeComponent implements OnInit {
     mensagem: any = {id: 0, tipo: '', class: '', lista: []};
 
     atributoDataSource = new MatTableDataSource<Atributos>();
-    codigoInternoDataSource = new MatTableDataSource<CodigoInterno>();
+    codigoInternoDataSource = new MatTableDataSource<string>();
 
     public situacoes = [
         {value: 'ATIVADO', viewValue: 'Ativado'},
@@ -47,15 +47,15 @@ export class ProdutosThreeComponent implements OnInit {
     ];
 
     public fabricantes = [
-        {value: 'FALSE', viewValue: 'Não'},
-        {value: 'TRUE', viewValue: 'Sim'}
+        {value: false, viewValue: 'Não'},
+        {value: true, viewValue: 'Sim'}
     ];
 
     atributosColumns: string[] = ['atributo', 'valor', 'operacao'];
     atributo_form: Atributos = {atributo: '', valor: ''};
 
     codigoInternoColumns: string[] = ['valor', 'operacao'];
-    codigointerno_form: CodigoInterno = {valor: ''};
+    codigointerno_form = '';
 
     constructor(
         private router: Router,
@@ -103,11 +103,11 @@ export class ProdutosThreeComponent implements OnInit {
 
     public adicionarCodigoInterno(){
         this.produto.codigosInterno.push(this.codigointerno_form)
-        this.codigointerno_form = {valor: ''};
+        this.codigointerno_form = '';
         this.updateCodigoInterno();
     }
 
-    public removeRowCodigoInterno(row: CodigoInterno){
+    public removeRowCodigoInterno(row: string){
         this.produto.codigosInterno.splice(this.produto.codigosInterno.indexOf(row), 1);
         this.updateCodigoInterno();
     }
@@ -165,7 +165,7 @@ export class ProdutosThreeComponent implements OnInit {
                         });
 
                     }, 2000);
-                }                
+                }
             }
         }, 500);
     }
@@ -204,6 +204,22 @@ export class ProdutosThreeComponent implements OnInit {
                 this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'NCM do Produto\': de 1 a 8 caracteres.'})
             }
 
+            if((this.produto.codigoNaladi > 0 && this.produto.codigoNaladi < 8) || this.produto.codigoNaladi > 8){
+                this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'Código Naladi\': de 1 a 8 caracteres.'})
+            }
+
+            if((this.produto.codigoGPC > 0 && this.produto.codigoGPC < 10) || this.produto.codigoGPC > 10){
+                this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'Código GPC\': de 1 a 10 caracteres.'})
+            }
+
+            if((this.produto.codigoGPCBrick > 0 && this.produto.codigoGPCBrick < 10) || this.produto.codigoGPCBrick > 10){
+                this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'Código GPC - Brick\': de 1 a 10 caracteres.'})
+            }
+
+            if((this.produto.codigoUNSPSC > 0 && this.produto.codigoUNSPSC < 10) || this.produto.codigoUNSPSC > 10){
+                this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'Código UNSPSC\': de 1 a 10 caracteres.'})
+            }
+
             if(this.isNullUndefined(this.produto.fabricanteConhecido) || !this.inListObject(this.fabricantes, this.produto.fabricanteConhecido)){
                 this.mensagem.lista.push({chave: 0, valor: 'Verificar preenchimento do campo \'Fabricante Conhecido\'.'})
             }
@@ -212,7 +228,7 @@ export class ProdutosThreeComponent implements OnInit {
                 this.mensagem.lista.push({chave: 0, valor: 'Verificar preenchimento do campo \'País de Origem\'.'})
             }
 
-            if((!this.isNullUndefined(this.produto.fabricanteConhecido) && this.produto.fabricanteConhecido == 'TRUE') &&
+            if((!this.isNullUndefined(this.produto.fabricanteConhecido) && this.produto.fabricanteConhecido) &&
                 (!this.isNullUndefined(this.produto.paisOrigem) && this.produto.paisOrigem == 'BR')){
                 if(this.isNullUndefined(this.produto.cpfCnpjFabricante)){
                     this.mensagem.lista.push({chave: 0, valor: 'Verificar preenchimento do campo \'CPF/CNPJ do Fabricante\'.'})
@@ -221,12 +237,22 @@ export class ProdutosThreeComponent implements OnInit {
                 }
             }
 
-            if((!this.isNullUndefined(this.produto.fabricanteConhecido) && this.produto.fabricanteConhecido == 'TRUE') &&
+            if((!this.isNullUndefined(this.produto.fabricanteConhecido) && this.produto.fabricanteConhecido) &&
                 (!this.isNullUndefined(this.produto.paisOrigem) && this.produto.paisOrigem != 'BR')){
                 if(this.isNullUndefined(this.produto.codigoOperadorEstrangeiro)){
                     this.mensagem.lista.push({chave: 0, valor: 'Verificar preenchimento do campo \'Código Operador Estrangeiro\'.'})
                 }else if(this.produto.codigoOperadorEstrangeiro.length <= 0 || this.produto.codigoOperadorEstrangeiro.length > 35){
                     this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'Código Operador Estrangeiro\': de 1 a 35 caracteres.'})
+                }
+            }
+
+            if(this.produto.codigosInterno.length > 0){
+                let index = 1;
+                for(let codigo of this.produto.codigosInterno){
+                    if(codigo.length > 60){
+                        this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'Códigos Internos\' na posição ' + index +': de 1 a 60 caracteres.'})
+                    }
+                    index++;
                 }
             }
         }
@@ -245,7 +271,7 @@ export class ProdutosThreeComponent implements OnInit {
         return objeto == null || objeto == undefined ? true : false;
     }
 
-    public inListObject(list: {value: string, viewValue: string}[], stringValue: string): boolean {
+    public inListObject(list: {value: any, viewValue: any}[], stringValue: any): boolean {
         for(let item of list){
             if(item.value == stringValue){
                 return true;

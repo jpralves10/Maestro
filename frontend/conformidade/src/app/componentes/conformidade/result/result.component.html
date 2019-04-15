@@ -4,11 +4,40 @@
 </div>
 
 <div *ngIf="!loading" class="container">
-<h3>Adições da DI</h3>
+    <h3>Adições da DI</h3>
+
+    <mat-card class="mat-elevation-z5 filtro-card">
+        <mat-card-content class="form-container">
+
+            <mat-card-title>
+                Período Abrangido: {{resumo.periodoInicial | mask: 'AA/AA/AAAA'}} -
+                {{resumo.periodoFinal | mask: 'AA/AA/AAAA'}}
+            </mat-card-title>
+            <mat-card-subtitle style="font-size:1.1em;">
+                Qtd. de DIs: {{resumo.qtdDeclaracoes}} >> 
+                Qtd. de Itens: {{resumo.qtdItens}} >>
+                Qtd. de Itens Cadastrados: {{resumo.qtdItensCadastrados}}
+            </mat-card-subtitle>
+            <mat-card-subtitle>
+                <mat-chip-list>
+                    <mat-chip>
+                        CNPJ(s):
+                    </mat-chip>
+                    <mat-chip 
+                        *ngFor="let cnpj of resumo.listaCnpjs"
+                        style="font-size:0.9em; background-color:#F4F6F6;">
+                        {{cnpj | mask: '00.000.000/0000-00'}}
+                    </mat-chip>
+                </mat-chip-list>
+            </mat-card-subtitle>
+
+        </mat-card-content>
+    </mat-card>
 
     <mat-card class="mat-elevation-z5 filtro-card">
         <mat-card-content class="form-container">
             <h3>Produtos</h3>
+
             <div class="produto-fields">
                 <mat-form-field>
                     <input

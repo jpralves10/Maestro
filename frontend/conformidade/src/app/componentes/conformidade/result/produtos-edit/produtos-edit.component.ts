@@ -36,8 +36,7 @@ export class ProdutosEditComponent implements OnInit {
             }
 
             if(this.produto.codigosInterno == null && this.produto.codigosInterno == undefined){
-                this.produto.codigosInterno = []
-                this.produto.codigosInterno.push({valor: ''})
+                this.produto.codigosInterno = [];
             }
 
             this.loading = false;

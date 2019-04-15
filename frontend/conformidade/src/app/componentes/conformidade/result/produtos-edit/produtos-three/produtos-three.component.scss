@@ -57,6 +57,16 @@
     }
 }
 
+.produto-codigos-fields {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr;
+    grid-column-gap: 50px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
 .atributo-button-add {
     width: 100px;
     height: 40px;
@@ -94,6 +104,12 @@
 }
 
 .atributos-panel-content {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 0 20px 16px;
+}
+
+.codigos-panel-content {
     max-height: 300px;
     overflow-y: auto;
     padding: 0 20px 16px;

@@ -4,6 +4,7 @@ import { FilterResult } from '../models/filter-result.model';
 import { Produto, ProdutoClass } from '../models/produto.model';
 import { ResultItem } from '../models/result-item.model';
 import { Result, ResultClass } from '../models/result.model';
+import { Resumo } from '../models/legendas.model';
 
 import { ConsultaService } from '../services/consulta.service';
 import { ResultService } from '../services/result.service';
@@ -20,6 +21,15 @@ export class ResultComponent implements OnInit {
     public errored = false;
 
     data: Result = null;
+    
+    resumo: Resumo = {
+        periodoInicial: '', 
+        periodoFinal: '', 
+        listaCnpjs: [], 
+        qtdDeclaracoes: 0, 
+        qtdItens: 0, 
+        qtdItensCadastrados: 0
+    };
 
     @Input() current_filtro: ResultItem = {
         produto: {numeroDI: '', descricaoBruta: '', ncm: '', status: ''}
@@ -43,8 +53,16 @@ export class ResultComponent implements OnInit {
             this.consultaService
                 .getProdutosPorImportador(this.filter)
                 .subscribe(adicoes => {
-                    this.data.produtos = (adicoes as any).produtos; //this.getDataTransformed(adicoes);
+                    this.data.produtos = (adicoes as any).produtos;
                     window.sessionStorage.setItem('result', JSON.stringify(this.data));
+
+                    this.resumo.periodoInicial = this.filter.start_date;
+                    this.resumo.periodoFinal = this.filter.end_date;
+                    this.resumo.listaCnpjs = this.filter.listaCnpjs;
+                    this.resumo.qtdDeclaracoes = this.getQtdDeclaracoes();
+                    this.resumo.qtdItens = this.getQtdItens(true);
+                    this.resumo.qtdItensCadastrados = this.getQtdItens(false);
+
                     this.loading = false;
             },
             error => { this.errored = true;})
@@ -59,6 +77,30 @@ export class ResultComponent implements OnInit {
 
     public updateFiltro() {
         this.resultService.changeFilter(this.current_filtro);
+    }
+
+    public getQtdDeclaracoes(): number{
+        let setDeclaracoes = new Set();
+        for(let produto of this.data.produtos){
+            setDeclaracoes.add(produto.numeroDI);
+        }
+        return setDeclaracoes.size
+    }
+
+    public getQtdItens(total: boolean): number{
+        let statusTotal = ['Pendente', 'Completo', 'Aprovado', 'Integrado'];
+        let statusCadastrados = ['Completo', 'Aprovado', 'Integrado'];
+        let countItens: number = 0;
+        
+        for(let produto of this.data.produtos){
+            if(total && statusTotal.includes(produto.status)){
+                countItens++;
+            }
+            if(!total && statusCadastrados.includes(produto.status)){
+                countItens++;
+            }
+        }
+        return countItens;
     }
 
     public getMockDados(): Produto[]{
