@@ -10,6 +10,8 @@ import { ConsultaService } from '../../../services/consulta.service';
 import paises from '../../../../utilitarios/pais-origem.model';
 import { msg_produtos_three } from '../../../../utilitarios/mensagens.module';
 
+import * as DateManagement from '../../../../utilitarios/date-management';
+
 @Component({
     selector: 'app-produtos-three',
     templateUrl: './produtos-three.component.html',
@@ -139,12 +141,20 @@ export class ProdutosThreeComponent implements OnInit {
                         this.mensagem = null;
 
                         this.produto.status = 'Completo';
-                        this.produto.dataAtualizacao = new Date();
+                        this.produto.dataCriacao = DateManagement.UTCTimeZoneString(new Date());
+                        this.produto.dataAtualizacao = DateManagement.UTCTimeZoneString(new Date());
+                        this.produto.versoesProduto = undefined;
+                        this.produto.etapaConformidade = undefined;
+
+                        if(this.produto.atributos.length <= 0){
+                            this.produto.atributos = undefined;
+                        }
+
                         this.produtoAlterado.emit(this.produto);
 
                         this.consultaService
                             .setAlterarProdutos(this.produto)
-                            .subscribe(versoes => {}, error => { this.errored = true;})
+                            .subscribe(versoes => {}, error => { this.errored = true;});
                         
                         this.router.navigate([`./result`], {
                             relativeTo: this.route,

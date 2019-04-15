@@ -13,8 +13,8 @@ export interface Produto {
     versoesProduto: Produto[];
 
     /** Histórico **/
-    dataCriacao: Date;
-    dataAtualizacao: Date;
+    dataCriacao: string;
+    dataAtualizacao: string;
     usuarioAtualizacao: string;
 
     /** Integração API **/
@@ -48,8 +48,8 @@ export class ProdutoClass implements Produto{
     etapaConformidade: number;
     versoesProduto: Produto[];
 
-    dataCriacao: Date;
-    dataAtualizacao: Date;
+    dataCriacao: string;
+    dataAtualizacao: string;
     usuarioAtualizacao: string;
     
     seq: string;

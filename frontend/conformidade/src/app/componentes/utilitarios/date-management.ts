@@ -37,3 +37,29 @@ export function DateFromBrString(date: string): string {
         return date;
     }
 }
+
+export function UTCTimeZoneString(date: Date): string {
+
+    // YYYY-MM-DDTHH:MM:SS.SSSZ
+
+    let setOneZeroDate = (element: any) => {
+        return element.length == 1 ? element = '0' + element : element;
+    }
+
+    let setTwoZeroDate = (element: any) => {
+        if(element.length == 1){ element = '00' + element; }
+        if(element.length == 2){ element = '0' + element; }
+        return element;
+    }
+
+    let year = date.getFullYear().toString();
+    let month = setOneZeroDate((date.getMonth() + 1).toString());
+    let day = setOneZeroDate(date.getDate().toString());
+
+    let hours = setOneZeroDate(date.getHours().toString());
+    let minutes = setOneZeroDate(date.getMinutes().toString());
+    let seconds = setOneZeroDate(date.getSeconds().toString());
+    let milliseconds = setTwoZeroDate(date.getMilliseconds().toString());
+
+    return year + '-' + month + '-' + day + 'T' + hours + ':' + minutes + ':' + seconds + '.' + milliseconds + 'Z';
+}

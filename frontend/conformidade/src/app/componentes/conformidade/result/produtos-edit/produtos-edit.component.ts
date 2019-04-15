@@ -29,6 +29,8 @@ export class ProdutosEditComponent implements OnInit {
             this.produto.dataRegistro = DateManagement.DateFromBrString(this.produto.dataRegistro),
             this.produto.etapaConformidade = 1;
 
+            this.produto.descricaoBruta = this.produto.descricaoBruta.trim();
+
             if(this.produto.descricao == null || this.produto.descricao == undefined){
                 this.produto.descricao = '';
             }
