@@ -1,6 +1,7 @@
 export interface FilterResult {
     importers: string[];
-    listaCnpjs: string[];
+    cnpjList: string[];
+    status: string[];
     start_date: string;
     end_date: string;
 }

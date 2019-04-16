@@ -21,11 +21,12 @@ export class ResultComponent implements OnInit {
     public errored = false;
 
     data: Result = null;
+    status: string[] = [];
     
     resumo: Resumo = {
         periodoInicial: '', 
         periodoFinal: '', 
-        listaCnpjs: [], 
+        cnpjList: [], 
         qtdDeclaracoes: 0, 
         qtdItens: 0, 
         qtdItensCadastrados: 0
@@ -44,6 +45,8 @@ export class ResultComponent implements OnInit {
         this.route.queryParamMap.subscribe(paramMap => {
             this.filter = JSON.parse(paramMap.get('filter'));
 
+            this.status = this.filter.status;
+
             this.data = new ResultClass();
 
             /*this.data.produtos = this.getMockDados();
@@ -56,12 +59,7 @@ export class ResultComponent implements OnInit {
                     this.data.produtos = (adicoes as any).produtos;
                     window.sessionStorage.setItem('result', JSON.stringify(this.data));
 
-                    this.resumo.periodoInicial = this.filter.start_date;
-                    this.resumo.periodoFinal = this.filter.end_date;
-                    this.resumo.listaCnpjs = this.filter.listaCnpjs;
-                    this.resumo.qtdDeclaracoes = this.getQtdDeclaracoes();
-                    this.resumo.qtdItens = this.getQtdItens(true);
-                    this.resumo.qtdItensCadastrados = this.getQtdItens(false);
+                    this.setResumoCards();
 
                     this.loading = false;
             },
@@ -77,6 +75,15 @@ export class ResultComponent implements OnInit {
 
     public updateFiltro() {
         this.resultService.changeFilter(this.current_filtro);
+    }
+
+    public setResumoCards(){
+        this.resumo.periodoInicial = this.filter.start_date;
+        this.resumo.periodoFinal = this.filter.end_date;
+        this.resumo.cnpjList = this.filter.cnpjList;
+        this.resumo.qtdDeclaracoes = this.getQtdDeclaracoes();
+        this.resumo.qtdItens = this.getQtdItens(true);
+        this.resumo.qtdItensCadastrados = this.getQtdItens(false);
     }
 
     public getQtdDeclaracoes(): number{
@@ -101,6 +108,15 @@ export class ResultComponent implements OnInit {
             }
         }
         return countItens;
+    }
+
+    public setStatusFiltro(event: any, status: string){
+        if(event.checked){
+            this.status.push(status)
+        }
+        if(!event.checked){
+            this.status.splice(this.status.indexOf(status), 1);
+        }
     }
 
     public getMockDados(): Produto[]{

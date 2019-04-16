@@ -31,6 +31,28 @@
 
     <mat-card class="mat-elevation-z5 filtro-card">
         <mat-card-content class="form-container">
+            <mat-card-title>
+                CNPJ Raiz: 
+                {{
+                    produto.cnpjRaiz | mask: '00.000.000/0000-00'
+                }}
+                {{
+                    produto.codigosInterno.length > 0 ? 
+                    '/ Código Interno: ' + produto.codigosInterno[0] :
+                    ''
+                }}
+            </mat-card-title>
+            <mat-card-subtitle style="font-size: 1.2em;font-weight: 500;">
+                Status do Produto: 
+                <mat-chip style="background-color:#D4E6F1;">
+                    {{produto.status}}
+                </mat-chip>
+            </mat-card-subtitle>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="mat-elevation-z5 filtro-card">
+        <mat-card-content class="form-container">
 
             <h3>Digíte a descrição da mercadoria a ser considerada:</h3>
                 

@@ -41,3 +41,29 @@
         flex-direction: column;
     }
 }
+
+.filtro-panel-content {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 0 15px 15px;
+}
+
+.filtro-fields-one {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    grid-column-gap: 50px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.filtro-fields-two {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    grid-column-gap: 50px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}

@@ -20,12 +20,13 @@ export class ProdutosListComponent implements OnInit {
     @ViewChild(MatSort) sort: MatSort;
     
     @Input() data: Produto[];
+    @Input() status: string[];
 
     selection = new SelectionModel<Produto>(true, []);
 
     dataSource: ProdutosListDataSource;
 
-    displayedColumns = ['numeroDI', 'descricaoBruta', 'ncm', 'status', 'operacoes'];
+    displayedColumns = ['descricaoBruta', 'ncm', 'declaracoes'];
 
     public filtroValue: ResultItem;
     public currentFilter: Result;

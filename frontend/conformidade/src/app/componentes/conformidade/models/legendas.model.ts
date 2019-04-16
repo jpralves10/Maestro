@@ -1,7 +1,15 @@
 
 export interface Compatibilidade {
-    rating: number;
-    matches: number;
+    avaliados: number;
+    identicos: number;
+    similares: number;
+}
+
+export interface Declaracao {
+    numeroDI: string;
+    dataRegistro: string;
+    sequencial: string;
+    canal: string;  //canalSelecaoParametrizada
 }
 
 export interface Atributos {
@@ -12,8 +20,8 @@ export interface Atributos {
 export interface Resumo {
     periodoInicial: string, 
     periodoFinal: string, 
-    listaCnpjs: string[], 
+    cnpjList: string[], 
     qtdDeclaracoes: number, 
     qtdItens: number, 
     qtdItensCadastrados: number
-};
+}

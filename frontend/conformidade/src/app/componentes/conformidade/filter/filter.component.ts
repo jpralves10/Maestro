@@ -91,7 +91,8 @@ export class FilterComponent implements OnInit {
 
         return JSON.stringify({
             importers: cnpjRaiz,
-            listaCnpjs: this.listaCNPJ(cnpjRaiz),
+            cnpjList: this.listaCNPJ(cnpjRaiz),
+            status: ['Pendente'],
             start_date: this.filtro.data_inicio,
             end_date: this.filtro.data_fim
         } as FilterResult);
