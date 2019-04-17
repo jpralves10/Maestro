@@ -10,6 +10,17 @@ th.mat-header-cell {
     padding: 5px !important;
 }
 
+td.mat-cell.style-cell {
+    font-size: 12px;
+    font-weight: 500;
+    color: #596679;
+}
+
+td.mat-cell.style-cell:hover {
+    cursor: pointer;
+    font-style: italic;
+}
+
 /*
     Pendente: #FADBD8
     Completo: #FAE5D3

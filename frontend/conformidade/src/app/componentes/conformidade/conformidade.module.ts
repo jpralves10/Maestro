@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { 
+import {
     MatInputModule, 
     MatChipsModule, 
     MatSelectModule,
@@ -13,19 +13,21 @@ import {
     MatButtonModule,
     MatRippleModule,
     MatExpansionModule,
-    MatStepperModule
+    MatStepperModule,
+    MatTooltipModule
 } from '@angular/material';
 
-import { MaterialModule } from '../utilitarios/material.module'
+import { MaterialModule } from '../utilitarios/material.module';
 
-import {NgxMaskModule} from 'ngx-mask'
+import {NgxMaskModule} from 'ngx-mask';
 
 // Add these
+//import { faAdobe } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
+import { fas, faChevronDown, faFileMedical, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
-library.add(fas, far);
+library.add(fas, far, faChevronDown, faFileMedical, faInfoCircle);
 
 import { CONFORMIDADE_ROUTES } from './conformidade.routes';
 
@@ -83,6 +85,7 @@ import { TrendlineChartComponent } from './result/trendline-chart/trendline-char
     MatRippleModule,
     MatExpansionModule,
     MatStepperModule,
+    MatTooltipModule,
     RouterModule.forChild(CONFORMIDADE_ROUTES),
     NgxMaskModule.forRoot()
     //GoogleChartsModule.forRoot()

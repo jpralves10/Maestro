@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterResult } from '../models/filter-result.model';
 import { Produto, ProdutoClass } from '../models/produto.model';
+import { Declaracao } from '../models/legendas.model';
 import { ResultItem } from '../models/result-item.model';
 import { Result, ResultClass } from '../models/result.model';
 import { Resumo } from '../models/legendas.model';
@@ -51,6 +52,7 @@ export class ResultComponent implements OnInit {
 
             /*this.data.produtos = this.getMockDados();
             window.sessionStorage.setItem('result', JSON.stringify(this.data));
+            this.setResumoCards();
             this.loading = false;*/
 
             this.consultaService
@@ -59,8 +61,11 @@ export class ResultComponent implements OnInit {
                     this.data.produtos = (adicoes as any).produtos;
                     window.sessionStorage.setItem('result', JSON.stringify(this.data));
 
-                    this.setResumoCards();
+                    this.data.produtos.forEach(produto => {
+                        produto.declaracoes = this.getMockDeclaracoes();
+                    });
 
+                    this.setResumoCards();
                     this.loading = false;
             },
             error => { this.errored = true;})
@@ -117,6 +122,44 @@ export class ResultComponent implements OnInit {
         if(!event.checked){
             this.status.splice(this.status.indexOf(status), 1);
         }
+    }
+
+    public addMercadoria(){
+
+    }
+
+    //https://jtblin.github.io/angular-chart.js/
+    //https://www.jqwidgets.com/angular/angular-chart/#https://www.jqwidgets.com/angular/angular-chart/angular-chart-donutlabels.htm
+
+    /** Mock Dados **/
+
+    public getMockDeclaracoes(): Declaracao[]{
+        return [
+            {
+                numeroDI: '12345678',
+                dataRegistro: '10/12/2001',
+                sequencial: '001',
+                canal: '002'
+            },
+            {
+                numeroDI: '32145678',
+                dataRegistro: '10/12/2010',
+                sequencial: '001',
+                canal: '002'
+            },
+            {
+                numeroDI: '87945678',
+                dataRegistro: '10/12/2012',
+                sequencial: '001',
+                canal: '001'
+            },
+            {
+                numeroDI: '56445678',
+                dataRegistro: '10/12/2017',
+                sequencial: '001',
+                canal: '004'
+            }
+        ]
     }
 
     public getMockDados(): Produto[]{

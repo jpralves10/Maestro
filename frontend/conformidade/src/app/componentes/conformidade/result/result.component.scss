@@ -67,3 +67,72 @@
         flex-direction: column;
     }
 }
+
+.mat-card-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 10px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.mat-card-list-item {
+    display: inline-block;
+    margin: 0;
+    vertical-align: top;
+}
+
+.mat-card-icon {
+    padding: 10px;
+    font-size: 22px;
+    float: left;
+    margin-right: 10px;
+}
+
+.mat-card-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #596679;
+}
+
+.mat-cad-body {
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: -6px;
+}
+
+.declaracoes {
+    color: #e8b71a!important;
+}
+
+.total {
+    color: #54c08a!important;
+}
+
+.cadastrados {
+    color: #638ca5!important;
+}
+
+.table-head {
+    margin-bottom: 10px;
+}
+
+.table-title {
+    font-size: 20px;
+    font-weight: 400;
+    color: #596679;
+}
+
+.table-button {
+    color: #fff;
+    float: right;
+    background: #54c08a !important;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}

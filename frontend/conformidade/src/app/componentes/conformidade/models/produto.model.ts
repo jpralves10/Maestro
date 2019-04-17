@@ -11,7 +11,7 @@ export interface Produto {
     /** Informações Declaracao **/
     numeroDI: string, 
     dataRegistro: string, 
-    declaracoesImportacao: Declaracao[];
+    declaracoes: Declaracao[];
 
     /** Versões Produto **/
     versoesProduto: Produto[];
@@ -53,7 +53,7 @@ export class ProdutoClass implements Produto{
     /** Informações Declaracao **/
     numeroDI: string;
     dataRegistro: string;
-    declaracoesImportacao: Declaracao[];
+    declaracoes: Declaracao[];
 
     /** Versões Produto **/
     versoesProduto: Produto[];

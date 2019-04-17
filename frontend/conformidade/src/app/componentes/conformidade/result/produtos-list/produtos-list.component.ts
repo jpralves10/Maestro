@@ -8,6 +8,7 @@ import { ProdutosListDataSource } from './produtos-list-datasource';
 import { ResultItem } from '../../models/result-item.model';
 import { Result } from '../../models/result.model';
 import { ResultService } from '../../services/result.service';
+import { Declaracao } from '../../models/legendas.model';
 
 @Component({
   selector: 'app-produtos-list',
@@ -100,5 +101,9 @@ export class ProdutosListComponent implements OnInit {
                 filterProduto: JSON.stringify({...row})
             }
         });
+    }
+
+    viewDeclaracoes(row: Produto){
+        
     }
 }
