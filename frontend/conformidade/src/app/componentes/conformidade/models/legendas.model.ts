@@ -1,15 +1,21 @@
 
 export interface Compatibilidade {
-    avaliados: number;
+    similaridade: number;
     identicos: number;
-    similares: number;
+
+    verde: number;
+    amarelo: number;
+    vermelho: number;
+    cinza: number;
 }
 
 export interface Declaracao {
+    importadorNome: string;
+    importadorNumero: string;
     numeroDI: string;
     dataRegistro: string;
-    sequencial: string;
-    canal: string;  //canalSelecaoParametrizada
+    numeroAdicao: string;
+    canal: string; //canalSelecaoParametrizada
 }
 
 export interface Atributos {

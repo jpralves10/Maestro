@@ -7,10 +7,10 @@ import { Atributos } from '../../../models/legendas.model';
 import { FilterResult } from '../../../models/filter-result.model';
 import { ConsultaService } from '../../../services/consulta.service';
 
-import paises from '../../../../utilitarios/pais-origem.model';
-import { msg_produtos_three } from '../../../../utilitarios/mensagens.module';
+import paises from '../../../../../utilitarios/pais-origem.model';
+import { msg_produtos_three } from '../../../../../utilitarios/mensagens.module';
 
-import * as DateManagement from '../../../../utilitarios/date-management';
+import * as DateManagement from '../../../../../utilitarios/date-management';
 
 @Component({
     selector: 'app-produtos-three',

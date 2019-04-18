@@ -3,7 +3,7 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import $ from "jquery";
 
-import { msg_produtos_two } from '../../../../utilitarios/mensagens.module';
+import { msg_produtos_two } from '../../../../../utilitarios/mensagens.module';
 
 import { Produto, ProdutoClass } from '../../../models/produto.model';
 import { ProdutosTwoDataSource } from './produtos-two-datasource';
@@ -72,11 +72,15 @@ export class ProdutosTwoComponent implements OnInit {
 
             if(this.produto.codigosInterno.length > 0){
 
-                this.consultaService.getProdutosPorCodigoProduto(
-                    this.produto.cnpjRaiz,
-                    this.produto.codigosInterno[0]
-                ).subscribe(versoes =>{
-
+                this.consultaService.getProdutosGenerico(
+                    {
+                        cnpjRaiz: this.produto.cnpjRaiz,
+                        status: this.produto.status,
+                        codigoInterno: this.produto.codigosInterno[0],
+                        descricaoBruta: this.produto.descricaoBruta,
+                        ncm: this.produto.ncm
+                    }
+                ).subscribe(versoes => {
                     var produtos: Produto[] = (versoes as any).produtos;
 
                     produtos.forEach(produto => {
@@ -214,7 +218,7 @@ export class ProdutosTwoComponent implements OnInit {
         produto.seq = "001";
         produto.codigo = null;
         produto.numeroDI = "01234567891"
-        produto.dataRegistro = "20190403";
+        produto.dataRegistro = "18042019";
         produto.status = "Complementar";
         produto.etapaConformidade = 0;
         produto.descricaoBruta = "410102469R PINCA DO FREIO DIANTEIRO PARA VEICULO AUTOMOVEL";

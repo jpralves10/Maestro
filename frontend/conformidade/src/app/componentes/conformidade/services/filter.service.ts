@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Filter } from '../models/filter.model';
 import { FilterItem } from '../models/filter-item.model';
-import * as DateManagement from '../../utilitarios/date-management';
+import * as DateManagement from '../../../utilitarios/date-management';
 
 @Injectable({
   providedIn: 'root'

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, Input, ViewChild, Directive } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatPaginator, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -9,6 +9,24 @@ import { ResultItem } from '../../models/result-item.model';
 import { Result } from '../../models/result.model';
 import { ResultService } from '../../services/result.service';
 import { Declaracao } from '../../models/legendas.model';
+
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+
+@Component({
+    selector: 'produtos-list.dialog',
+    templateUrl: 'produtos-list.dialog.html',
+})
+export class DialogOverviewExampleDialog {     
+  
+    constructor(
+        public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+        @Inject(MAT_DIALOG_DATA) public data: Declaracao[]
+    ) { }
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
+}
 
 @Component({
   selector: 'app-produtos-list',
@@ -35,7 +53,8 @@ export class ProdutosListComponent implements OnInit {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private resultService: ResultService
+        private resultService: ResultService,
+        public dialog: MatDialog
     ) {
         resultService.filter.subscribe(f => (this.filtroValue = f));
 
@@ -63,6 +82,10 @@ export class ProdutosListComponent implements OnInit {
             ...this.resultService.whenUpdated,
             this.paginator
         ]);
+    }
+
+    updateFiltro() {
+        this.resultService.changeFilter(this.filtroValue);
     }
 
     masterToggle() {
@@ -103,7 +126,16 @@ export class ProdutosListComponent implements OnInit {
         });
     }
 
-    viewDeclaracoes(row: Produto){
-        
+    openDialogDeclaracoes(row: Produto): void {
+        /*const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {row.declaracoes})
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.animal = result;
+        });*/
+    }
+
+    print(){
+        console.log("Teste")
     }
 }

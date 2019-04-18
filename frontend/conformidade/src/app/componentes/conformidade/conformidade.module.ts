@@ -17,7 +17,7 @@ import {
     MatTooltipModule
 } from '@angular/material';
 
-import { MaterialModule } from '../utilitarios/material.module';
+import { MaterialModule } from '../../utilitarios/material.module';
 
 import {NgxMaskModule} from 'ngx-mask';
 
