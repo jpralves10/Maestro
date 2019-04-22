@@ -1,24 +1,5 @@
-.table-list {
-    table {
-        width: 100%;
-    }
-}
-
-td.mat-cell,
-td.mat-footer-cell,
-th.mat-header-cell {
-    padding: 5px !important;
-}
-
-td.mat-cell.style-cell {
-    font-size: 12px;
-    font-weight: 500;
-    color: #596679;
-}
-
-td.mat-cell.style-cell:hover {
+.mat-row:hover {
     cursor: pointer;
-    font-style: italic;
 }
 
 canvas {

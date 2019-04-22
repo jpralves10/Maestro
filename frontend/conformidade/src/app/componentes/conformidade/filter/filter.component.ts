@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Filter } from '../models/filter.model';
@@ -7,6 +7,7 @@ import { FilterResult } from '../models/filter-result.model';
 
 import { ConsultaService } from '../services/consulta.service';
 import { FilterService } from '../services/filter.service';
+import { ImportersListComponent } from './importers-list/importers-list.component';
 
 @Component({
   selector: 'app-filter',
@@ -18,6 +19,11 @@ export class FilterComponent implements OnInit {
     data: Filter = null;
     loading = true;
     errored = false;
+
+    spinner = false;
+    message = false;
+
+    importerSelected = false;
 
     @Input() current_filtro: FilterItem = {
         importer: {cpf_cnpj: '', name: ''}
@@ -33,6 +39,9 @@ export class FilterComponent implements OnInit {
     ) {
         filterService.filterResult.subscribe(f => {
             this.filtro = f;
+            if(!this.importerSelected && this.filtro.importers.length > 0){
+                this.importerSelected = true;
+            }            
         });
     }
 
@@ -85,6 +94,8 @@ export class FilterComponent implements OnInit {
 
     public getFilterAsString(): string {
 
+        this.importerSelected = false;
+
         var cnpjRaiz = this.filtro.importers.map(i => 
             i.cpf_cnpj.replace(/[/\/\-\.]/g, '').substring(0, 8)
         );
@@ -113,5 +124,28 @@ export class FilterComponent implements OnInit {
             }
         }
         return listaCNPJ;
+    }
+
+    fileChange(event: any){
+        let fileList: FileList = event.target.files;
+
+        if(fileList.length > 0) {
+
+            this.spinner = true;
+
+            let file: File = fileList[0];
+            let formData:FormData = new FormData();
+            formData.append('uploadFile', file, file.name);
+            let headers = new Headers();
+
+            /** In Angular 5, including the header Content-Type can invalidate your request */
+            headers.append('Content-Type', 'multipart/form-data');
+            headers.append('Accept', 'application/json');
+
+            setTimeout(() => {
+                this.spinner = false;
+                this.message = true;
+            }, 3000);
+        }
     }
 }

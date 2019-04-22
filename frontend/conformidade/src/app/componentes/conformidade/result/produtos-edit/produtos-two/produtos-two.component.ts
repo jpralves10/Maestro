@@ -5,7 +5,8 @@ import $ from "jquery";
 
 import { msg_produtos_two } from '../../../../../utilitarios/mensagens.module';
 
-import { Produto, ProdutoClass } from '../../../models/produto.model';
+import { Produto } from '../../../models/produto.model';
+import { Compatibilidade } from '../../../models/legendas.model';
 import { ProdutosTwoDataSource } from './produtos-two-datasource';
 import { ResultItem } from '../../../models/result-item.model';
 import { Result } from '../../../models/result.model';
@@ -29,8 +30,8 @@ export class ProdutosTwoComponent implements OnInit {
     inativos: Produto[] = [];
 
     data: Produto[];
-    public loading = true;
-    public errored = false;
+    loading = true;
+    errored = false;
  
     mensagem: any = {id: 0, tipo: '', class: '', lista: []};
 
@@ -75,7 +76,7 @@ export class ProdutosTwoComponent implements OnInit {
                 this.consultaService.getProdutosGenerico(
                     {
                         cnpjRaiz: this.produto.cnpjRaiz,
-                        status: this.produto.status,
+                        status: ['Pendente', 'Completo', 'Aprovado', 'Integrado'],
                         codigoInterno: this.produto.codigosInterno[0],
                         descricaoBruta: this.produto.descricaoBruta,
                         ncm: this.produto.ncm
@@ -96,11 +97,12 @@ export class ProdutosTwoComponent implements OnInit {
             }
 
             this.produto.versoesProduto = [];
-            this.setDataSource();
             this.loading = false;
+            this.setDataSource();
 
-            /*if(this.produto.versoesProduto === null || this.produto.versoesProduto === undefined){
+            /*if(this.produto.versoesProduto != null || this.produto.versoesProduto != undefined){
                 this.produto.versoesProduto = this.getMockDados();
+                this.setDataSource();
             }*/
         }
     }
@@ -213,29 +215,49 @@ export class ProdutosTwoComponent implements OnInit {
 
     public getMockDados(): Produto[]{
 
-        var produto: Produto = new ProdutoClass();
+        var compatibilidade: Compatibilidade = {
+            similaridade: 7,
+            identicos: 4,
+            verde: 5,
+            amarelo: 3,
+            vermelho: 2,
+            cinza: 1
+        }
 
-        produto.seq = "001";
-        produto.codigo = null;
-        produto.numeroDI = "01234567891"
-        produto.dataRegistro = "18042019";
-        produto.status = "Complementar";
-        produto.etapaConformidade = 0;
-        produto.descricaoBruta = "410102469R PINCA DO FREIO DIANTEIRO PARA VEICULO AUTOMOVEL";
-        produto.descricao = "";
-        produto.cnpjRaiz = "00913443000173";
-        produto.situacao = "ATIVADO";
-        produto.modalidade = "IMPORTACAO";
-        produto.ncm = "77083999";
-        produto.codigoNaladi = null;
-        produto.codigoGPC = null;
-        produto.codigoGPCBrick = null;
-        produto.codigoUNSPSC = null;
-        produto.paisOrigem = "FR";
-        produto.fabricanteConhecido = 'FALSE';
-        produto.codigoOperadorEstrangeiro = null;
-        produto.atributos = null;
-        produto.codigosInterno = null
+        var produto: Produto = {
+            _id: null,
+            seq: "001",
+            codigo: null,
+            numeroDI: "01234567891",
+            dataRegistro: "18042019",
+            status: "Pendente",
+            etapaConformidade: 0,
+            descricaoBruta: "410102469R PINCA DO FREIO DIANTEIRO PARA VEICULO AUTOMOVEL",
+            descricao: "",
+            cnpjRaiz: "00913443000173",
+            situacao: null, //"ATIVADO",
+            modalidade: undefined, //"IMPORTACAO",
+            ncm: "77083999",
+            codigoNaladi: null,
+            codigoGPC: null,
+            codigoGPCBrick: null,
+            codigoUNSPSC: null,
+            paisOrigem: "FR",
+            fabricanteConhecido: "FALSE",
+            cpfCnpjFabricante: null,
+            codigoOperadorEstrangeiro: null,
+            atributos: null,
+            codigosInterno: null,
+            dataCriacao: null,
+            dataAtualizacao: null,
+            usuarioAtualizacao: null,
+            declaracoes: [],
+            versoesProduto: [],
+            compatibilidade: compatibilidade,
+            declaracaoNode: [],
+            chartCanais: []  ,
+            canalDominante: 0      
+        }
         
 
         var produto2 = {...produto};

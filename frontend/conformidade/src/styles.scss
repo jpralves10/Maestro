@@ -16,6 +16,56 @@ html {
     font-family: 'Roboto', sans-serif;
 }
 
+/* Title App */
+
+h3 {
+    font-size: 1.50rem;
+    font-weight: 500;
+    color: #596679;
+    margin-top: 10px;
+}
+
+h5 {
+    font-size: 20px;
+    font-weight: 400;
+    color: #596679;
+}
+
+/* Table App */
+
+.table-list {
+    table {
+        width: 100%;
+    }
+}
+
+td.mat-cell,
+td.mat-footer-cell,
+th.mat-header-cell {
+    padding: 5px !important;
+}
+
+td.mat-cell {
+    font-size: 12px;
+    font-weight: 400;
+    color: #596679;
+}
+
+.mat-row:hover {
+    background-color: #EAF2F8;
+}
+
+/* App */
+
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+}
+
 .app-loading {
     box-sizing: border-box;
     background-image: url(http://relatorios.eficilog.com/img/logo_white.png);

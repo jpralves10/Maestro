@@ -18,9 +18,9 @@ export class ProdutosTwoDataSource extends DataSource<Produto> {
 
     constructor(
         private paginator: MatPaginator,
-        private sort: MatSort,
-        private resultService: ResultService,
-        data: Produto[]
+        private sort?: MatSort,
+        private resultService?: ResultService,
+        data?: Produto[]
     ) {
         super();
         this.data = [...data];

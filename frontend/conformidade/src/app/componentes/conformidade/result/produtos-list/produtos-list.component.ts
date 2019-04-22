@@ -277,6 +277,7 @@ export class ProdutosListComponent implements OnInit {
         };
 
         let options: {
+            showTooltips: false,
             fullWidth: true,
             responsive: false,
             maintainAspectRatio: false,

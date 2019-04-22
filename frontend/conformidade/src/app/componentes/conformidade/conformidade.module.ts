@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
-    MatInputModule, 
+    MatInputModule,
     MatChipsModule, 
     MatSelectModule,
     MatFormFieldModule,

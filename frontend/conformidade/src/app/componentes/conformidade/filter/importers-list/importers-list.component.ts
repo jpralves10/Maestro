@@ -21,6 +21,8 @@ export class ImportersListComponent implements OnInit {
     
     @Input() data: Importer[];
 
+    
+
     selection = new SelectionModel<Importer>(true, []);
 
     dataSource: ImportersListDataSource;

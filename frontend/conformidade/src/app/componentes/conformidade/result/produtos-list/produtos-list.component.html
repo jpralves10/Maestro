@@ -16,11 +16,8 @@
             <td
                 mat-cell
                 (click)="editRowProduto(row)"
-                class="style-cell"
                 *matCellDef="let row">
-                <span
-                    *ngIf="status.length > 1" 
-                    class="chip chip-standard chip-{{row.status}}">
+                <span *ngIf="status.length > 1" class="chip chip-standard chip-{{row.status}}">
                     {{ row.status }}
                 </span>
                 {{ row.descricaoBruta }}
@@ -32,11 +29,7 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
                 Código NCM
             </th>
-            <td
-                mat-cell
-                (click)="editRowProduto(row)"
-                class="style-cell"
-                *matCellDef="let row">
+            <td mat-cell (click)="editRowProduto(row)" *matCellDef="let row">
                 {{ row.ncm }}
             </td>
         </ng-container>
@@ -46,11 +39,7 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
                 Canal
             </th>
-            <td
-                mat-cell
-                (click)="openDialogDeclaracoes(row)"
-                class="style-cell"
-                *matCellDef="let row">
+            <td mat-cell (click)="openDialogDeclaracoes(row)" *matCellDef="let row">
 
                 <canvas id="list-{{ row._id }}"></canvas>
 

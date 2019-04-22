@@ -3,7 +3,7 @@
     <p>Carregando os dados para exibição...</p>
 </div>
 
-<div [hidden]="!loading" class="produtos-container">
+<div class="produtos-container">
     <h3>Verificar Versões da Mercadoria</h3>
 
     <div *ngIf="mensagem !== null" class="{{mensagem.class}}">
@@ -54,7 +54,7 @@
     <mat-card class="mat-elevation-z5 filtro-card">
         <mat-card-content class="form-container">
 
-            <h3>Digíte a descrição da mercadoria a ser considerada:</h3>
+            <h5>Digíte a descrição da mercadoria a ser considerada:</h5>
                 
             <div class="step-content descricao-fields">
                 <div class="step-content-form">
@@ -146,6 +146,10 @@
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
                 </table>
+
+                <div *ngIf="dataSource.data.length == 0">
+                    No records found!
+                </div>
             
                 <mat-paginator
                     #paginator
