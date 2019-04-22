@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterResult } from '../models/filter-result.model';
 import { Produto, ProdutoClass } from '../models/produto.model';
@@ -17,9 +17,10 @@ import { ProdutosListComponent } from './produtos-list/produtos-list.component';
     templateUrl: './result.component.html',
     styleUrls: ['./result.component.scss']
 })
-export class ResultComponent implements OnInit, AfterViewInit {
+export class ResultComponent implements OnInit {
 
-    @ViewChild(ProdutosListComponent) childProdutosList:ProdutosListComponent;
+    @ViewChild(ProdutosListComponent) 
+    childProdutosList:ProdutosListComponent;
 
     public filter: FilterResult;
     public loading = true;
@@ -52,26 +53,24 @@ export class ResultComponent implements OnInit, AfterViewInit {
             this.filter = JSON.parse(paramMap.get('filter'));
             this.status = this.filter.status;
 
-            this.produtos = this.getMockDados();  
+            this.produtos = this.getMockDados();
+            this.loading = false;  
             this.setDadosResult();
         });
 
         this.resultService.clearFilter();
     }
 
-    ngOnInit() {
+    ngOnInit() { }
 
-    }
-
-    ngAfterViewInit(){
-        console.log(this.childProdutosList.print());
+    ngAfterViewInit() {
+        
     }
 
     setDadosResult(){
-
         this.data = new ResultClass();
         this.data.produtos = [];
-
+        
         this.produtos.forEach(produto => {
             if(this.status.includes(produto.status)){
                 produto.declaracoes = this.getMockDeclaracoes();
@@ -79,9 +78,12 @@ export class ResultComponent implements OnInit, AfterViewInit {
             }
         })
         
-        this.childProdutosList.updateFiltro();
         this.setResumoCards();
-        this.loading = false;
+
+        if(this.childProdutosList != undefined){
+            this.childProdutosList.updateDataSource(this.data.produtos);
+        }
+        
 
         /*this.consultaService.getProdutosGenerico(
             {
@@ -195,6 +197,54 @@ export class ResultComponent implements OnInit, AfterViewInit {
                 dataRegistro: '10/12/2017',
                 numeroAdicao: '001',
                 canal: '004'
+            },
+            {
+                importadorNome: 'CHEVROLET DO BRASIL S.A',
+                importadorNumero: '33313443000173',
+                numeroDI: '87945678',
+                dataRegistro: '10/12/2012',
+                numeroAdicao: '001',
+                canal: '003'
+            },
+            {
+                importadorNome: 'CHEVROLET DO BRASIL S.A',
+                importadorNumero: '33313443000173',
+                numeroDI: '56445678',
+                dataRegistro: '10/12/2017',
+                numeroAdicao: '001',
+                canal: '004'
+            },
+            {
+                importadorNome: 'WOLKSWAGEN DA ALEMANHA S.A',
+                importadorNumero: '44413443000173',
+                numeroDI: '87945678',
+                dataRegistro: '10/12/2012',
+                numeroAdicao: '001',
+                canal: '001'
+            },
+            {
+                importadorNome: 'WOLKSWAGEN DA ALEMANHA S.A',
+                importadorNumero: '44413443000173',
+                numeroDI: '56445678',
+                dataRegistro: '10/12/2017',
+                numeroAdicao: '001',
+                canal: '003'
+            },
+            {
+                importadorNome: 'WOLKSWAGEN DA ALEMANHA S.A',
+                importadorNumero: '44413443000173',
+                numeroDI: '87945678',
+                dataRegistro: '10/12/2012',
+                numeroAdicao: '001',
+                canal: '001'
+            },
+            {
+                importadorNome: 'WOLKSWAGEN DA ALEMANHA S.A',
+                importadorNumero: '44413443000173',
+                numeroDI: '56445678',
+                dataRegistro: '10/12/2017',
+                numeroAdicao: '001',
+                canal: '003'
             }
         ]
     }
@@ -238,7 +288,9 @@ export class ResultComponent implements OnInit, AfterViewInit {
             usuarioAtualizacao: null,
             declaracoes: [],
             versoesProduto: [],
-            compatibilidade: null            
+            compatibilidade: null,
+            declaracaoNode: [],
+            chartCanais: []        
         }
 
         var produto2 = {...produto};

@@ -4,7 +4,8 @@
         class="full-width-table"
         [dataSource]="dataSource"
         matSort
-        aria-label="Elements">
+        aria-label="Elements"
+        (cdkObserveContent)="projectContentChanged($event)">
 
         <!-- Column -->
         <!--ng-container matColumnDef="numeroDI">
@@ -48,6 +49,20 @@
         </ng-container>
 
         <!-- Column -->
+        <ng-container matColumnDef="canal">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Canal
+            </th>
+            <td
+                mat-cell
+                (click)="openDialogDeclaracoes(row)"
+                class="style-cell"
+                *matCellDef="let row">
+                <canvas id="list-{{ row._id }}" style="width: 50px;height: 25px;display: block;"></canvas>
+            </td>
+        </ng-container>
+
+        <!-- Column -->
         <!--ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
                 Status
@@ -86,7 +101,8 @@
       [length]="dataSource.data.length"
       [pageIndex]="0"
       [pageSize]="5"
-      [pageSizeOptions]="[5, 10, 20, 50, 100, 200, 500, 1000]">
+      [pageSizeOptions]="[5, 10, 20, 50, 100, 200, 500, 1000]"
+      (page)="pageEvent = projectPageEvent($event)">
     </mat-paginator>
 
     <h5 *ngIf="selection.selected.length > 0">

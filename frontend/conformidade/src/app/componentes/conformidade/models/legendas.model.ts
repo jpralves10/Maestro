@@ -18,6 +18,13 @@ export interface Declaracao {
     canal: string; //canalSelecaoParametrizada
 }
 
+export interface DeclaracaoNode {
+    name: string;
+    cnpj: string;
+    toggle: boolean;
+    declaracoes?: any[];
+}
+
 export interface Atributos {
     atributo: string;
     valor: string;

@@ -17,6 +17,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ROUTES } from './app.routes';
 import { ConformidadeModule } from './componentes/conformidade/conformidade.module';
+import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [
@@ -31,6 +33,8 @@ import { ConformidadeModule } from './componentes/conformidade/conformidade.modu
         BrowserAnimationsModule,
         KeycloakAngularModule,
         HttpClientModule,
+        FormsModule,
+        NgbModule.forRoot(),
         RouterModule.forRoot(ROUTES, {useHash: true})
     ],
     providers: [

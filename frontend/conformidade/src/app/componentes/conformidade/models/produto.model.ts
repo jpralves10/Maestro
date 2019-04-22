@@ -1,4 +1,4 @@
-import { Atributos, Compatibilidade, Declaracao } from './legendas.model';
+import { Atributos, Compatibilidade, Declaracao, DeclaracaoNode } from './legendas.model';
 
 export interface Produto {
 
@@ -12,6 +12,8 @@ export interface Produto {
     numeroDI: string, 
     dataRegistro: string, 
     declaracoes: Declaracao[];
+    declaracaoNode: DeclaracaoNode[];
+    chartCanais: number[];
 
     /** Versões Produto **/
     versoesProduto: Produto[];
@@ -54,6 +56,8 @@ export class ProdutoClass implements Produto{
     numeroDI: string;
     dataRegistro: string;
     declaracoes: Declaracao[];
+    declaracaoNode: DeclaracaoNode[];
+    chartCanais: number[];
 
     /** Versões Produto **/
     versoesProduto: Produto[];

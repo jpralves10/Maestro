@@ -2,10 +2,11 @@ import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
 import { Input } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { Observable, of as observableOf, merge } from 'rxjs';
+import { Observable, of as observableOf, merge, from } from 'rxjs';
 import { Produto } from '../../models/produto.model';
 import { ResultItem } from '../../models/result-item.model';
 import { ResultService } from '../../services/result.service';
+import { ProdutosListComponent } from './produtos-list.component';
 
 export class ProdutosListDataSource extends DataSource<Produto> {
 
@@ -16,7 +17,10 @@ export class ProdutosListDataSource extends DataSource<Produto> {
 
     public filtro: ResultItem;
 
+    public dataObservable: Observable<any>;
+
     constructor(
+        private produtosList: ProdutosListComponent,
         private paginator: MatPaginator,
         private sort: MatSort,
         private resultService: ResultService,
@@ -53,7 +57,11 @@ export class ProdutosListDataSource extends DataSource<Produto> {
         this.filteredData = this.getFilteredData(this.fullData);
 
         this.paginator.length = this.filteredData.length;
-        return this.getPagedData(this.getSortedData(this.filteredData));
+        var sortedProdutos = this.getPagedData(this.getSortedData(this.filteredData));
+
+        //this.produtosList.setChartList(sortedProdutos);
+
+        return sortedProdutos;
     }
 
     /**

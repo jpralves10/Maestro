@@ -3,30 +3,16 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MatPaginator, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { Produto } from '../../models/produto.model';
 import { ProdutosListDataSource } from './produtos-list-datasource';
 import { ResultItem } from '../../models/result-item.model';
 import { Result } from '../../models/result.model';
 import { ResultService } from '../../services/result.service';
-import { Declaracao } from '../../models/legendas.model';
+import { ProdutosListDialog } from './produtos-list.dialog'
 
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-
-@Component({
-    selector: 'produtos-list.dialog',
-    templateUrl: 'produtos-list.dialog.html',
-})
-export class DialogOverviewExampleDialog {     
-  
-    constructor(
-        public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-        @Inject(MAT_DIALOG_DATA) public data: Declaracao[]
-    ) { }
-
-    onNoClick(): void {
-        this.dialogRef.close();
-    }
-}
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-produtos-list',
@@ -41,11 +27,20 @@ export class ProdutosListComponent implements OnInit {
     @Input() data: Produto[];
     @Input() status: string[];
 
+    filteredData: Produto[];
+
+    canalVerde: number = 0;
+    canalAmarelo: number = 0;
+    canalVermelho: number = 0;
+    canalCinza: number = 0;
+
+    eventTable: number = 0;
+
     selection = new SelectionModel<Produto>(true, []);
 
     dataSource: ProdutosListDataSource;
 
-    displayedColumns = ['descricaoBruta', 'ncm', 'declaracoes'];
+    displayedColumns = ['descricaoBruta', 'ncm', 'canal', 'declaracoes'];
 
     public filtroValue: ResultItem;
     public currentFilter: Result;
@@ -54,7 +49,7 @@ export class ProdutosListComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private resultService: ResultService,
-        public dialog: MatDialog
+        private modalService: NgbModal
     ) {
         resultService.filter.subscribe(f => (this.filtroValue = f));
 
@@ -69,7 +64,12 @@ export class ProdutosListComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.data.forEach(produto =>{
+            this.agruparDeclaracoes(produto);
+        });
+
         this.dataSource = new ProdutosListDataSource(
+            this,
             this.paginator,
             this.sort,
             this.resultService,
@@ -82,10 +82,20 @@ export class ProdutosListComponent implements OnInit {
             ...this.resultService.whenUpdated,
             this.paginator
         ]);
+
+        this.setChartList(this.getVisibleData());
     }
+    
+    /** Filtro Mat Table **/
 
     updateFiltro() {
         this.resultService.changeFilter(this.filtroValue);
+    }
+
+    updateDataSource(data: Produto[]){
+        this.dataSource.data = [...data];
+        this.dataSource.fullData = [...data];
+        this.updateFiltro();
     }
 
     masterToggle() {
@@ -127,15 +137,121 @@ export class ProdutosListComponent implements OnInit {
     }
 
     openDialogDeclaracoes(row: Produto): void {
-        /*const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {row.declaracoes})
-    
-        dialogRef.afterClosed().subscribe(result => {
-          console.log('The dialog was closed');
-          this.animal = result;
-        });*/
+        var modalRef = this.modalService.open(ProdutosListDialog);
+        modalRef.componentInstance.produto = row;
     }
 
-    print(){
-        console.log("Teste")
+    /** Chart Doughnut **/
+
+    setChartList(produtos: Produto[]){
+        produtos.forEach(produto =>{
+            let ctx = document.getElementById("list-" + produto._id);
+            new Chart(ctx, this.getChartDoughnut(produto));
+        });
+    }
+
+    projectContentChanged(event: any){
+        if(this.eventTable == 1){
+            this.setChartList(this.getVisibleData());
+            this.eventTable = 0;
+        }        
+    }
+
+    projectPageEvent(event: any){
+        if(event != undefined){
+            this.eventTable = 1;
+        }
+    }
+
+    agruparDeclaracoes(produto: Produto){
+
+        produto.declaracaoNode = [];
+        produto.chartCanais = [];
+
+        if(produto.declaracoes != null && produto.declaracoes != undefined){
+
+            produto.declaracoes.forEach(declaracao_one =>{
+
+                let itemExistente = false;
+                for (let item of produto.declaracaoNode){
+                    if(item.cnpj == declaracao_one.importadorNumero){
+                        itemExistente = true;
+                    }
+                }
+                if(!itemExistente){
+    
+                    let declaracaoNode = {
+                        name: declaracao_one.importadorNome,
+                        cnpj: declaracao_one.importadorNumero,
+                        toggle: true,
+                        declaracoes: []
+                    }
+
+                    produto.declaracoes.forEach(declaracao_two => {
+                        if(declaracao_one.importadorNumero == declaracao_two.importadorNumero){
+                            declaracaoNode.declaracoes.push({
+                                numeroDI: declaracao_two.numeroDI,
+                                dataRegistro: declaracao_two.dataRegistro,
+                                numeroAdicao: declaracao_two.numeroAdicao,
+                                canal: Number(declaracao_two.canal)
+                            });
+                            this.calcularQtdCanais(Number(declaracao_two.canal))
+                        }
+                    })
+
+                    produto.declaracaoNode.push(declaracaoNode);
+                }            
+            })
+
+            produto.chartCanais = [
+                this.canalVerde,
+                this.canalAmarelo,
+                this.canalVermelho,
+                this.canalCinza
+            ]
+        }
+    }
+
+    calcularQtdCanais(canal: number){
+        canal == 1 ? this.canalVerde++ : 
+        canal == 2 ? this.canalAmarelo++ :
+        canal == 3 ? this.canalVermelho++ :
+        this.canalCinza++
+    }
+
+    getChartDoughnut(produto: Produto){
+
+        let data = {
+            datasets: [
+                {
+                    data: produto.chartCanais, //[10, 20, 30, 40],
+                    backgroundColor: [
+                        "#A3E4D7",
+                        "#F9E79F",
+                        "#F5B7B1",
+                        "#CCD1D1"
+                    ]
+                }
+            ]
+        };
+    
+        let options: {
+            layout: {
+                padding: {
+                    width: 5,
+                    height: 5,
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0
+                }
+            }
+        }
+
+        return {
+            type: 'doughnut',
+            data: data,
+            options: options
+        }
     }
 }

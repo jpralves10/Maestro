@@ -3,7 +3,7 @@
     <p>Carregando os dados para exibição...</p>
 </div>
 
-<div *ngIf="!loading && !finish" class="container">
+<div *ngIf="!loading && !finish" class="produtos-container">
     <h3>Finalizar Preenchimento</h3>
 
     <div *ngIf="mensagem !== null" class="{{mensagem.class}}">
@@ -307,7 +307,7 @@
 
 </div>
 
-<div *ngIf="!loading && finish" class="container">
+<div *ngIf="!loading && finish" class="produtos-container">
 
     <div *ngIf="mensagem !== null" class="{{mensagem.class}}">
         <div *ngFor="let msg of mensagem.lista" class="mat-card-content-div">

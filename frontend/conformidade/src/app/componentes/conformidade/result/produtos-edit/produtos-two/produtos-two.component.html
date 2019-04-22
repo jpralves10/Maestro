@@ -3,7 +3,7 @@
     <p>Carregando os dados para exibição...</p>
 </div>
 
-<div [hidden]="!loading" class="container">
+<div [hidden]="!loading" class="produtos-container">
     <h3>Verificar Versões da Mercadoria</h3>
 
     <div *ngIf="mensagem !== null" class="{{mensagem.class}}">
@@ -65,7 +65,9 @@
                             (input)="validaDescricao($event)"
                             class="textarea-style">
                         </textarea>
-                        <mat-hint class="step-hint">Descrição da mercadoria a ser considerada</mat-hint>
+                        <mat-hint class="step-hint">
+                            Descrição da mercadoria a ser considerada
+                        </mat-hint>
                     </mat-form-field>
                 </div>
             </div>
