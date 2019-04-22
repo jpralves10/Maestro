@@ -5,15 +5,8 @@
         [dataSource]="dataSource"
         matSort
         aria-label="Elements"
-        (cdkObserveContent)="projectContentChanged($event)">
-
-        <!-- Column -->
-        <!--ng-container matColumnDef="numeroDI">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                Número da DI
-            </th>
-            <td mat-cell *matCellDef="let row">{{ row.numeroDI | mask: '00/0000000-0' }}</td>
-        </ng-container-->
+        (cdkObserveContent)="projectContentChanged($event)"
+        (matSortChange)="projectSortData($event)">
 
         <!-- Column -->
         <ng-container matColumnDef="descricaoBruta">
@@ -25,7 +18,7 @@
                 (click)="editRowProduto(row)"
                 class="style-cell"
                 *matCellDef="let row">
-                <span 
+                <span
                     *ngIf="status.length > 1" 
                     class="chip chip-standard chip-{{row.status}}">
                     {{ row.status }}
@@ -58,25 +51,18 @@
                 (click)="openDialogDeclaracoes(row)"
                 class="style-cell"
                 *matCellDef="let row">
-                <canvas id="list-{{ row._id }}" style="width: 50px;height: 25px;display: block;"></canvas>
+
+                <canvas id="list-{{ row._id }}"></canvas>
+
+                <!--canvas id="list-{{ row._id }}" width="100%" height="100%"></canvas-->
             </td>
         </ng-container>
 
         <!-- Column -->
-        <!--ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                Status
-            </th>
-            <td mat-cell *matCellDef="let row">
-                <mat-chip-list>
-                    <mat-chip>{{ row.status }}</mat-chip>
-                </mat-chip-list>
-            </td>
-        </ng-container-->
-
-        <!-- Column -->
         <ng-container matColumnDef="declaracoes">
-            <th mat-header-cell *matHeaderCellDef>Detalhes</th>
+            <th mat-header-cell *matHeaderCellDef>
+                Detalhes
+            </th>
             <td mat-cell *matCellDef="let row">
                 <button
                     mat-button

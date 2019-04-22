@@ -81,7 +81,9 @@ export class ResultComponent implements OnInit {
         this.setResumoCards();
 
         if(this.childProdutosList != undefined){
+            this.childProdutosList.agruparDeclaracoes(this.data.produtos);
             this.childProdutosList.updateDataSource(this.data.produtos);
+            //this.childProdutosList.setChartList(this.data.produtos);
         }
         
 
@@ -290,7 +292,8 @@ export class ResultComponent implements OnInit {
             versoesProduto: [],
             compatibilidade: null,
             declaracaoNode: [],
-            chartCanais: []        
+            chartCanais: []  ,
+            canalDominante: 0      
         }
 
         var produto2 = {...produto};

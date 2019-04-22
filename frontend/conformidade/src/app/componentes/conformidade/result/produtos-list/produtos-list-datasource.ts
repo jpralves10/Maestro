@@ -20,7 +20,6 @@ export class ProdutosListDataSource extends DataSource<Produto> {
     public dataObservable: Observable<any>;
 
     constructor(
-        private produtosList: ProdutosListComponent,
         private paginator: MatPaginator,
         private sort: MatSort,
         private resultService: ResultService,
@@ -127,8 +126,8 @@ export class ProdutosListDataSource extends DataSource<Produto> {
                     return compare(a.descricaoBruta, b.descricaoBruta, isAsc);
                 case 'ncm':
                     return compare(a.ncm, b.ncm, isAsc);
-                /*case 'status':
-                    return compare(a.status, b.status, isAsc);*/
+                case 'canal':
+                    return compare(a.canalDominante, b.canalDominante, isAsc);
                 default:
                     return 0;
             }

@@ -38,6 +38,9 @@ export class ProdutosListDialog {
 
     getChartDoughnut(){
 
+        Chart.defaults.global.legend.display = true;
+        Chart.defaults.global.tooltips.enabled = true;
+
         let data = {
             labels: [
                 'Canal Verde',

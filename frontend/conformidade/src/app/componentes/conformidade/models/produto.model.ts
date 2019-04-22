@@ -14,6 +14,7 @@ export interface Produto {
     declaracoes: Declaracao[];
     declaracaoNode: DeclaracaoNode[];
     chartCanais: number[];
+    canalDominante: number;
 
     /** Versões Produto **/
     versoesProduto: Produto[];
@@ -58,6 +59,7 @@ export class ProdutoClass implements Produto{
     declaracoes: Declaracao[];
     declaracaoNode: DeclaracaoNode[];
     chartCanais: number[];
+    canalDominante: number;
 
     /** Versões Produto **/
     versoesProduto: Produto[];
