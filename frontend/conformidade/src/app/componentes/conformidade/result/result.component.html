@@ -102,19 +102,21 @@
         <mat-card-content class="form-container">
 
             <div class="table-head clearfix">
-                <span class="table-title">
+                <span
+                    class="table-title">
                     Mercadorias 
-                    ({{resumo.periodoInicial | mask: 'AA/AA/AAAA'}} a
-                    {{resumo.periodoFinal | mask: 'AA/AA/AAAA'}})
+                    ({{resumo.periodoInicial.toLocaleDateString()}} a
+                    {{resumo.periodoFinal.toLocaleDateString()}})
                 </span>
 
                 <button
                     mat-raised-button
                     (click)="addMercadoria()"
-                    class="table-button">
+                    class="add-button">
                     <fa-icon icon="plus" size="lg" style="font-size: 10px;"></fa-icon>
                     Add Item
                 </button>
+                
             </div>
 
             <mat-accordion>

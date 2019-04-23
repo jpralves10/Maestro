@@ -10,7 +10,7 @@ import { ConsultaService } from '../../../services/consulta.service';
 import paises from '../../../../../utilitarios/pais-origem.model';
 import { msg_produtos_three } from '../../../../../utilitarios/mensagens.module';
 
-import * as DateManagement from '../../../../../utilitarios/date-management';
+import * as DateManagement from '../../../../../utilitarios/date.utils';
 
 @Component({
     selector: 'app-produtos-three',
@@ -116,6 +116,10 @@ export class ProdutosThreeComponent implements OnInit {
         this.codigoInternoDataSource.data = [...this.produto.codigosInterno];
     }
 
+    public setStatusProduto(event: any){
+        this.produto.status = event.checked === true ? 'Aprovado' : 'Pendente'
+    }
+
     public finalizarPreenchimento(){
 
         this.spinner = true;
@@ -140,11 +144,18 @@ export class ProdutosThreeComponent implements OnInit {
                         this.finish = false;
                         this.mensagem = null;
 
-                        this.produto.status = 'Completo';
-                        this.produto.dataCriacao = DateManagement.UTCTimeZoneString(new Date());
-                        this.produto.dataAtualizacao = DateManagement.UTCTimeZoneString(new Date());
+                        if(this.produto.status == 'Pendente'){
+                            this.produto.status = 'Completo';
+                        }                        
+                        
+                        this.produto.dataAtualizacao = new Date();
                         this.produto.versoesProduto = undefined;
                         this.produto.etapaConformidade = undefined;
+                        this.produto.compatibilidade = undefined;
+                        this.produto.declaracaoNode = undefined;
+                        this.produto.declaracoes = undefined;
+                        this.produto.chartCanais = undefined;
+                        this.produto.canalDominante = undefined;
 
                         if(this.produto.atributos.length <= 0){
                             this.produto.atributos = undefined;
@@ -281,10 +292,14 @@ export class ProdutosThreeComponent implements OnInit {
     }
 
     public getFilterAsString(): string {
+        
+        var date = new Date();
+        var start_date = new Date(date.setMonth(date.getMonth() - 12));
+
         return JSON.stringify({
             importers: [this.produto.cnpjRaiz],
-            start_date: '',
-            end_date: ''
+            start_date: start_date,
+            end_date: new Date()
         } as FilterResult);
     }
 

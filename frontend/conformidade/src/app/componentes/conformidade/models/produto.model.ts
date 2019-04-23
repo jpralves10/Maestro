@@ -10,7 +10,7 @@ export interface Produto {
 
     /** Informações Declaracao **/
     numeroDI: string, 
-    dataRegistro: string, 
+    dataRegistro: Date, 
     declaracoes: Declaracao[];
     declaracaoNode: DeclaracaoNode[];
     chartCanais: number[];
@@ -21,8 +21,8 @@ export interface Produto {
     compatibilidade: Compatibilidade;
 
     /** Histórico **/
-    dataCriacao: string;
-    dataAtualizacao: string;
+    dataCriacao: Date;
+    dataAtualizacao: Date;
     usuarioAtualizacao: string;
 
     /** Integração API **/
@@ -38,7 +38,7 @@ export interface Produto {
     codigoGPCBrick: number;
     codigoUNSPSC: number;
     paisOrigem: string;
-    fabricanteConhecido: any;
+    fabricanteConhecido: boolean;
     cpfCnpjFabricante: string;
     codigoOperadorEstrangeiro: string;
     atributos: Atributos[];
@@ -55,7 +55,7 @@ export class ProdutoClass implements Produto{
 
     /** Informações Declaracao **/
     numeroDI: string;
-    dataRegistro: string;
+    dataRegistro: Date;
     declaracoes: Declaracao[];
     declaracaoNode: DeclaracaoNode[];
     chartCanais: number[];
@@ -66,8 +66,8 @@ export class ProdutoClass implements Produto{
     compatibilidade: Compatibilidade;
 
     /** Histórico **/
-    dataCriacao: string;
-    dataAtualizacao: string;
+    dataCriacao: Date;
+    dataAtualizacao: Date;
     usuarioAtualizacao: string;
 
     /** Integração API **/
@@ -83,7 +83,7 @@ export class ProdutoClass implements Produto{
     codigoGPCBrick: number;
     codigoUNSPSC: number;
     paisOrigem: string;
-    fabricanteConhecido: any;
+    fabricanteConhecido: boolean;
     cpfCnpjFabricante: string;
     codigoOperadorEstrangeiro: string;
     atributos: [

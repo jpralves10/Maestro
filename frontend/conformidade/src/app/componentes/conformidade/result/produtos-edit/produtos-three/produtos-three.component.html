@@ -124,6 +124,12 @@
                         [(ngModel)]="produto.codigoOperadorEstrangeiro"/>
                 </mat-form-field>
 
+                <mat-checkbox
+                    [checked]="produto.status == 'Aprovado'"
+                    (change)="setStatusProduto($event)">
+                    Aprovar Mercadoria
+                </mat-checkbox>
+
             </div>
 
             <mat-accordion>

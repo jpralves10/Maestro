@@ -175,7 +175,7 @@
                     (page)="pageEvent = projectPageEvent($event)">
                 </mat-paginator>
             
-                <h5 *ngIf="selection.selected.length > 0">
+                <div *ngIf="selection.selected.length > 0" class="selected-itens">
                     {{ selection.selected.length }}
                     {{
                         selection.selected.length > 1
@@ -200,7 +200,7 @@
                         (click)="inativarTodos()">
                         Inativar todos
                     </button>
-                </h5>
+                </div>
             </div>
 
         </mat-card-content>
@@ -214,10 +214,7 @@
                 (click)="voltarEtapa()"
                 class="step-button-return"
                 style="margin: 0 8px;">
-                <fa-icon
-                    icon="angle-double-left"
-                    size="fa-sm">
-                </fa-icon>
+                <fa-icon icon="angle-double-left" size="fa-sm"></fa-icon>
                 Voltar Etapa Anterior
             </button>
             <button

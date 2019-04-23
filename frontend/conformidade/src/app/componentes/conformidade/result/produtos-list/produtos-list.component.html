@@ -62,14 +62,14 @@
                 </button>
             </td>
         </ng-container>
-
-        <div style="height:30px">
-
-        </div>
   
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
+
+    <div *ngIf="dataSource.data.length == 0" class="table-not-records">
+        No records found!
+    </div>
 
     <mat-paginator
         #paginator
@@ -80,15 +80,13 @@
         (page)="pageEvent = projectPageEvent($event)">
     </mat-paginator>
 
-    <h5 *ngIf="selection.selected.length > 0">
-        {{ selection.selected.length }}
-        {{
-        selection.selected.length > 1
-            ? 'produtos selecionados'
-            : 'produto selecionado'
-        }}
-        <button mat-button color="warn" (click)="deselectAll()">
-        Desmarcar tudo
-        </button>
-    </h5>
+    <div class="selected-itens">
+        <a mat-button color="warn" 
+            href="http://homologacao.eficilog.com:4545/catalogo-produtos/extrato?cnpj=08532602"
+            style="text-decoration:none;"
+            target="_blank">
+            <fa-icon icon="file-csv" size="fa-sm" class="file-csv"></fa-icon>
+            Exportar Mercadorias
+        </a>
+    </div>
 </div>  

@@ -130,7 +130,7 @@ export class ProdutosListComponent implements OnInit {
     editRowProduto(row: Produto){
         this.router.navigate([`/produtosEdit`], {
             relativeTo: this.route,
-            replaceUrl: true,
+            replaceUrl: false,
             queryParams: {
                 filterProduto: JSON.stringify({...row})
             }

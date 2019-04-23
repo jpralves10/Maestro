@@ -26,7 +26,7 @@
                     <ul *ngFor="let declaracao of node.declaracoes">
                         <li class="tree-body">
                             DI: {{declaracao.numeroDI | mask: '00/0000000-0' }} - 
-                            {{declaracao.dataRegistro}}
+                            {{declaracao.dataRegistro.toLocaleDateString()}}
                             <fa-icon 
                                 icon="circle" 
                                 size="fa-xs" 

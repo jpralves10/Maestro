@@ -29,10 +29,13 @@ export class ResultComponent implements OnInit {
     produtos: Produto[];
     data: Result = null;
     status: string[] = [];
+
+    date = new Date();
+    start_date = new Date(this.date.setMonth(this.date.getMonth() - 12));
     
     resumo: Resumo = {
-        periodoInicial: '', 
-        periodoFinal: '', 
+        periodoInicial: this.start_date, 
+        periodoFinal: new Date(), 
         cnpjList: [], 
         qtdDeclaracoes: 0, 
         qtdItens: 0, 
@@ -53,7 +56,7 @@ export class ResultComponent implements OnInit {
             this.filter = JSON.parse(paramMap.get('filter'));
             this.status = this.filter.status;
 
-            this.produtos = this.getMockDados();
+            //this.produtos = this.getMockDados();
             this.loading = false;  
             this.setDadosResult();
         });
@@ -63,15 +66,13 @@ export class ResultComponent implements OnInit {
 
     ngOnInit() { }
 
-    ngAfterViewInit() {
-        
-    }
+    ngAfterViewInit() { }
 
     setDadosResult(){
         this.data = new ResultClass();
         this.data.produtos = [];
         
-        this.produtos.forEach(produto => {
+        /*this.produtos.forEach(produto => {
             if(this.status.includes(produto.status)){
                 produto.declaracoes = this.getMockDeclaracoes();
                 this.data.produtos.push(produto);
@@ -84,29 +85,46 @@ export class ResultComponent implements OnInit {
             this.childProdutosList.agruparDeclaracoes(this.data.produtos);
             this.childProdutosList.updateDataSource(this.data.produtos);
             //this.childProdutosList.setChartList(this.data.produtos);
-        }
-        
+        }*/
 
-        /*this.consultaService.getProdutosGenerico(
+        this.consultaService.getProdutosGenerico(
             {
                 cnpjRaiz: this.filter.importers[0],
+                status: this.status,
                 dataInicial: this.filter.start_date,
-                dataFinal: this.filter.end_date,
-                status: this.status
-                //dataRegistro: {$gte: '2018-04-15T11:46:31.822Z', $lte: '2019-04-15T11:46:31.822Z'},
-                //status: {$in: this.status}
+                dataFinal: this.filter.end_date
             }
         ).subscribe(adicoes => {
             this.data.produtos = (adicoes as any).produtos;
 
             this.data.produtos.forEach(produto => {
-                produto.declaracoes = this.getMockDeclaracoes();
+                produto.dataRegistro = new Date(produto.dataRegistro);
+                produto.dataCriacao = new Date(produto.dataCriacao);
+
+                if(produto.declaracoes == null || produto.declaracoes == undefined){
+                    produto.declaracoes = [];
+                }
+
+                produto.declaracoes.forEach(declaracao => {
+                    declaracao.dataRegistro = new Date(declaracao.dataRegistro);
+                });
+
+                produto.canalDominante = 0;
             });
 
+            this.produtos = this.data.produtos;
             this.setResumoCards();
+
+            if(this.childProdutosList != undefined){
+                this.childProdutosList.agruparDeclaracoes(this.data.produtos);
+                this.childProdutosList.updateDataSource(this.data.produtos);
+                this.childProdutosList.eventTable = 1;
+                //this.childProdutosList.setChartList(this.data.produtos);
+            }
+
             this.loading = false;
         },
-        error => { this.errored = true;})*/
+        error => { this.errored = true; })
     }
 
     public updateFiltro() {
@@ -114,8 +132,8 @@ export class ResultComponent implements OnInit {
     }
 
     public setResumoCards(){
-        this.resumo.periodoInicial = this.filter.start_date;
-        this.resumo.periodoFinal = this.filter.end_date;
+        this.resumo.periodoInicial = new Date(this.filter.start_date);
+        this.resumo.periodoFinal = new Date(this.filter.end_date);
         this.resumo.cnpjList = this.filter.cnpjList;
         this.resumo.qtdDeclaracoes = this.getQtdDeclaracoes();
         this.resumo.qtdItens = this.getQtdItens(true);
@@ -124,9 +142,9 @@ export class ResultComponent implements OnInit {
 
     public getQtdDeclaracoes(): number{
         let setDeclaracoes = new Set();
-        for(let produto of this.produtos){
+        this.produtos.forEach(produto => {
             setDeclaracoes.add(produto.numeroDI);
-        }
+        });
         return setDeclaracoes.size
     }
 
@@ -172,7 +190,7 @@ export class ResultComponent implements OnInit {
                 importadorNome: 'RENAULT DO BRASIL S.A',
                 importadorNumero: '00913443000173',
                 numeroDI: '12345678',
-                dataRegistro: '10/12/2001',
+                dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
                 numeroAdicao: '001',
                 canal: '002'
             },
@@ -180,7 +198,7 @@ export class ResultComponent implements OnInit {
                 importadorNome: 'RENAULT DO BRASIL S.A',
                 importadorNumero: '00913443000173',
                 numeroDI: '32145678',
-                dataRegistro: '10/12/2010',
+                dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
                 numeroAdicao: '001',
                 canal: '002'
             },
@@ -188,7 +206,7 @@ export class ResultComponent implements OnInit {
                 importadorNome: 'RENAULT DO BRASIL S.A',
                 importadorNumero: '00913443000173',
                 numeroDI: '87945678',
-                dataRegistro: '10/12/2012',
+                dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
                 numeroAdicao: '001',
                 canal: '001'
             },
@@ -196,7 +214,7 @@ export class ResultComponent implements OnInit {
                 importadorNome: 'RENAULT DO BRASIL S.A',
                 importadorNumero: '00913443000173',
                 numeroDI: '56445678',
-                dataRegistro: '10/12/2017',
+                dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
                 numeroAdicao: '001',
                 canal: '004'
             },
@@ -204,7 +222,7 @@ export class ResultComponent implements OnInit {
                 importadorNome: 'CHEVROLET DO BRASIL S.A',
                 importadorNumero: '33313443000173',
                 numeroDI: '87945678',
-                dataRegistro: '10/12/2012',
+                dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
                 numeroAdicao: '001',
                 canal: '003'
             },
@@ -212,7 +230,7 @@ export class ResultComponent implements OnInit {
                 importadorNome: 'CHEVROLET DO BRASIL S.A',
                 importadorNumero: '33313443000173',
                 numeroDI: '56445678',
-                dataRegistro: '10/12/2017',
+                dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
                 numeroAdicao: '001',
                 canal: '004'
             },
@@ -220,7 +238,7 @@ export class ResultComponent implements OnInit {
                 importadorNome: 'WOLKSWAGEN DA ALEMANHA S.A',
                 importadorNumero: '44413443000173',
                 numeroDI: '87945678',
-                dataRegistro: '10/12/2012',
+                dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
                 numeroAdicao: '001',
                 canal: '001'
             },
@@ -228,7 +246,7 @@ export class ResultComponent implements OnInit {
                 importadorNome: 'WOLKSWAGEN DA ALEMANHA S.A',
                 importadorNumero: '44413443000173',
                 numeroDI: '56445678',
-                dataRegistro: '10/12/2017',
+                dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
                 numeroAdicao: '001',
                 canal: '003'
             },
@@ -236,7 +254,7 @@ export class ResultComponent implements OnInit {
                 importadorNome: 'WOLKSWAGEN DA ALEMANHA S.A',
                 importadorNumero: '44413443000173',
                 numeroDI: '87945678',
-                dataRegistro: '10/12/2012',
+                dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
                 numeroAdicao: '001',
                 canal: '001'
             },
@@ -244,7 +262,7 @@ export class ResultComponent implements OnInit {
                 importadorNome: 'WOLKSWAGEN DA ALEMANHA S.A',
                 importadorNumero: '44413443000173',
                 numeroDI: '56445678',
-                dataRegistro: '10/12/2017',
+                dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
                 numeroAdicao: '001',
                 canal: '003'
             }
@@ -266,7 +284,7 @@ export class ResultComponent implements OnInit {
             seq: "001",
             codigo: null,
             numeroDI: "01234567891",
-            dataRegistro: "18042019",
+            dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
             status: "Pendente",
             etapaConformidade: 0,
             descricaoBruta: "410102469R PINCA DO FREIO DIANTEIRO PARA VEICULO AUTOMOVEL",
@@ -280,7 +298,7 @@ export class ResultComponent implements OnInit {
             codigoGPCBrick: null,
             codigoUNSPSC: null,
             paisOrigem: "FR",
-            fabricanteConhecido: "FALSE",
+            fabricanteConhecido: false,
             cpfCnpjFabricante: null,
             codigoOperadorEstrangeiro: null,
             atributos: null,

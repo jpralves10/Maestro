@@ -14,7 +14,7 @@ export interface Declaracao {
     importadorNome: string;
     importadorNumero: string;
     numeroDI: string;
-    dataRegistro: string;
+    dataRegistro: Date;
     numeroAdicao: string;
     canal: string; //canalSelecaoParametrizada
 }
@@ -32,8 +32,8 @@ export interface Atributos {
 }
 
 export interface Resumo {
-    periodoInicial: string, 
-    periodoFinal: string, 
+    periodoInicial: Date, 
+    periodoFinal: Date, 
     cnpjList: string[], 
     qtdDeclaracoes: number, 
     qtdItens: number, 

@@ -5,6 +5,8 @@ import $ from "jquery";
 
 import { Chart } from 'chart.js';
 
+import * as DateManagement from '../../../../../utilitarios/date.utils';
+
 import { msg_produtos_two } from '../../../../../utilitarios/mensagens.module';
 
 import { Produto } from '../../../models/produto.model';
@@ -75,39 +77,51 @@ export class ProdutosTwoComponent implements OnInit {
                 this.produto.descricao = this.produto.descricaoBruta;
             }
 
-            if(this.produto.codigosInterno.length > 0){
-
-                /*this.consultaService.getProdutosGenerico(
-                    {
-                        cnpjRaiz: this.produto.cnpjRaiz,
-                        status: ['Pendente', 'Completo', 'Aprovado', 'Integrado'],
-                        codigoInterno: this.produto.codigosInterno[0],
-                        descricaoBruta: this.produto.descricaoBruta,
-                        ncm: this.produto.ncm
-                    }
-                ).subscribe(versoes => {
-                    var produtos: Produto[] = (versoes as any).produtos;
-
-                    produtos.forEach(produto => {
-                        if(this.produto._id !== produto._id){
-                            this.produto.versoesProduto.push(produto);
-                        }
-                    });
-
-                    window.sessionStorage.setItem('mercadorias', JSON.stringify(this.data));
-                    this.setDataSource();
-                },
-                error => { this.errored = true;})*/
+            if(this.produto.codigosInterno == null || this.produto.codigosInterno == undefined){
+                this.produto.codigosInterno = []
             }
+
+            this.consultaService.getProdutosGenerico(
+                {
+                    cnpjRaiz: this.produto.cnpjRaiz.substring(0, 8),
+                    status: ['Pendente', 'Completo', 'Aprovado', 'Integrado'],
+                    codigoInterno: this.produto.codigosInterno[0],
+                    descricaoBruta: this.produto.descricaoBruta,
+                    ncm: this.produto.ncm
+                }
+            ).subscribe(versoes => {
+                var produtos: Produto[] = (versoes as any).produtos;
+
+                produtos.forEach(produto => {
+                    if(this.produto._id !== produto._id){
+
+                        produto.dataRegistro = new Date(produto.dataRegistro);
+                        produto.dataCriacao = new Date(produto.dataCriacao);
+
+                        produto.declaracoes.forEach(declaracao => {
+                            declaracao.dataRegistro = new Date(declaracao.dataRegistro);
+                        })
+
+                        produto.compatibilidade.canalDominante = 0;
+
+                        this.produto.versoesProduto.push(produto);
+                    }
+                });
+
+                window.sessionStorage.setItem('mercadorias', JSON.stringify(this.data));
+                this.setDataSource();
+                this.eventTable = 1;
+            },
+            error => { this.errored = true;})
 
             this.produto.versoesProduto = [];
             this.loading = false;
             this.setDataSource();
 
-            if(this.produto.versoesProduto != null || this.produto.versoesProduto != undefined){
+            /*if(this.produto.versoesProduto != null || this.produto.versoesProduto != undefined){
                 this.produto.versoesProduto = this.getMockDados();
                 this.setDataSource();
-            }
+            }*/
         }
     }
 
@@ -344,7 +358,7 @@ export class ProdutosTwoComponent implements OnInit {
             seq: "001",
             codigo: null,
             numeroDI: "01234567891",
-            dataRegistro: "18042019",
+            dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
             status: "Pendente",
             etapaConformidade: 0,
             descricaoBruta: "410102469R PINCA DO FREIO DIANTEIRO PARA VEICULO AUTOMOVEL",
@@ -358,7 +372,7 @@ export class ProdutosTwoComponent implements OnInit {
             codigoGPCBrick: null,
             codigoUNSPSC: null,
             paisOrigem: "FR",
-            fabricanteConhecido: "FALSE",
+            fabricanteConhecido: false,
             cpfCnpjFabricante: null,
             codigoOperadorEstrangeiro: null,
             atributos: null,

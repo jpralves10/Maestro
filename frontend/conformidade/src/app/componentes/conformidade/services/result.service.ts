@@ -3,12 +3,15 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { MatPaginator } from '@angular/material';
 import { ResultItem } from '../models/result-item.model';
 import { Result } from '../models/result.model';
-import * as DateManagement from '../../../utilitarios/date-management';
+import * as DateManagement from '../../../utilitarios/date.utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResultService {
+
+    date = new Date();
+    start_date = new Date(this.date.setMonth(this.date.getMonth() - 12));
 
     constructor() {
         this.whenUpdatedSource.subscribe(p => (this.whenUpdated = p));
@@ -44,8 +47,8 @@ export class ResultService {
 
     private readonly defaultFilterResult: Result = {
         produtos: [],
-        data_inicio: DateManagement.BrFormatDateFromDate(actualDateDecremented()),
-        data_fim: DateManagement.BrFormatDateFromDate(new Date())
+        data_inicio: this.start_date,
+        data_fim: new Date()
     };
 
     public filterResultSource: 

@@ -27,6 +27,8 @@ export function DateFromBrFormatDate(date: string): Date {
 
 export function DateFromBrString(date: string): string {
 
+     // YYYY-MM-DDTHH:MM:SS.SSSZ -> to -> DD-MM-YYYY
+
     if(date.length == 24){
         var dateTime = date.split("T");
         date = dateTime[0].replace(/[/\/\-\.]/g, '')
