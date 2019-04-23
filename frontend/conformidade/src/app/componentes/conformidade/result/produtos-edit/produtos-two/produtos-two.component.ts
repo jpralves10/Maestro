@@ -3,6 +3,8 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import $ from "jquery";
 
+import { Chart } from 'chart.js';
+
 import { msg_produtos_two } from '../../../../../utilitarios/mensagens.module';
 
 import { Produto } from '../../../models/produto.model';
@@ -32,6 +34,8 @@ export class ProdutosTwoComponent implements OnInit {
     data: Produto[];
     loading = true;
     errored = false;
+
+    eventTable: number = 0;
  
     mensagem: any = {id: 0, tipo: '', class: '', lista: []};
 
@@ -43,7 +47,7 @@ export class ProdutosTwoComponent implements OnInit {
         produto: {numeroDI: '', descricaoBruta: '', ncm: '', status: ''}
     };
 
-    displayedColumns = ['select', 'descricaoBruta', 'operacoes'];
+    displayedColumns = ['select', 'descricaoBruta', 'canal', 'operacoes'];
 
     public filtroValue: ResultItem;
     public currentFilter: Result;
@@ -73,7 +77,7 @@ export class ProdutosTwoComponent implements OnInit {
 
             if(this.produto.codigosInterno.length > 0){
 
-                this.consultaService.getProdutosGenerico(
+                /*this.consultaService.getProdutosGenerico(
                     {
                         cnpjRaiz: this.produto.cnpjRaiz,
                         status: ['Pendente', 'Completo', 'Aprovado', 'Integrado'],
@@ -93,17 +97,17 @@ export class ProdutosTwoComponent implements OnInit {
                     window.sessionStorage.setItem('mercadorias', JSON.stringify(this.data));
                     this.setDataSource();
                 },
-                error => { this.errored = true;})
+                error => { this.errored = true;})*/
             }
 
             this.produto.versoesProduto = [];
             this.loading = false;
             this.setDataSource();
 
-            /*if(this.produto.versoesProduto != null || this.produto.versoesProduto != undefined){
+            if(this.produto.versoesProduto != null || this.produto.versoesProduto != undefined){
                 this.produto.versoesProduto = this.getMockDados();
                 this.setDataSource();
-            }*/
+            }
         }
     }
 
@@ -125,6 +129,8 @@ export class ProdutosTwoComponent implements OnInit {
             ...this.resultService.whenUpdated,
             this.paginator
         ]);
+
+        this.setChartList(this.getVisibleData());
     }
 
     masterToggle() {
@@ -169,14 +175,15 @@ export class ProdutosTwoComponent implements OnInit {
             this.selection.toggle(row);
             this.dataSource.getUpdatedData();
             this.updateFiltro();
+            this.eventTable = 1;
         }, 500);
     }
 
     inativarTodos(){
         const visibleData = this.getVisibleData();
         visibleData.forEach(row =>{
-            this.inativarProduto(row)
-        })
+            this.inativarProduto(row);
+        });
     }
 
     proximaEtapa(){
@@ -213,11 +220,119 @@ export class ProdutosTwoComponent implements OnInit {
         this.produtoAlterado.emit(this.produto);
     }
 
+    /** Chart Doughnut **/
+
+    openDialogDeclaracoes(produto: Produto){
+
+    }
+
+    setChartList(produtos: Produto[]){
+        produtos.forEach(produto =>{
+            let ctx = document.getElementById("two-" + produto._id);
+            new Chart(ctx, this.getChartDoughnut(produto));
+            this.getCanalDominante(produto);
+        });
+    }
+
+    projectContentChanged(event: any){
+        if(this.eventTable == 1 ){
+            this.setChartList(this.getVisibleData());
+            this.eventTable = 0;
+        }
+    }
+
+    projectSortData(event: any){
+        if(event != undefined){
+            this.eventTable = 1;
+        }
+    }
+
+    projectPageEvent(event: any){
+        if(event != undefined){
+            this.eventTable = 1;
+        }
+    }
+
+    getCanalDominante(produto: Produto){
+
+        var canais = [
+            produto.compatibilidade.verde,
+            produto.compatibilidade.amarelo,
+            produto.compatibilidade.vermelho,
+            produto.compatibilidade.cinza,
+        ]
+
+        canais.forEach((canal1, index) => {
+            canais.forEach(canal2 => {
+                if(canal1 > canal2){
+                    produto.compatibilidade.canalDominante = index;
+                }
+            })
+        })
+    }
+
+    getChartDoughnut(produto: Produto){
+
+        Chart.defaults.global.legend.display = false;
+        Chart.defaults.global.tooltips.enabled = false;
+
+        let data = {
+            labels: [
+                'Canal Verde',
+                'Canal Amarelo',
+                'Canal Vermelho',
+                'Canal Cinza'
+            ],
+            //labels: [],
+            datasets: [
+                {
+                    data: [
+                        produto.compatibilidade.verde,
+                        produto.compatibilidade.amarelo,
+                        produto.compatibilidade.vermelho,
+                        produto.compatibilidade.cinza,
+                    ], //[10, 20, 30, 40],
+                    backgroundColor: [
+                        "#A3E4D7",
+                        "#F9E79F",
+                        "#F5B7B1",
+                        "#CCD1D1"
+                    ]
+                }
+            ]
+        };
+
+        let options: {
+            showTooltips: false,
+            fullWidth: true,
+            responsive: false,
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+
+        return {
+            type: 'doughnut',
+            data: data,
+            options: options
+        }
+    }
+
+
+
+    /* Mocks */
+
     public getMockDados(): Produto[]{
 
         var compatibilidade: Compatibilidade = {
             similaridade: 7,
             identicos: 4,
+            canalDominante: 0,
             verde: 5,
             amarelo: 3,
             vermelho: 2,

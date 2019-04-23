@@ -1,4 +1,15 @@
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+//@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+h5 {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+canvas {
+    width: 80px !important;
+    height: 40px !important;
+    margin: 0 !important;
+}
 
 .produtos-container {
     box-sizing: border-box;
@@ -28,7 +39,7 @@
     }
 }
 
-.td-descricao-descarte {
+.descarte-row {
     text-decoration: line-through;
     font-style: italic;
 }

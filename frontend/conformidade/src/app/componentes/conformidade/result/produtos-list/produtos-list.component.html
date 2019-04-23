@@ -72,23 +72,23 @@
     </table>
 
     <mat-paginator
-      #paginator
-      [length]="dataSource.data.length"
-      [pageIndex]="0"
-      [pageSize]="5"
-      [pageSizeOptions]="[5, 10, 20, 50, 100, 200, 500, 1000]"
-      (page)="pageEvent = projectPageEvent($event)">
+        #paginator
+        [length]="dataSource.data.length"
+        [pageIndex]="0"
+        [pageSize]="5"
+        [pageSizeOptions]="[5, 10, 20, 50, 100, 200, 500, 1000]"
+        (page)="pageEvent = projectPageEvent($event)">
     </mat-paginator>
 
     <h5 *ngIf="selection.selected.length > 0">
-      {{ selection.selected.length }}
-      {{
+        {{ selection.selected.length }}
+        {{
         selection.selected.length > 1
-          ? 'produtos selecionados'
-          : 'produto selecionado'
-      }}
-      <button mat-button color="warn" (click)="deselectAll()">
+            ? 'produtos selecionados'
+            : 'produto selecionado'
+        }}
+        <button mat-button color="warn" (click)="deselectAll()">
         Desmarcar tudo
-      </button>
+        </button>
     </h5>
 </div>  

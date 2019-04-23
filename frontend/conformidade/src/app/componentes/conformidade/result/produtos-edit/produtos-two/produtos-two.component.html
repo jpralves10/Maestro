@@ -94,7 +94,9 @@
                     class="full-width-table"
                     [dataSource]="dataSource"
                     matSort
-                    aria-label="Elements">
+                    aria-label="Elements"
+                    (cdkObserveContent)="projectContentChanged($event)"
+                    (matSortChange)="projectSortData($event)">
             
                     <!-- Column -->
                     <ng-container matColumnDef="select">
@@ -122,10 +124,23 @@
                             Descrição da Mercadoria
                         </th>
                         <td
-                            [ngClass]="{'td-descricao-descarte': row.status === 'Inativo'}"
+                            [ngClass]="{'descarte-row': row.status === 'Inativo'}"
                             mat-cell 
                             *matCellDef="let row">
                                 {{ row.descricaoBruta }}
+                        </td>
+                    </ng-container>
+
+                    <!-- Column -->
+                    <ng-container matColumnDef="canal">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Canal
+                        </th>
+                        <td mat-cell (click)="openDialogDeclaracoes(row)" *matCellDef="let row">
+            
+                            <canvas id="two-{{ row._id }}"></canvas>
+            
+                            <!--canvas id="list-{{ row._id }}" width="100%" height="100%"></canvas-->
                         </td>
                     </ng-container>
             
@@ -147,7 +162,7 @@
                     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
                 </table>
 
-                <div *ngIf="dataSource.data.length == 0">
+                <div *ngIf="dataSource.data.length == 0" class="table-not-records">
                     No records found!
                 </div>
             
@@ -156,7 +171,8 @@
                     [length]="dataSource.data.length"
                     [pageIndex]="0"
                     [pageSize]="5"
-                    [pageSizeOptions]="[5, 10, 20, 50, 100, 200, 500, 1000]">
+                    [pageSizeOptions]="[5, 10, 20, 50, 100, 200, 500, 1000]"
+                    (page)="pageEvent = projectPageEvent($event)">
                 </mat-paginator>
             
                 <h5 *ngIf="selection.selected.length > 0">

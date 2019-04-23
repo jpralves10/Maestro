@@ -148,10 +148,6 @@ export class ProdutosListComponent implements OnInit {
         produtos.forEach(produto =>{
             let ctx = document.getElementById("list-" + produto._id);
             new Chart(ctx, this.getChartDoughnut(produto));
-
-            //Chart.global.legend.display = false;
-            /*ctx.style.width = '50px';
-            ctx.style.height = '25px;'*/
         });
     }
 

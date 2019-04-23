@@ -2,6 +2,7 @@
 export interface Compatibilidade {
     similaridade: number;
     identicos: number;
+    canalDominante: number;
 
     verde: number;
     amarelo: number;

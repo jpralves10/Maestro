@@ -100,6 +100,8 @@ export class ProdutosTwoDataSource extends DataSource<Produto> {
             switch (this.sort.active) {
                 case 'descricaoBruta':
                     return compare(a.descricaoBruta, b.descricaoBruta, isAsc);
+                case 'canal':
+                    return compare(a.compatibilidade.canalDominante, b.compatibilidade.canalDominante, isAsc);
                 default:
                     return 0;
             }
