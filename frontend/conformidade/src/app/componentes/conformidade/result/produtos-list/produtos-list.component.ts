@@ -13,6 +13,7 @@ import { ResultService } from '../../services/result.service';
 import { ProdutosListDialog } from './produtos-list.dialog'
 
 import { Chart } from 'chart.js';
+import { FilterResult } from '../../models/filter-result.model';
 
 @Component({
   selector: 'app-produtos-list',
@@ -26,6 +27,7 @@ export class ProdutosListComponent implements OnInit {
     
     @Input() data: Produto[];
     @Input() status: string[];
+    @Input() filter: FilterResult;
 
     statusOld: string[];
 

@@ -188,7 +188,8 @@
             <app-produtos-list
                 *ngIf="data !== null" 
                 [data]="data.produtos"
-                [status]="status">
+                [status]="status"
+                [filter]="filter">
             </app-produtos-list>
         </mat-card-content>
     </mat-card>
