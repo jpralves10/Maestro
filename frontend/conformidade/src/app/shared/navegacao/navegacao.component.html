@@ -9,15 +9,61 @@
 
         <mat-toolbar color="primary" class="logo"></mat-toolbar>
 
-        <mat-nav-list>
+        <div class="tree-content">
+            <div class="tree-scrollable">
+                <ul *ngFor="let menu of listaMenus" class="ul-tree">
+                    <li *ngIf="menu.enable" (click)="toggleMenu(menu)" class="li-one">
+                        <div class="li-one-head">
+                            <fa-icon *ngIf="!menu.toggle" icon="angle-right" size="fa-xs" class="icon-toggle"></fa-icon>
+                            <fa-icon *ngIf="menu.toggle" icon="angle-down" size="fa-xs" class="icon-toggle"></fa-icon>
+                            <span style="font-weight: 500px">
+                                {{ menu.name }}
+                            </span>
+                        </div>                        
+                    </li>
+
+                    <li *ngIf="menu.toggle" class="li-two">
+                        <ul class="ul-two-sub">
+                            <li *ngFor="let submenu of menu.submenus" class="li-two-active">
+                                <a mat-list-item 
+                                    *ngIf="menu.enable && submenu.enable"
+                                    class="item-two"
+                                    routerLink={{submenu.routerLink}}
+                                    routerLinkActive={{submenu.routerLinkActive}}
+                                    (click)="checkClose() && drawer.close()">
+                                    {{ submenu.name }}
+                                </a>
+                            </li>                
+                        </ul>
+                    </li>
+
+
+                    <!--li *ngIf="menu.toggle" class="sub-menu-tree">
+                        <ul *ngFor="let submenu of menu.submenus" class="tree-menu-sub">
+                            <li *ngIf="menu.enable && submenu.enable" class="tree-body-li">
+                                <a mat-list-item 
+                                    routerLink={{submenu.routerLink}}
+                                    routerLinkActive={{submenu.routerLinkActive}}
+                                    (click)="checkClose() && drawer.close()">
+                                    {{ submenu.name }}
+                                </a>
+                            </li>                
+                        </ul>
+                    </li-->        
+                </ul>
+            </div>
+        </div>
+        
+
+        <!--mat-nav-list>
             <a
                 mat-list-item
                 routerLink="/home"
                 routerLinkActive="active"
                 (click)="checkClose() && drawer.close()">
-                <mat-icon>description_outline</mat-icon>Conformidade
+                <mat-icon>description_outline</mat-icon>Unificar Produtos
             </a>
-        </mat-nav-list>
+        </mat-nav-list-->
         <!--mat-nav-list>
             <a
                 mat-list-item

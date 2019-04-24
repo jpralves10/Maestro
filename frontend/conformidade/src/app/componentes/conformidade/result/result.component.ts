@@ -119,7 +119,6 @@ export class ResultComponent implements OnInit {
                 this.childProdutosList.agruparDeclaracoes(this.data.produtos);
                 this.childProdutosList.updateDataSource(this.data.produtos);
                 this.childProdutosList.eventTable = 1;
-                //this.childProdutosList.setChartList(this.data.produtos);
             }
 
             this.loading = false;
@@ -129,6 +128,7 @@ export class ResultComponent implements OnInit {
 
     public updateFiltro() {
         this.resultService.changeFilter(this.current_filtro);
+        this.childProdutosList.eventTable = 1;
     }
 
     public setResumoCards(){

@@ -10,17 +10,52 @@ import { map } from 'rxjs/operators';
 })
 export class NavegacaoComponent implements OnInit {
 
-  isHandset$: Observable<boolean> = this.breakpointObserver
+    //https://app.trackado.com/Dashboard/
+
+    isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(map(result => result.matches));
 
-  constructor(
-    private breakpointObserver: BreakpointObserver
-  ) { }
+    listaMenus = this.getListaMenus();
 
-  ngOnInit() { }
+    constructor(
+        private breakpointObserver: BreakpointObserver
+    ) { }
 
-  checkClose() {
-    return this.breakpointObserver.isMatched('(max-width: 600px)');
-  }
+    ngOnInit() { }
+
+    checkClose() {
+        return this.breakpointObserver.isMatched('(max-width: 600px)');
+    }
+
+    toggleMenu(menu: any){
+        menu.toggle = !menu.toggle;
+    }
+
+    getListaMenus(){
+        return [
+            {
+                id: 1, 
+                name: 'Dashboards',
+                enable: true,
+                toggle: false,
+                submenus: [
+                    {id: 1.1, name: 'Unificar Produtos', enable: true, routerLink: '/home', routerLinkActive: 'active', toggle: false, submenus: []},
+                    {id: 1.2, name: 'Catálogo de Produtos', enable: true, routerLink: '/home', routerLinkActive: 'active', toggle: false, submenus: []},
+                    {id: 1.3, name: 'Classificação Fiscal', enable: true, routerLink: '/home', routerLinkActive: 'active', toggle: false, submenus: []}
+                ]
+            },
+            {
+                id: 2, 
+                name: 'Produtos',
+                enable: true,
+                toggle: false,
+                submenus: [
+                    {id: 2.1, name: 'Unificar Produtos', enable: true, routerLink: '/home', routerLinkActive: 'active', toggle: false, submenus: []},
+                    {id: 2.2, name: 'Catálogo de Produtos', enable: true, routerLink: '/home', routerLinkActive: 'active', toggle: false, submenus: []},
+                    {id: 2.3, name: 'Classificação Fiscal', enable: true, routerLink: '/home', routerLinkActive: 'active', toggle: false, submenus: []}
+                ]
+            }
+        ]
+    }
 }

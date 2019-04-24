@@ -4,12 +4,18 @@ import { KeycloakService, KeycloakAngularModule } from 'keycloak-angular';
 import { initializer } from './utilitarios/app-init';
 
 import { HttpClientModule } from '@angular/common/http';
-
 import { RouterModule, PreloadAllModules } from '@angular/router';
+
+// Add these
+//import { faAdobe } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
+library.add(fas, far, faChevronDown);
 
 import { AppComponent } from './app.component';
 import { NavegacaoComponent } from './shared/navegacao/navegacao.component';
-
 import { MaterialModule } from './utilitarios/material.module';
 import { HomeComponent } from './shared/home/home.component';
 
@@ -29,6 +35,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     imports: [
         BrowserModule,
         MaterialModule,
+        FontAwesomeModule,
         ConformidadeModule,
         BrowserAnimationsModule,
         KeycloakAngularModule,
