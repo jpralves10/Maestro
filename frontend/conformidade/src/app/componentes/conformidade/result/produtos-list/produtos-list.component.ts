@@ -33,11 +33,6 @@ export class ProdutosListComponent implements OnInit {
 
     filteredData: Produto[];
 
-    canalVerde: number = 0;
-    canalAmarelo: number = 0;
-    canalVermelho: number = 0;
-    canalCinza: number = 0;
-
     eventTable: number = 0;
 
     selection = new SelectionModel<Produto>(true, []);
@@ -70,9 +65,8 @@ export class ProdutosListComponent implements OnInit {
     ngOnInit() {
         this.statusOld = [...this.status]
 
-        this.agruparDeclaracoes(this.data);
-
         this.dataSource = new ProdutosListDataSource(
+            this.filter,
             this.paginator,
             this.sort,
             this.resultService,
@@ -177,77 +171,6 @@ export class ProdutosListComponent implements OnInit {
         }
     }
 
-    agruparDeclaracoes(produtos: Produto[]){
-
-        produtos.forEach(produto =>{
-
-            produto.declaracaoNode = [];
-            produto.chartCanais = [];
-
-            if(produto.declaracoes != null && produto.declaracoes != undefined){
-
-                produto.declaracoes.forEach(declaracao_one =>{
-
-                    let itemExistente = false;
-                    for (let item of produto.declaracaoNode){
-                        if(item.cnpj == declaracao_one.importadorNumero){
-                            itemExistente = true;
-                        }
-                    }
-                    if(!itemExistente){
-        
-                        let declaracaoNode = {
-                            name: declaracao_one.importadorNome,
-                            cnpj: declaracao_one.importadorNumero,
-                            toggle: true,
-                            declaracoes: []
-                        }
-
-                        produto.declaracoes.forEach(declaracao_two => {
-                            if(declaracao_one.importadorNumero == declaracao_two.importadorNumero){
-                                declaracaoNode.declaracoes.push({
-                                    numeroDI: declaracao_two.numeroDI,
-                                    dataRegistro: declaracao_two.dataRegistro,
-                                    numeroAdicao: declaracao_two.numeroAdicao,
-                                    canal: Number(declaracao_two.canal)
-                                });
-                                this.calcularQtdCanais(Number(declaracao_two.canal))
-                            }
-                        })
-
-                        produto.declaracaoNode.push(declaracaoNode);
-                    }
-                })
-
-                produto.chartCanais = [
-                    this.canalVerde,
-                    this.canalAmarelo,
-                    this.canalVermelho,
-                    this.canalCinza
-                ]
-
-                this.getCanalDominante(produto);
-            }
-        });
-    }
-
-    getCanalDominante(produto: Produto){
-        produto.chartCanais.forEach((canal1, index) => {
-            produto.chartCanais.forEach(canal2 => {
-                if(canal1 > canal2){
-                    produto.canalDominante = index;
-                }
-            })
-        })
-    }
-
-    calcularQtdCanais(canal: number){
-        canal == 1 ? this.canalVerde++ : 
-        canal == 2 ? this.canalAmarelo++ :
-        canal == 3 ? this.canalVermelho++ :
-        this.canalCinza++
-    }
-
     getChartDoughnut(produto: Produto){
 
         Chart.defaults.global.legend.display = false;
@@ -265,7 +188,7 @@ export class ProdutosListComponent implements OnInit {
                 {
                     data: produto.chartCanais, //[10, 20, 30, 40],
                     backgroundColor: [
-                        "#A3E4D7",
+                        "#6BD19E",
                         "#F9E79F",
                         "#F5B7B1",
                         "#CCD1D1"

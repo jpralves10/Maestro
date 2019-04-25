@@ -4,5 +4,6 @@ export interface ResultItem {
         descricaoBruta: string;
         ncm: string;
         status: string;
+        cnpj: string;
     };
 }

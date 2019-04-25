@@ -46,7 +46,7 @@ export class ProdutosTwoComponent implements OnInit {
     dataSource: ProdutosTwoDataSource;
 
     current_filtro: ResultItem = {
-        produto: {numeroDI: '', descricaoBruta: '', ncm: '', status: ''}
+        produto: {numeroDI: '', descricaoBruta: '', ncm: '', status: '', cnpj: ''}
     };
 
     displayedColumns = ['select', 'descricaoBruta', 'canal', 'operacoes'];
@@ -307,7 +307,7 @@ export class ProdutosTwoComponent implements OnInit {
                         produto.compatibilidade.cinza,
                     ], //[10, 20, 30, 40],
                     backgroundColor: [
-                        "#A3E4D7",
+                        "#6BD19E",
                         "#F9E79F",
                         "#F5B7B1",
                         "#CCD1D1"
@@ -385,7 +385,9 @@ export class ProdutosTwoComponent implements OnInit {
             compatibilidade: compatibilidade,
             declaracaoNode: [],
             chartCanais: []  ,
-            canalDominante: 0      
+            canalDominante: 0,
+            importadorNome: '',
+            importadorNumero: ''      
         }
         
 

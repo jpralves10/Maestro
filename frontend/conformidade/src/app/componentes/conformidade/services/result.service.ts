@@ -20,10 +20,10 @@ export class ResultService {
     /** Default Filter **/
 
     private defaultFilter: ResultItem = {
-        produto: {numeroDI: '', descricaoBruta: '', ncm: '', status: ''}
+        produto: {numeroDI: '', descricaoBruta: '', ncm: '', status: '', cnpj: ''}
     };
 
-    public filterSource: 
+    public filterSource:
         BehaviorSubject<ResultItem> = new BehaviorSubject<ResultItem>(this.defaultFilter);
 
     public filter = this.filterSource.asObservable();

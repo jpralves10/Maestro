@@ -76,7 +76,7 @@
             </mat-card-content>
         </mat-card>
 
-        <mat-card 
+        <mat-card
             class="mat-elevation-z5 filtro-card mat-card-list-item"
             style="margin-bottom: 20px;">
             <mat-card-content class="form-container">
@@ -109,14 +109,13 @@
                     {{resumo.periodoFinal.toLocaleDateString()}})
                 </span>
 
-                <button
+                <!--button
                     mat-raised-button
                     (click)="addMercadoria()"
                     class="add-button">
                     <fa-icon icon="plus" size="lg" style="font-size: 10px;"></fa-icon>
                     Add Item
-                </button>
-                
+                </button-->
             </div>
 
             <mat-accordion>
@@ -129,13 +128,13 @@
     
                     <div class="filtro-panel-content">
                         <div class="filtro-fields-one">
-                            <!--mat-form-field>
+                            <mat-form-field>
                                 <input
                                     matInput
                                     placeholder="Número da DI"
                                     [(ngModel)]="current_filtro.produto.numeroDI"
                                     (ngModelChange)="updateFiltro()" />
-                            </mat-form-field-->
+                            </mat-form-field>
                             <mat-form-field>
                                 <input
                                     matInput
@@ -160,7 +159,24 @@
                         </div>
 
                         <div class="filtro-fields-two">
-                            <mat-checkbox 
+
+                            <div *ngIf="importers.length > 0" class="importer-content">
+                                <div class="importer-title">Importadores Selecionados:</div>
+                                <div *ngFor="let importer of importers" class="importer-list">
+                                    <div class="importer-item">
+                                        <mat-checkbox
+                                            [checked]="importer.checked"
+                                            (change)="setCheckedImporter($event, importer)"
+                                            style="margin-right: 5px;">
+                                        </mat-checkbox>
+                                        {{importer.name}} 
+                                        (CNPJ: {{importer.cnpj | mask: '00.000.000/0000-00'}})
+                                    </div> 
+                                </div>
+                            </div>
+                            
+
+                            <!--mat-checkbox 
                                 [checked]="this.status.includes('Pendente')"
                                 (change)="setStatusFiltro($event, 'Pendente')">
                                 Pendente
@@ -179,7 +195,7 @@
                                 [checked]="this.status.includes('Integrado')"
                                 (change)="setStatusFiltro($event, 'Integrado')">
                                 Integrado
-                            </mat-checkbox>
+                            </mat-checkbox-->
                         </div>
                     </div>                                
                 </mat-expansion-panel>

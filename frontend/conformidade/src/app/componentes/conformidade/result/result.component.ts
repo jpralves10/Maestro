@@ -22,13 +22,19 @@ export class ResultComponent implements OnInit {
     @ViewChild(ProdutosListComponent) 
     childProdutosList:ProdutosListComponent;
 
-    public filter: FilterResult;
-    public loading = true;
-    public errored = false;
+    filter: FilterResult;
+    loading = true;
+    errored = false;
 
     produtos: Produto[];
     data: Result = null;
     status: string[] = [];
+    importers: any = [];
+
+    canalVerde: number = 0;
+    canalAmarelo: number = 0;
+    canalVermelho: number = 0;
+    canalCinza: number = 0;
 
     date = new Date();
     start_date = new Date(this.date.setMonth(this.date.getMonth() - 12));
@@ -36,14 +42,20 @@ export class ResultComponent implements OnInit {
     resumo: Resumo = {
         periodoInicial: this.start_date, 
         periodoFinal: new Date(), 
-        cnpjList: [], 
+        importadores: [{}], 
         qtdDeclaracoes: 0, 
         qtdItens: 0, 
         qtdItensCadastrados: 0
     };
 
     @Input() current_filtro: ResultItem = {
-        produto: {numeroDI: '', descricaoBruta: '', ncm: '', status: ''}
+        produto: {
+            numeroDI: '', 
+            descricaoBruta: '', 
+            ncm: '', 
+            status: '', 
+            cnpj: ''
+        }
     };
 
     constructor(
@@ -55,6 +67,8 @@ export class ResultComponent implements OnInit {
         this.route.queryParamMap.subscribe(paramMap => {
             this.filter = JSON.parse(paramMap.get('filter'));
             this.status = this.filter.status;
+            
+            this.importers = [...this.filter.importadores];
 
             //this.produtos = this.getMockDados();
             this.loading = false;  
@@ -112,11 +126,11 @@ export class ResultComponent implements OnInit {
                 produto.canalDominante = 0;
             });
 
+            this.agruparDeclaracoes(this.data.produtos);
             this.produtos = this.data.produtos;
             this.setResumoCards();
 
             if(this.childProdutosList != undefined){
-                this.childProdutosList.agruparDeclaracoes(this.data.produtos);
                 this.childProdutosList.updateDataSource(this.data.produtos);
                 this.childProdutosList.eventTable = 1;
             }
@@ -126,21 +140,21 @@ export class ResultComponent implements OnInit {
         error => { this.errored = true; })
     }
 
-    public updateFiltro() {
+    updateFiltro() {
         this.resultService.changeFilter(this.current_filtro);
         this.childProdutosList.eventTable = 1;
     }
 
-    public setResumoCards(){
+    setResumoCards(){
         this.resumo.periodoInicial = new Date(this.filter.start_date);
         this.resumo.periodoFinal = new Date(this.filter.end_date);
-        this.resumo.cnpjList = this.filter.cnpjList;
+        this.resumo.importadores = this.filter.importadores;
         this.resumo.qtdDeclaracoes = this.getQtdDeclaracoes();
         this.resumo.qtdItens = this.getQtdItens(true);
         this.resumo.qtdItensCadastrados = this.getQtdItens(false);
     }
 
-    public getQtdDeclaracoes(): number{
+    getQtdDeclaracoes(): number{
         let setDeclaracoes = new Set();
         this.produtos.forEach(produto => {
             setDeclaracoes.add(produto.numeroDI);
@@ -148,7 +162,7 @@ export class ResultComponent implements OnInit {
         return setDeclaracoes.size
     }
 
-    public getQtdItens(total: boolean): number{
+    getQtdItens(total: boolean): number{
         let statusTotal = ['Pendente', 'Completo', 'Aprovado', 'Integrado'];
         let statusCadastrados = ['Completo', 'Aprovado', 'Integrado'];
         let countItens: number = 0;
@@ -164,7 +178,7 @@ export class ResultComponent implements OnInit {
         return countItens;
     }
 
-    public setStatusFiltro(event: any, status: string){
+    setStatusFiltro(event: any, status: string){
         if(event.checked){
             this.status.push(status)
             this.setDadosResult();
@@ -175,8 +189,95 @@ export class ResultComponent implements OnInit {
         }
     }
 
-    public addMercadoria(){
+    addMercadoria(){
 
+    }
+
+    setCheckedImporter(event: any, importer: any){
+        importer.checked = !importer.checked;
+
+        this.filter.importadores = [...this.importers];
+
+        if(importer.checked){
+            this.filter.importadores.push(importer);
+        }else{
+            this.filter.importadores.splice(this.filter.importadores.indexOf(importer), 1);
+        }
+        
+        this.updateFiltro();
+
+        //this.childProdutosList.getVisibleData();
+    }
+
+    agruparDeclaracoes(produtos: Produto[]){
+
+        produtos.forEach(produto =>{
+
+            produto.declaracaoNode = [];
+            produto.chartCanais = [];
+
+            if(produto.declaracoes != null && produto.declaracoes != undefined){
+
+                produto.declaracoes.forEach(declaracao_one =>{
+
+                    let itemExistente = false;
+                    for (let item of produto.declaracaoNode){
+                        if(item.cnpj == declaracao_one.importadorNumero){
+                            itemExistente = true;
+                        }
+                    }
+                    if(!itemExistente){
+        
+                        let declaracaoNode = {
+                            name: declaracao_one.importadorNome,
+                            cnpj: declaracao_one.importadorNumero,
+                            toggle: true,
+                            declaracoes: []
+                        }
+
+                        produto.declaracoes.forEach(declaracao_two => {
+                            if(declaracao_one.importadorNumero == declaracao_two.importadorNumero){
+                                declaracaoNode.declaracoes.push({
+                                    numeroDI: declaracao_two.numeroDI,
+                                    dataRegistro: new Date(declaracao_two.dataRegistro),
+                                    numeroAdicao: declaracao_two.numeroAdicao,
+                                    canal: Number(declaracao_two.canal)
+                                });
+                                this.calcularQtdCanais(Number(declaracao_two.canal))
+                            }
+                        })
+
+                        produto.declaracaoNode.push(declaracaoNode);
+                    }
+                })
+
+                produto.chartCanais = [
+                    this.canalVerde,
+                    this.canalAmarelo,
+                    this.canalVermelho,
+                    this.canalCinza
+                ]
+
+                this.getCanalDominante(produto);
+            }
+        });
+    }
+
+    getCanalDominante(produto: Produto){
+        produto.chartCanais.forEach((canal1, index) => {
+            produto.chartCanais.forEach(canal2 => {
+                if(canal1 > canal2){
+                    produto.canalDominante = index;
+                }
+            })
+        })
+    }
+
+    calcularQtdCanais(canal: number){
+        canal == 1 ? this.canalVerde++ : 
+        canal == 2 ? this.canalAmarelo++ :
+        canal == 3 ? this.canalVermelho++ :
+        this.canalCinza++
     }
 
     //https://jtblin.github.io/angular-chart.js/
@@ -184,7 +285,7 @@ export class ResultComponent implements OnInit {
 
     /** Mock Dados **/
 
-    public getMockDeclaracoes(): Declaracao[]{
+    getMockDeclaracoes(): Declaracao[]{
         return [
             {
                 importadorNome: 'RENAULT DO BRASIL S.A',
@@ -269,7 +370,7 @@ export class ResultComponent implements OnInit {
         ]
     }
 
-    public getMockDados(): Produto[]{
+    getMockDados(): Produto[]{
 
         /*
         Pendente
@@ -311,7 +412,9 @@ export class ResultComponent implements OnInit {
             compatibilidade: null,
             declaracaoNode: [],
             chartCanais: []  ,
-            canalDominante: 0      
+            canalDominante: 0,
+            importadorNome: '',
+            importadorNumero: ''
         }
 
         var produto2 = {...produto};

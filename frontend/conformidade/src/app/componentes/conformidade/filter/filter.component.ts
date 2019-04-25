@@ -102,16 +102,16 @@ export class FilterComponent implements OnInit {
 
         return JSON.stringify({
             importers: cnpjRaiz,
-            cnpjList: this.listaCNPJ(cnpjRaiz),
+            importadores: this.listaCNPJ(cnpjRaiz),
             status: ['Pendente'],
             start_date: this.filtro.data_inicio,
             end_date: this.filtro.data_fim
         } as FilterResult);
     }
 
-    public listaCNPJ(cnpjRaiz: string[]): string[]{
+    public listaCNPJ(cnpjRaiz: string[]): [{}]{
 
-        let listaCNPJ: string[] = [];
+        let listaImporters: any = [];
 
         if(cnpjRaiz.length > 0){
 
@@ -119,11 +119,15 @@ export class FilterComponent implements OnInit {
                 let cpf_cnpj = importer.cpf_cnpj.replace(/[/\/\-\.]/g, '');
     
                 if(cpf_cnpj.includes(cnpjRaiz[0])){
-                    listaCNPJ.push(cpf_cnpj);
+                    listaImporters.push({
+                        name: importer.name, 
+                        cnpj: importer.cpf_cnpj, 
+                        checked: true
+                    });
                 }
             }
         }
-        return listaCNPJ;
+        return listaImporters;
     }
 
     fileChange(event: any){

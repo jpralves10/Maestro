@@ -52,7 +52,9 @@ export class ProdutosListDialog {
                 {
                     data: this.produto.chartCanais, //[10, 20, 30, 40],
                     backgroundColor: [
-                        "#A3E4D7",
+                        //"#A3E4D7",
+                        //"#54C08A",
+                        "#6BD19E",
                         "#F9E79F",
                         "#F5B7B1",
                         "#CCD1D1"

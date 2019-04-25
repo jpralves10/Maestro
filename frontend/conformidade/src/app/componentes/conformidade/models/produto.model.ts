@@ -20,6 +20,10 @@ export interface Produto {
     versoesProduto: Produto[];
     compatibilidade: Compatibilidade;
 
+    /** Dados Importador **/
+    importadorNome: string;
+    importadorNumero: string;
+
     /** Histórico **/
     dataCriacao: Date;
     dataAtualizacao: Date;
@@ -64,6 +68,10 @@ export class ProdutoClass implements Produto{
     /** Versões Produto **/
     versoesProduto: Produto[];
     compatibilidade: Compatibilidade;
+
+    /** Dados Importador **/
+    importadorNome: string;
+    importadorNumero: string;
 
     /** Histórico **/
     dataCriacao: Date;

@@ -40,9 +40,9 @@ export class NavegacaoComponent implements OnInit {
                 enable: true,
                 toggle: false,
                 submenus: [
-                    {id: 1.1, name: 'Unificar Produtos', enable: true, routerLink: '/home', routerLinkActive: 'active', toggle: false, submenus: []},
-                    {id: 1.2, name: 'Catálogo de Produtos', enable: true, routerLink: '/home', routerLinkActive: 'active', toggle: false, submenus: []},
-                    {id: 1.3, name: 'Classificação Fiscal', enable: true, routerLink: '/home', routerLinkActive: 'active', toggle: false, submenus: []}
+                    {id: 1.1, name: 'Indicadores', enable: true, routerLink: '/home', routerLinkActive: 'active', toggle: false, submenus: []},
+                    {id: 1.2, name: 'Eventos Agendados', enable: true, routerLink: '/home', routerLinkActive: 'active', toggle: false, submenus: []},
+                    {id: 1.3, name: 'Pendências Existentes', enable: true, routerLink: '/home', routerLinkActive: 'active', toggle: false, submenus: []}
                 ]
             },
             {

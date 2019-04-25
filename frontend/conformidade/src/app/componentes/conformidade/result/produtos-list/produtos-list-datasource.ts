@@ -1,12 +1,13 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
 import { Input } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, from } from 'rxjs';
 import { Produto } from '../../models/produto.model';
 import { ResultItem } from '../../models/result-item.model';
 import { ResultService } from '../../services/result.service';
 import { ProdutosListComponent } from './produtos-list.component';
+import { FilterResult } from '../../models/filter-result.model';
 
 export class ProdutosListDataSource extends DataSource<Produto> {
 
@@ -20,12 +21,14 @@ export class ProdutosListDataSource extends DataSource<Produto> {
     public dataObservable: Observable<any>;
 
     constructor(
+        private filter: FilterResult,
         private paginator: MatPaginator,
         private sort: MatSort,
         private resultService: ResultService,
         data: Produto[]
     ) {
         super();
+        this.filter = filter;
         this.data = [...data];
         this.fullData = [...data];
         this.resultService.filterSource.subscribe(filtro => (this.filtro = filtro));
@@ -75,11 +78,11 @@ export class ProdutosListDataSource extends DataSource<Produto> {
 
         let newData = data;
 
-        /*if (produto.numeroDI !== '') {
+        if (produto.numeroDI !== '') {
             newData = newData.filter(d =>
                 d.numeroDI.includes(produto.numeroDI)
             );
-        }*/
+        }
         if (produto.descricaoBruta !== '') {
             newData = newData.filter(d =>
                 d.descricaoBruta.toUpperCase().includes(produto.descricaoBruta.toUpperCase())
@@ -94,7 +97,39 @@ export class ProdutosListDataSource extends DataSource<Produto> {
             newData = newData.filter(d =>
                 d.status.toUpperCase().includes(produto.status.toUpperCase())
             );
-        }*/
+        }*/ 
+        
+        
+
+        if(this.filter.importadores){
+
+            var newProd = [...newData];
+
+            newProd.forEach(data => {
+
+                let existe = false;
+
+                this.filter.importadores.forEach(importer => {
+                    if(data.importadorNumero == importer.cnpj.replace(/[/\/\-\.]/g, '')){
+                        existe = true;                        
+                    }
+                })
+                if(!existe){
+                    newData.splice(newData.indexOf(data), 1);
+                }
+            })
+        }else{
+            newData = [];
+        }
+
+        /*newData = newData.filter(d => {
+            this.filter.importadores.forEach(importer => {
+                importer.cnpj = importer.cnpj.replace(/[/\/\-\.]/g, '');
+                d.importadorNumero == importer.cnpj
+            })
+            d.importadorNumero.includes("08532602000100");
+        });*/
+
         return [...newData];
     }
 

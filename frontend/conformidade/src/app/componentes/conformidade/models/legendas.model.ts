@@ -34,7 +34,7 @@ export interface Atributos {
 export interface Resumo {
     periodoInicial: Date, 
     periodoFinal: Date, 
-    cnpjList: string[], 
+    importadores: [{}], 
     qtdDeclaracoes: number, 
     qtdItens: number, 
     qtdItensCadastrados: number

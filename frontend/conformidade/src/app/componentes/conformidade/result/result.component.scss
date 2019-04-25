@@ -51,7 +51,7 @@
 
 .filtro-fields-two {
     display: grid;
-    grid-template-columns: 2fr 2fr;
+    grid-template-columns: 1fr;
     grid-column-gap: 50px;
     @media screen and (max-width: 750px) {
         display: flex;
@@ -126,4 +126,30 @@
     content: "";
     clear: both;
     display: table;
+}
+
+.importer-content {
+    max-height: 200px;
+    overflow: auto;
+    margin-top: 10px;
+}
+
+.importer-title {
+    width: 100%;
+    font-size: 14px;
+    font-weight: 500;
+    color: #596679;
+    margin-bottom: .5rem;
+    line-height: 1.2;
+}
+
+.importer-list {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.importer-item {
+    font-size: 12px;
+    font-weight: 400;
+    color: #596679;
 }
