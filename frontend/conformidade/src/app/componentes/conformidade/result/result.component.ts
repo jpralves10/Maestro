@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FilterResult } from '../models/filter-result.model';
 import { Produto } from '../models/produto.model';
 import { Declaracao } from '../models/legendas.model';
-import { ResultItem } from '../models/result-item.model';
+import { ResultItem } from '../models/result.model';
 import { Result, ResultClass } from '../models/result.model';
 import { Resumo } from '../models/legendas.model';
 

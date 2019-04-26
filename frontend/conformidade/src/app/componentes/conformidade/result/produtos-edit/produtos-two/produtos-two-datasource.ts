@@ -4,7 +4,7 @@ import { Input } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 import { Produto } from '../../../models/produto.model';
-import { ResultItem } from '../../../models/result-item.model';
+import { ResultItem } from '../../../models/result.model';
 import { ResultService } from '../../../services/result.service';
 
 export class ProdutosTwoDataSource extends DataSource<Produto> {

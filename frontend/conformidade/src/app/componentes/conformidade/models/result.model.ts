@@ -9,3 +9,13 @@ export interface Result {
 export class ResultClass implements Result{
     produtos: Produto[];
 }
+
+export interface ResultItem {
+    produto: {
+        numeroDI: string;
+        descricaoBruta: string;
+        ncm: string;
+        status: string;
+        cnpj: string;
+    };
+}

@@ -5,14 +5,12 @@ import $ from "jquery";
 
 import { Chart } from 'chart.js';
 
-import * as DateManagement from '../../../../../utilitarios/date.utils';
-
 import { msg_produtos_two } from '../../../../../utilitarios/mensagens.module';
 
 import { Produto } from '../../../models/produto.model';
 import { Compatibilidade } from '../../../models/legendas.model';
 import { ProdutosTwoDataSource } from './produtos-two-datasource';
-import { ResultItem } from '../../../models/result-item.model';
+import { ResultItem } from '../../../models/result.model';
 import { Result } from '../../../models/result.model';
 
 import { ConsultaService } from '../../../services/consulta.service';

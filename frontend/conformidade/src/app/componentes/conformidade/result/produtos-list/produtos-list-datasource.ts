@@ -4,9 +4,8 @@ import { Input } from '@angular/core';
 import { map, filter } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, from } from 'rxjs';
 import { Produto } from '../../models/produto.model';
-import { ResultItem } from '../../models/result-item.model';
+import { ResultItem } from '../../models/result.model';
 import { ResultService } from '../../services/result.service';
-import { ProdutosListComponent } from './produtos-list.component';
 import { FilterResult } from '../../models/filter-result.model';
 
 export class ProdutosListDataSource extends DataSource<Produto> {

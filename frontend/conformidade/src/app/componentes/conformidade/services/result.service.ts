@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { MatPaginator } from '@angular/material';
-import { ResultItem } from '../models/result-item.model';
+import { ResultItem } from '../models/result.model';
 import { Result } from '../models/result.model';
-import * as DateManagement from '../../../utilitarios/date.utils';
 
 @Injectable({
   providedIn: 'root'

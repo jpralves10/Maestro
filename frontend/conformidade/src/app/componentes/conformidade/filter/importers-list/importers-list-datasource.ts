@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 import { Importer } from '../../models/importer.model';
 import { Input } from '@angular/core';
-import { FilterItem } from '../../models/filter-item.model';
+import { FilterItem } from '../../models/filter.model';
 import { FilterService } from '../../services/filter.service';
 
 export class ImportersListDataSource extends DataSource<Importer> {

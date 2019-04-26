@@ -5,7 +5,7 @@ import { Importer } from '../../models/importer.model';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { ImportersListDataSource } from './importers-list-datasource';
-import { FilterItem } from '../../models/filter-item.model';
+import { FilterItem } from '../../models/filter.model';
 import { Filter } from '../../models/filter.model';
 import { FilterService } from '../../services/filter.service';
 

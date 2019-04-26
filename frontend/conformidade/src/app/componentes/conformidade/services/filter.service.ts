@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatPaginator } from '@angular/material';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Filter } from '../models/filter.model';
-import { FilterItem } from '../models/filter-item.model';
+import { FilterItem } from '../models/filter.model';
 
 @Injectable({
   providedIn: 'root'

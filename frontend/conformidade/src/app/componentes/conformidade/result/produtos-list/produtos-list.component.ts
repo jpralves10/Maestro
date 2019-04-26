@@ -7,7 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Produto } from '../../models/produto.model';
 import { ProdutosListDataSource } from './produtos-list-datasource';
-import { ResultItem } from '../../models/result-item.model';
+import { ResultItem } from '../../models/result.model';
 import { Result } from '../../models/result.model';
 import { ResultService } from '../../services/result.service';
 import { ProdutosListDialog } from './produtos-list.dialog'

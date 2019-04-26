@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Filter } from '../models/filter.model';
-import { FilterItem } from '../models/filter-item.model';
+import { FilterItem } from '../models/filter.model';
 import { FilterResult } from '../models/filter-result.model';
 
 import { ConsultaService } from '../services/consulta.service';

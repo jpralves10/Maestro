@@ -8,9 +8,8 @@ import { FilterResult } from '../../../models/filter-result.model';
 import { ConsultaService } from '../../../services/consulta.service';
 
 import paises from '../../../../../utilitarios/pais-origem.model';
+import listaNcm from '../../../../../utilitarios/ncm.model';
 import { msg_produtos_three } from '../../../../../utilitarios/mensagens.module';
-
-import * as DateManagement from '../../../../../utilitarios/date.utils';
 
 @Component({
     selector: 'app-produtos-three',
@@ -28,10 +27,16 @@ export class ProdutosThreeComponent implements OnInit {
     public spinner = false;
 
     paises: Array<{ value: string; viewValue: string; }> = [];
+    listaNcm: any = {};
+    attrSelect: any = {};
+    listaAtributos: any = [];
+    attrList: any = [];
 
     mensagem: any = {id: 0, tipo: '', class: '', lista: []};
-
-    atributoDataSource = new MatTableDataSource<Atributos>();
+    
+    listaAtributosDataSource = new MatTableDataSource<{
+        codigo: string, dominio: string, descricao: string
+    }>();
     codigoInternoDataSource = new MatTableDataSource<string>();
 
     public situacoes = [
@@ -51,7 +56,7 @@ export class ProdutosThreeComponent implements OnInit {
         {value: true, viewValue: 'Sim'}
     ];
 
-    atributosColumns: string[] = ['atributo', 'valor', 'operacao'];
+    atributosColumns: string[] = ['codigo', 'dominio', 'descricao', 'operacao'];
     atributo_form: Atributos = {atributo: '', valor: ''};
 
     codigoInternoColumns: string[] = ['valor', 'operacao'];
@@ -63,6 +68,7 @@ export class ProdutosThreeComponent implements OnInit {
         private consultaService: ConsultaService
     ) { 
         this.paises = paises;
+        this.listaNcm = listaNcm;
     }
 
     ngOnInit() {
@@ -71,14 +77,39 @@ export class ProdutosThreeComponent implements OnInit {
     }
 
     private initDatasSources(){
-        if(this.produto.atributos == null){
+        this.listaAtributos = [];
+
+        if(this.produto.atributos == null || this.produto.atributos == undefined){
             this.produto.atributos = [];
-            this.atributoDataSource.data = [];
+            this.listaAtributosDataSource.data = [];
         }else{
-            this.atributoDataSource.data = [...this.produto.atributos];
+
+            this.listaNcm.listaNcm.forEach(ncm => {
+                //if(this.produto.ncm == ncm.codigoNcm.replace(/[/\/\-\.]/g, '')){
+                if("29333929" == ncm.codigoNcm.replace(/[/\/\-\.]/g, '')){
+
+                    if(ncm.listaAtributos.length > 0){
+
+                        ncm.listaAtributos.forEach(attr => {
+                            attr.dominio.forEach(dom => {
+                                
+                                this.listaAtributos.push({
+                                    codigo: attr.codigo,
+                                    dominio: dom.codigo,
+                                    descricao: dom.descricao
+                                })
+                            })
+                        })
+                    }
+                }
+            });
+
+            //this.produto.atributos
+
+            //this.atributoDataSource.data = [...this.produto.atributos];
         }
 
-        if(this.produto.codigosInterno == null){
+        if(this.produto.codigosInterno == null || this.produto.codigosInterno == undefined){
             this.produto.codigosInterno = [];
             this.codigoInternoDataSource.data = [];
         }else{
@@ -87,22 +118,31 @@ export class ProdutosThreeComponent implements OnInit {
     }
 
     public adicionarAtributo(){
-        this.produto.atributos.push(this.atributo_form)
-        this.atributo_form = {atributo: '', valor: ''};
-        this.updateAtributos();
+        this.produto.atributos.push({
+            atributo: this.attrSelect.codigo,
+            valor: this.attrSelect.dominio
+        })
+        this.attrList.push(this.attrSelect);
+        this.listaAtributos.splice(this.listaAtributos.indexOf(this.attrSelect), 1);
+        this.updateListaAtributos();
     }
 
-    public removeRowAtributo(row: Atributos){
-        this.produto.atributos.splice(this.produto.atributos.indexOf(row), 1);
-        this.updateAtributos();
+    public removeRowAtributo(attr: any){
+        let attrProd: Atributos = {atributo: attr.codigo, valor: attr.dominio};
+
+        this.attrList.splice(this.attrList.indexOf(attr), 1);
+        this.produto.atributos.splice(this.produto.atributos.indexOf(attrProd), 1);
+        this.listaAtributos.push(attr);
+        this.listaAtributos.sort((a, b) => a.codigo > b.codigo ? -1 : 1);
+        this.updateListaAtributos();
     }
 
-    public updateAtributos(){
-        this.atributoDataSource.data = [...this.produto.atributos];
+    public updateListaAtributos(){
+        this.listaAtributosDataSource.data = [...this.attrList];
     }
 
     public adicionarCodigoInterno(){
-        this.produto.codigosInterno.push(this.codigointerno_form)
+        this.produto.codigosInterno.push(this.codigointerno_form);
         this.codigointerno_form = '';
         this.updateCodigoInterno();
     }
