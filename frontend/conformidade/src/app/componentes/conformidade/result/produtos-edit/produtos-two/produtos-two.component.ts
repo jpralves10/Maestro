@@ -49,7 +49,7 @@ export class ProdutosTwoComponent implements OnInit {
         produto: {numeroDI: '', descricaoBruta: '', ncm: '', status: '', cnpj: ''}
     };
 
-    displayedColumns = ['select', 'descricaoBruta', 'canal', 'operacoes'];
+    displayedColumns = ['select', 'descricaoBruta', 'similaridade', 'canal', 'operacoes'];
 
     public filtroValue: ResultItem;
     public currentFilter: Result;
@@ -103,6 +103,8 @@ export class ProdutosTwoComponent implements OnInit {
                         })
 
                         produto.compatibilidade.canalDominante = 0;
+                        let similaridade = Math.round(produto.compatibilidade.similaridade * 100) / 100;
+                        produto.compatibilidade.similaridade = similaridade;
 
                         this.produto.versoesProduto.push(produto);
                     }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterResult } from '../models/filter-result.model';
-import { Produto, ProdutoClass } from '../models/produto.model';
+import { Produto } from '../models/produto.model';
 import { Declaracao } from '../models/legendas.model';
 import { ResultItem } from '../models/result-item.model';
 import { Result, ResultClass } from '../models/result.model';
@@ -71,7 +71,7 @@ export class ResultComponent implements OnInit {
             this.importers = [...this.filter.importadores];
 
             //this.produtos = this.getMockDados();
-            this.loading = false;  
+            this.loading = false;
             this.setDadosResult();
         });
 
@@ -85,6 +85,8 @@ export class ResultComponent implements OnInit {
     setDadosResult(){
         this.data = new ResultClass();
         this.data.produtos = [];
+
+        /* Mock */
         
         /*this.produtos.forEach(produto => {
             if(this.status.includes(produto.status)){
@@ -93,13 +95,15 @@ export class ResultComponent implements OnInit {
             }
         })
         
+        this.agruparDeclaracoes(this.data.produtos);
+        this.produtos = this.data.produtos;
         this.setResumoCards();
 
-        if(this.childProdutosList != undefined){
-            this.childProdutosList.agruparDeclaracoes(this.data.produtos);
-            this.childProdutosList.updateDataSource(this.data.produtos);
-            //this.childProdutosList.setChartList(this.data.produtos);
-        }*/
+        this.childUpdateDataSource();
+
+        this.loading = false;*/
+
+        /* End Mock */
 
         this.consultaService.getProdutosGenerico(
             {
@@ -130,14 +134,18 @@ export class ResultComponent implements OnInit {
             this.produtos = this.data.produtos;
             this.setResumoCards();
 
-            if(this.childProdutosList != undefined){
-                this.childProdutosList.updateDataSource(this.data.produtos);
-                this.childProdutosList.eventTable = 1;
-            }
+            this.childUpdateDataSource();
 
             this.loading = false;
         },
         error => { this.errored = true; })
+    }
+
+    childUpdateDataSource(){
+        if(this.childProdutosList != undefined){
+            this.childProdutosList.updateDataSource(this.data.produtos);
+            this.childProdutosList.eventTable = 1;
+        }
     }
 
     updateFiltro() {
@@ -189,14 +197,8 @@ export class ResultComponent implements OnInit {
         }
     }
 
-    addMercadoria(){
-
-    }
-
     setCheckedImporter(event: any, importer: any){
         importer.checked = !importer.checked;
-
-        this.filter.importadores = [...this.importers];
 
         if(importer.checked){
             this.filter.importadores.push(importer);
@@ -204,14 +206,17 @@ export class ResultComponent implements OnInit {
             this.filter.importadores.splice(this.filter.importadores.indexOf(importer), 1);
         }
         
-        this.updateFiltro();
-
-        //this.childProdutosList.getVisibleData();
+        this.childUpdateDataSource();
     }
 
     agruparDeclaracoes(produtos: Produto[]){
 
         produtos.forEach(produto =>{
+
+            this.canalVerde = 0
+            this.canalAmarelo = 0
+            this.canalVermelho = 0
+            this.canalCinza = 0
 
             produto.declaracaoNode = [];
             produto.chartCanais = [];
@@ -414,14 +419,15 @@ export class ResultComponent implements OnInit {
             chartCanais: []  ,
             canalDominante: 0,
             importadorNome: '',
-            importadorNumero: ''
+            importadorNumero: '08532602000100'
         }
 
         var produto2 = {...produto};
         produto2.numeroDI = "09999967891";
         produto2.descricaoBruta = "410004800R PINCA DO FREIO DIANTEIRO PARA VEICULO AUTOMOVEL";
         produto2.ncm = "87083090";
-        produto2.status = "Completo";
+        produto2.status = "Pendente";
+        produto2.importadorNumero = '321'
         var produto3 = {...produto};
         var produto4 = {...produto};
         var produto5 = {...produto};

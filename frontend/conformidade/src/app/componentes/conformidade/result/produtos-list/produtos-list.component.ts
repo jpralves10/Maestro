@@ -31,8 +31,6 @@ export class ProdutosListComponent implements OnInit {
 
     statusOld: string[];
 
-    filteredData: Produto[];
-
     eventTable: number = 0;
 
     selection = new SelectionModel<Produto>(true, []);

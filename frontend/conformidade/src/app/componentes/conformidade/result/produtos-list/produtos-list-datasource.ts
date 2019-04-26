@@ -97,11 +97,9 @@ export class ProdutosListDataSource extends DataSource<Produto> {
             newData = newData.filter(d =>
                 d.status.toUpperCase().includes(produto.status.toUpperCase())
             );
-        }*/ 
-        
-        
+        }*/
 
-        if(this.filter.importadores){
+        if(this.filter.importadores.length > 0){
 
             var newProd = [...newData];
 
@@ -111,7 +109,7 @@ export class ProdutosListDataSource extends DataSource<Produto> {
 
                 this.filter.importadores.forEach(importer => {
                     if(data.importadorNumero == importer.cnpj.replace(/[/\/\-\.]/g, '')){
-                        existe = true;                        
+                        existe = true;
                     }
                 })
                 if(!existe){
@@ -121,14 +119,6 @@ export class ProdutosListDataSource extends DataSource<Produto> {
         }else{
             newData = [];
         }
-
-        /*newData = newData.filter(d => {
-            this.filter.importadores.forEach(importer => {
-                importer.cnpj = importer.cnpj.replace(/[/\/\-\.]/g, '');
-                d.importadorNumero == importer.cnpj
-            })
-            d.importadorNumero.includes("08532602000100");
-        });*/
 
         return [...newData];
     }
