@@ -101,7 +101,8 @@ export class ProdutosTwoComponent implements OnInit {
                         })
 
                         produto.compatibilidade.canalDominante = 0;
-                        let similaridade = Math.round(produto.compatibilidade.similaridade * 100) / 100;
+                        //let similaridade = Math.round(produto.compatibilidade.similaridade * 100) / 100;
+                        let similaridade = Math.round(produto.compatibilidade.similaridade);
                         produto.compatibilidade.similaridade = similaridade;
 
                         this.produto.versoesProduto.push(produto);

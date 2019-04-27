@@ -36,7 +36,7 @@ export class NavegacaoComponent implements OnInit {
         return [
             {
                 id: 1, 
-                name: 'Dashboards',
+                name: 'Dashboard',
                 enable: true,
                 toggle: false,
                 submenus: [
@@ -52,8 +52,9 @@ export class NavegacaoComponent implements OnInit {
                 toggle: false,
                 submenus: [
                     {id: 2.1, name: 'Unificar Produtos', enable: true, routerLink: '/home', routerLinkActive: 'active', toggle: false, submenus: []},
-                    {id: 2.2, name: 'Catálogo de Produtos', enable: true, routerLink: '/home', routerLinkActive: 'active', toggle: false, submenus: []},
-                    {id: 2.3, name: 'Classificação Fiscal', enable: true, routerLink: '/home', routerLinkActive: 'active', toggle: false, submenus: []}
+                    {id: 2.2, name: 'Importar Arquivo', enable: true, routerLink: '/home', routerLinkActive: 'active', toggle: false, submenus: []},
+                    {id: 2.3, name: 'Catálogo de Produtos', enable: true, routerLink: '/home', routerLinkActive: 'active', toggle: false, submenus: []},
+                    {id: 2.4, name: 'Classificação Fiscal', enable: true, routerLink: '/home', routerLinkActive: 'active', toggle: false, submenus: []}
                 ]
             }
         ]

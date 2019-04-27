@@ -21,10 +21,10 @@ export class ProdutosThreeComponent implements OnInit {
     @Input() produto: Produto;
     @Output() produtoAlterado = new EventEmitter();
 
-    public loading = true;
-    public errored = false;
-    public finish = false;
-    public spinner = false;
+    loading = true;
+    errored = false;
+    finish = false;
+    spinner = false;
 
     paises: Array<{ value: string; viewValue: string; }> = [];
     listaNcm: any = {};
@@ -39,19 +39,19 @@ export class ProdutosThreeComponent implements OnInit {
     }>();
     codigoInternoDataSource = new MatTableDataSource<string>();
 
-    public situacoes = [
+    situacoes = [
         {value: 'ATIVADO', viewValue: 'Ativado'},
         {value: 'DESATIVADO', viewValue: 'Desativado'},
         {value: 'RASCUNHO', viewValue: 'Rascunho'}
     ];
 
-    public modalidades = [
+    modalidades = [
         {value: 'AMBOS', viewValue: 'Ambos'},
         {value: 'EXPORTACAO', viewValue: 'Exportação'},
         {value: 'IMPORTACAO', viewValue: 'Importação'}
     ];
 
-    public fabricantes = [
+    fabricantes = [
         {value: false, viewValue: 'Não'},
         {value: true, viewValue: 'Sim'}
     ];
@@ -78,15 +78,18 @@ export class ProdutosThreeComponent implements OnInit {
 
     private initDatasSources(){
         this.listaAtributos = [];
+        this.carregarAtributos();
+        this.carregarCodigoInterno();
+    }
 
+    carregarAtributos(){
         if(this.produto.atributos == null || this.produto.atributos == undefined){
             this.produto.atributos = [];
             this.listaAtributosDataSource.data = [];
         }else{
-
             this.listaNcm.listaNcm.forEach(ncm => {
-                //if(this.produto.ncm == ncm.codigoNcm.replace(/[/\/\-\.]/g, '')){
-                if("29333929" == ncm.codigoNcm.replace(/[/\/\-\.]/g, '')){
+                if(this.produto.ncm == ncm.codigoNcm.replace(/[/\/\-\.]/g, '')){
+                //if("29333929" == ncm.codigoNcm.replace(/[/\/\-\.]/g, '')){
 
                     if(ncm.listaAtributos.length > 0){
 
@@ -104,11 +107,26 @@ export class ProdutosThreeComponent implements OnInit {
                 }
             });
 
-            //this.produto.atributos
+            if(this.produto.atributos.length > 0){
 
-            //this.atributoDataSource.data = [...this.produto.atributos];
+                let listaData = [];
+                let listaAttr = [...this.listaAtributos];
+
+                listaAttr.forEach(attr =>{
+                    this.produto.atributos.forEach(proAttr => {
+                        if(attr.codigo == proAttr.atributo && attr.dominio == proAttr.valor){
+                            listaData.push(attr);
+                            this.listaAtributos.splice(this.listaAtributos.indexOf(attr), 1);
+                        }
+                    })
+                })
+                this.attrList = [...listaData];
+                this.listaAtributosDataSource.data = [...listaData];
+            }            
         }
+    }
 
+    carregarCodigoInterno(){
         if(this.produto.codigosInterno == null || this.produto.codigosInterno == undefined){
             this.produto.codigosInterno = [];
             this.codigoInternoDataSource.data = [];
@@ -117,7 +135,7 @@ export class ProdutosThreeComponent implements OnInit {
         }
     }
 
-    public adicionarAtributo(){
+    adicionarAtributo(){
         this.produto.atributos.push({
             atributo: this.attrSelect.codigo,
             valor: this.attrSelect.dominio
@@ -127,7 +145,7 @@ export class ProdutosThreeComponent implements OnInit {
         this.updateListaAtributos();
     }
 
-    public removeRowAtributo(attr: any){
+    removeRowAtributo(attr: any){
         let attrProd: Atributos = {atributo: attr.codigo, valor: attr.dominio};
 
         this.attrList.splice(this.attrList.indexOf(attr), 1);
@@ -137,30 +155,30 @@ export class ProdutosThreeComponent implements OnInit {
         this.updateListaAtributos();
     }
 
-    public updateListaAtributos(){
+    updateListaAtributos(){
         this.listaAtributosDataSource.data = [...this.attrList];
     }
 
-    public adicionarCodigoInterno(){
+    adicionarCodigoInterno(){
         this.produto.codigosInterno.push(this.codigointerno_form);
         this.codigointerno_form = '';
         this.updateCodigoInterno();
     }
 
-    public removeRowCodigoInterno(row: string){
+    removeRowCodigoInterno(row: string){
         this.produto.codigosInterno.splice(this.produto.codigosInterno.indexOf(row), 1);
         this.updateCodigoInterno();
     }
 
-    public updateCodigoInterno(){
+    updateCodigoInterno(){
         this.codigoInternoDataSource.data = [...this.produto.codigosInterno];
     }
 
-    public setStatusProduto(event: any){
+    setStatusProduto(event: any){
         this.produto.status = event.checked === true ? 'Aprovado' : 'Pendente'
     }
 
-    public finalizarPreenchimento(){
+    finalizarPreenchimento(){
 
         this.spinner = true;
 
@@ -221,7 +239,7 @@ export class ProdutosThreeComponent implements OnInit {
         }, 500);
     }
 
-    public validarCampos(){
+    validarCampos(){
 
         this.setMensagem('message-alert-warning');
 
@@ -309,7 +327,7 @@ export class ProdutosThreeComponent implements OnInit {
         }
     }
 
-    public setMensagem(tpMensagem: string) {
+    setMensagem(tpMensagem: string) {
         this.mensagem = null;
         for(let msg of msg_produtos_three) {
             if(msg.tipo == tpMensagem){
@@ -318,11 +336,11 @@ export class ProdutosThreeComponent implements OnInit {
         }
     }
 
-    public isNullUndefined(objeto: any): boolean {
+    isNullUndefined(objeto: any): boolean {
         return objeto == null || objeto == undefined ? true : false;
     }
 
-    public inListObject(list: {value: any, viewValue: any}[], stringValue: any): boolean {
+    inListObject(list: {value: any, viewValue: any}[], stringValue: any): boolean {
         for(let item of list){
             if(item.value == stringValue){
                 return true;
@@ -331,7 +349,7 @@ export class ProdutosThreeComponent implements OnInit {
         return false;
     }
 
-    public getFilterAsString(): string {
+    getFilterAsString(): string {
         
         var date = new Date();
         var start_date = new Date(date.setMonth(date.getMonth() - 12));
@@ -343,7 +361,7 @@ export class ProdutosThreeComponent implements OnInit {
         } as FilterResult);
     }
 
-    public voltarEtapa() {
+    voltarEtapa() {
         this.produto.etapaConformidade--;
         this.produtoAlterado.emit(this.produto);
     }

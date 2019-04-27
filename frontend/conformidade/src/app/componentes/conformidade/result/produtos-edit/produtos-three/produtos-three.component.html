@@ -183,7 +183,8 @@
                                 <mat-select [(ngModel)]="attrSelect">
                                     <mat-option
                                         *ngFor="let attr of listaAtributos"
-                                        [value]="attr">
+                                        [value]="attr"
+                                        style="font-size: 12px;">
                                             ({{attr.codigo}}) {{attr.dominio}} - {{attr.descricao}}
                                     </mat-option>
                                 </mat-select>
