@@ -122,7 +122,7 @@ export class ProdutosListComponent implements OnInit {
     }
 
     editRowProduto(row: Produto){
-        this.router.navigate([`/produtosEdit`], {
+        this.router.navigate([`/unificacao/produtos-edit`], {
             relativeTo: this.route,
             replaceUrl: false,
             queryParams: {

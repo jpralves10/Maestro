@@ -58,12 +58,6 @@ ul {
     color: #CCD1D1;
 }
 
-.clearfix::after{
-    content: "";
-    clear: both;
-    display: table;
-}
-
 .container-list{
     display: grid;
     grid-template-columns: 1fr 1fr;

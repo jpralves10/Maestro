@@ -4,30 +4,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import {
-    MatInputModule,
-    MatChipsModule, 
-    MatSelectModule,
-    MatFormFieldModule,
-    MatGridListModule,
-    MatButtonModule,
-    MatRippleModule,
-    MatExpansionModule,
-    MatStepperModule,
-    MatTooltipModule,
-    MatDialogModule,
-    MatTreeModule
-} from '@angular/material';
-
 import { ObserversModule } from '@angular/cdk/observers';
 //import { CdkTableModule } from '@angular/cdk/table';
 
-import { 
-    NgbModule 
-} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { MaterialModule } from '../../utilitarios/material.module';
-import {NgxMaskModule} from 'ngx-mask';
+import { NgxMaskModule } from 'ngx-mask';
 
 // Add these
 //import { faAdobe } from '@fortawesome/free-brands-svg-icons';
@@ -85,21 +68,9 @@ import { TrendlineChartComponent } from './result/trendline-chart/trendline-char
         FormsModule,
         ReactiveFormsModule,
         MaterialModule,
-        MatInputModule,
-        MatChipsModule,
-        MatSelectModule,
         FontAwesomeModule,
-        MatFormFieldModule,
-        MatGridListModule,
-        MatButtonModule,
-        MatRippleModule,
-        MatExpansionModule,
-        MatStepperModule,
-        MatTooltipModule,
-        MatDialogModule,
-        MatTreeModule,
         ObserversModule,
-        //NgbModule.forRoot(),
+        NgbModule.forRoot(),
         RouterModule.forChild(UNIFICACAO_ROUTES),
         NgxMaskModule.forRoot()
         //GoogleChartsModule.forRoot()

@@ -21,8 +21,6 @@ export class ImportersListComponent implements OnInit {
     
     @Input() data: Importer[];
 
-    
-
     selection = new SelectionModel<Importer>(true, []);
 
     dataSource: ImportersListDataSource;
@@ -82,7 +80,7 @@ export class ImportersListComponent implements OnInit {
     isAllSelected() {
         const visibleData = this.dataSource.getUpdatedData();
         return !visibleData.some(
-          ds => !this.selection.selected.some(s => s.cpf_cnpj === ds.cpf_cnpj)
+            ds => !this.selection.selected.some(s => s.cpf_cnpj === ds.cpf_cnpj)
         );
     }
 

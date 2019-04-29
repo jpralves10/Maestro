@@ -22,29 +22,37 @@ import { HomeComponent } from './shared/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ROUTES } from './app.routes';
-import { UnificacaoModule } from './produtos/unificacao/unificacao.module';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { IndicadoresComponent } from './dashboard/indicadores/indicadores.component';
+import { ImportacaoComponent } from './produtos/importacao/importacao.component';
+import { CatalogoComponent } from './produtos/catalogo/catalogo.component';
+import { ClassificacaoComponent } from './produtos/classificacao/classificacao.component';
+import { ProdutosListComponent } from './produtos/catalogo/produtos-list/produtos-list.component';
+import { ProdutosEditComponent } from './produtos/catalogo/produtos-edit/produtos-edit.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         NavegacaoComponent,
         HomeComponent,
-        IndicadoresComponent
+        IndicadoresComponent,
+        ImportacaoComponent,
+        CatalogoComponent,
+        ClassificacaoComponent,
+        ProdutosListComponent,
+        ProdutosEditComponent
     ],
     imports: [
         BrowserModule,
         MaterialModule,
         FontAwesomeModule,
-        UnificacaoModule,
         BrowserAnimationsModule,
         KeycloakAngularModule,
         HttpClientModule,
         FormsModule,
-        //NgbModule.forRoot(),
-        RouterModule.forRoot(ROUTES) //, {useHash: true})
+        NgbModule.forRoot(),
+        RouterModule.forRoot(ROUTES, {useHash: true})
     ],
     providers: [
         {
