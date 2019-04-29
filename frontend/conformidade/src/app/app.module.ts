@@ -22,27 +22,29 @@ import { HomeComponent } from './shared/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ROUTES } from './app.routes';
-import { ConformidadeModule } from './componentes/conformidade/conformidade.module';
+import { UnificacaoModule } from './produtos/unificacao/unificacao.module';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { IndicadoresComponent } from './dashboard/indicadores/indicadores.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         NavegacaoComponent,
-        HomeComponent
+        HomeComponent,
+        IndicadoresComponent
     ],
     imports: [
         BrowserModule,
         MaterialModule,
         FontAwesomeModule,
-        ConformidadeModule,
+        UnificacaoModule,
         BrowserAnimationsModule,
         KeycloakAngularModule,
         HttpClientModule,
         FormsModule,
-        NgbModule.forRoot(),
-        RouterModule.forRoot(ROUTES, {useHash: true})
+        //NgbModule.forRoot(),
+        RouterModule.forRoot(ROUTES) //, {useHash: true})
     ],
     providers: [
         {

@@ -45,7 +45,7 @@ export class ProdutosOneComponent implements OnInit {
     }
 
     proximaEtapa(){
-        this.produto.etapaConformidade++;
+        this.produto.etapaUnificacao++;
         this.produtoAlterado.emit(this.produto);
     }
 }

@@ -37,7 +37,7 @@ import { fas, faChevronDown, faFileMedical, faInfoCircle } from '@fortawesome/fr
 import { far } from '@fortawesome/free-regular-svg-icons';
 library.add(fas, far, faChevronDown, faFileMedical, faInfoCircle);
 
-import { CONFORMIDADE_ROUTES } from './conformidade.routes';
+import { UNIFICACAO_ROUTES } from './unificacao.routes';
 
 import { FilterComponent } from './filter/filter.component';
 import { ResultComponent } from './result/result.component';
@@ -99,8 +99,8 @@ import { TrendlineChartComponent } from './result/trendline-chart/trendline-char
         MatDialogModule,
         MatTreeModule,
         ObserversModule,
-        NgbModule.forRoot(),
-        RouterModule.forChild(CONFORMIDADE_ROUTES),
+        //NgbModule.forRoot(),
+        RouterModule.forChild(UNIFICACAO_ROUTES),
         NgxMaskModule.forRoot()
         //GoogleChartsModule.forRoot()
     ],
@@ -108,4 +108,4 @@ import { TrendlineChartComponent } from './result/trendline-chart/trendline-char
         ProdutosListDialog
     ]
 })
-export class ConformidadeModule { }
+export class UnificacaoModule { }

@@ -23,17 +23,16 @@
                     </li>
 
                     <li *ngIf="menu.toggle" class="li-two">
-                        <ul class="ul-two-sub">
-                            <li *ngFor="let submenu of menu.submenus" class="li-two-active">
+                        <ul *ngFor="let submenu of menu.submenus" class="ul-two-sub">
+                            <li *ngIf="menu.enable && submenu.enable" class="li-two-active">
                                 <a mat-list-item 
-                                    *ngIf="menu.enable && submenu.enable"
                                     class="item-two"
                                     routerLink={{submenu.routerLink}}
                                     routerLinkActive={{submenu.routerLinkActive}}
                                     (click)="checkClose() && drawer.close()">
                                     {{ submenu.name }}
                                 </a>
-                            </li>                
+                            </li>
                         </ul>
                     </li>
 
@@ -78,12 +77,14 @@
     <mat-sidenav-content>
         <mat-toolbar color="primary" *ngIf="(isHandset$ | async)">
             <button
-            type="button"
-            aria-label="Toggle sidenav"
-            mat-icon-button
-            (click)="drawer.toggle()"
-            *ngIf="(isHandset$ | async)" >
-            <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+                type="button"
+                aria-label="Toggle sidenav"
+                mat-icon-button
+                (click)="drawer.toggle()"
+                *ngIf="(isHandset$ | async)" >
+                <mat-icon aria-label="Side nav toggle icon">
+                    menu
+                </mat-icon>
             </button>
             <span></span>
         </mat-toolbar>

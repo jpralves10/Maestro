@@ -208,7 +208,7 @@ export class ProdutosThreeComponent implements OnInit {
                         
                         this.produto.dataAtualizacao = new Date();
                         this.produto.versoesProduto = undefined;
-                        this.produto.etapaConformidade = undefined;
+                        this.produto.etapaUnificacao = undefined;
                         this.produto.compatibilidade = undefined;
                         this.produto.declaracaoNode = undefined;
                         this.produto.declaracoes = undefined;
@@ -362,7 +362,7 @@ export class ProdutosThreeComponent implements OnInit {
     }
 
     voltarEtapa() {
-        this.produto.etapaConformidade--;
+        this.produto.etapaUnificacao--;
         this.produtoAlterado.emit(this.produto);
     }
 }

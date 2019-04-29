@@ -24,7 +24,7 @@ export class ProdutosEditComponent implements OnInit {
         this.route.queryParamMap.subscribe(paramMap => {
             this.produto = JSON.parse(paramMap.get('filterProduto'));
 
-            this.produto.etapaConformidade = 1;
+            this.produto.etapaUnificacao = 1;
 
             this.produto.descricaoBruta = this.produto.descricaoBruta.trim();
 

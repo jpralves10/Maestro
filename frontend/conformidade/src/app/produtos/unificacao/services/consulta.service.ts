@@ -37,7 +37,7 @@ export class ConsultaService {
 
     setProdutosInativos(inativos: Produto[]): Observable<Produto[]> {
         return this.httpClient.post<Produto[]>(
-            `${ EFICILOG_API }/produtos/conformidade/inativos`, inativos
+            `${ EFICILOG_API }/produtos/unificacao/inativos`, inativos
         );
     }    
 }

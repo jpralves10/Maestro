@@ -6,7 +6,7 @@ export interface Produto {
     _id: string;
     status: string;
     descricaoBruta: string;
-    etapaConformidade: number;
+    etapaUnificacao: number;
 
     /** Informações Declaracao **/
     numeroDI: string, 
@@ -55,7 +55,7 @@ export class ProdutoClass implements Produto{
     _id: string;
     status: string;
     descricaoBruta: string;
-    etapaConformidade: number;
+    etapaUnificacao: number;
 
     /** Informações Declaracao **/
     numeroDI: string;

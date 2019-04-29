@@ -392,7 +392,7 @@ export class ResultComponent implements OnInit {
             numeroDI: "01234567891",
             dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
             status: "Pendente",
-            etapaConformidade: 0,
+            etapaUnificacao: 0,
             descricaoBruta: "410102469R PINCA DO FREIO DIANTEIRO PARA VEICULO AUTOMOVEL",
             descricao: "",
             cnpjRaiz: "00913443000173",

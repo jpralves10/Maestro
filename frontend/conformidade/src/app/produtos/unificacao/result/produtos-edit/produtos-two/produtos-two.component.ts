@@ -207,7 +207,7 @@ export class ProdutosTwoComponent implements OnInit {
         },
         error => { this.errored = true;})*/
 
-        this.produto.etapaConformidade++;
+        this.produto.etapaUnificacao++;
         this.produtoAlterado.emit(this.produto);
     }
 
@@ -231,7 +231,7 @@ export class ProdutosTwoComponent implements OnInit {
     }
 
     public voltarEtapa(){
-        this.produto.etapaConformidade--;
+        this.produto.etapaUnificacao--;
         this.produtoAlterado.emit(this.produto);
     }
 
@@ -361,7 +361,7 @@ export class ProdutosTwoComponent implements OnInit {
             numeroDI: "01234567891",
             dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
             status: "Pendente",
-            etapaConformidade: 0,
+            etapaUnificacao: 0,
             descricaoBruta: "410102469R PINCA DO FREIO DIANTEIRO PARA VEICULO AUTOMOVEL",
             descricao: "",
             cnpjRaiz: "00913443000173",
@@ -396,7 +396,7 @@ export class ProdutosTwoComponent implements OnInit {
         produto2.numeroDI = "09999967891";
         produto2.descricaoBruta = "410004800R PINCA DO FREIO DIANTEIRO PARA VEICULO AUTOMOVEL";
         produto2.ncm = "87083090";
-        produto2.status = "Em Conformidade";
+        produto2.status = "Pendente";
         var produto3 = {...produto};
         var produto4 = {...produto};
         var produto5 = {...produto};
