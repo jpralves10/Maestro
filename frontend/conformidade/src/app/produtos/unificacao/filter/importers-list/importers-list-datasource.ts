@@ -2,10 +2,10 @@ import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
-import { Importer } from '../../models/importer.model';
+import { Importer } from '../../../shared/models/importer.model';
 import { Input } from '@angular/core';
-import { FilterItem } from '../../models/filter.model';
-import { FilterService } from '../../services/filter.service';
+import { FilterItem } from '../../../shared/models/unificacao.filter.model';
+import { FilterService } from '../../../shared/services/unificacao.filter.service';
 
 export class ImportersListDataSource extends DataSource<Importer> {
     

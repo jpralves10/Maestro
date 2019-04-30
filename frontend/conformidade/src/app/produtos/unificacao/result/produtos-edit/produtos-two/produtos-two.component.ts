@@ -7,14 +7,14 @@ import { Chart } from 'chart.js';
 
 import { msg_produtos_two } from '../../../../../utilitarios/mensagens.module';
 
-import { Produto } from '../../../models/produto.model';
-import { Compatibilidade } from '../../../models/legendas.model';
+import { Produto } from '../../../../shared/models/produto.model';
+import { Compatibilidade } from '../../../../shared/models/legendas.model';
 import { ProdutosTwoDataSource } from './produtos-two-datasource';
-import { ResultItem } from '../../../models/result.model';
-import { Result } from '../../../models/result.model';
+import { ResultItem } from '../../../../shared/models/unificacao.result.model';
+import { Result } from '../../../../shared/models/unificacao.result.model';
 
-import { ConsultaService } from '../../../services/consulta.service';
-import { ResultService } from '../../../services/result.service';
+import { ProdutoService } from '../../../../shared/services/produtos.service';
+import { ResultService } from '../../../../shared/services/unificacao.result.service';
 
 @Component({
   selector: 'app-produtos-two',
@@ -53,7 +53,7 @@ export class ProdutosTwoComponent implements OnInit {
     public currentFilter: Result;
 
     constructor(
-        private consultaService: ConsultaService,
+        private produtoService: ProdutoService,
         private resultService: ResultService
     ) {
         resultService.filter.subscribe(f => (this.filtroValue = f));
@@ -79,7 +79,7 @@ export class ProdutosTwoComponent implements OnInit {
                 this.produto.codigosInterno = []
             }
 
-            this.consultaService.getProdutosGenerico(
+            this.produtoService.getProdutosGenerico(
                 {
                     cnpjRaiz: this.produto.cnpjRaiz.substring(0, 8),
                     status: ['Pendente', 'Completo', 'Aprovado', 'Integrado'],
@@ -202,7 +202,7 @@ export class ProdutosTwoComponent implements OnInit {
     }
 
     proximaEtapa(){
-        /*this.consultaService.setProdutosInativos(this.inativos).subscribe(inativos =>{
+        /*this.produtoService.setProdutosInativos(this.inativos).subscribe(inativos =>{
             return
         },
         error => { this.errored = true;})*/

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProdutoService } from '../shared/services/produtos.service';
 
 @Component({
   selector: 'app-classificacao',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClassificacaoComponent implements OnInit {
 
-  constructor() { }
+    constructor(
+        private produtoService: ProdutoService
+    ) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() { }
 
+    click(){
+        this.produtoService.serverNode().subscribe(ret => {
+            console.log(ret)
+        })
+    }
 }

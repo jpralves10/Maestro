@@ -1,12 +1,10 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { Filter } from '../models/filter.model';
-import { FilterItem } from '../models/filter.model';
-import { FilterResult } from '../models/filter-result.model';
+import { Filter, FilterItem, FilterResult } from '../../shared/models/unificacao.filter.model';
 
-import { ConsultaService } from '../services/consulta.service';
-import { FilterService } from '../services/filter.service';
+import { ProdutoService } from '../../shared/services/produtos.service';
+import { FilterService } from '../../shared/services/unificacao.filter.service';
 import { ImportersListComponent } from './importers-list/importers-list.component';
 
 @Component({
@@ -27,7 +25,7 @@ export class FilterComponent implements OnInit {
     filtro: Filter = { importers: [] };
 
     constructor(
-        private consultaService: ConsultaService,
+        private produtoService: ProdutoService,
         private filterService: FilterService,
         private router: Router,
         private route: ActivatedRoute
@@ -40,7 +38,7 @@ export class FilterComponent implements OnInit {
     ngOnInit() {
         this.filterService.resetFilter();
 
-        this.consultaService.getDadosFiltro().subscribe(
+        this.produtoService.getDadosFiltro().subscribe(
             data => {
                 this.data = this.getDataTransformed(data);
                 window.sessionStorage.setItem('filter', JSON.stringify(this.data));

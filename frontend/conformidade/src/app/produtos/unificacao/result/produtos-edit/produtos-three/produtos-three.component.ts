@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
-import { Produto } from '../../../models/produto.model';
-import { Atributos } from '../../../models/legendas.model';
+import { Produto } from '../../../../shared/models/produto.model';
+import { Atributos } from '../../../../shared/models/legendas.model';
 
-import { FilterResult } from '../../../models/filter-result.model';
-import { ConsultaService } from '../../../services/consulta.service';
+import { FilterResult } from '../../../../shared/models/unificacao.filter.model';
+import { ProdutoService } from '../../../../shared/services/produtos.service';
 
 import paises from '../../../../../utilitarios/pais-origem.model';
 import listaNcm from '../../../../../utilitarios/ncm.model';
@@ -65,7 +65,7 @@ export class ProdutosThreeComponent implements OnInit {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private consultaService: ConsultaService
+        private produtoService: ProdutoService
     ) { 
         this.paises = paises;
         this.listaNcm = listaNcm;
@@ -221,7 +221,7 @@ export class ProdutosThreeComponent implements OnInit {
 
                         this.produtoAlterado.emit(this.produto);
 
-                        this.consultaService
+                        this.produtoService
                             .setAlterarProdutos(this.produto)
                             .subscribe(versoes => {}, error => { this.errored = true;});
                         

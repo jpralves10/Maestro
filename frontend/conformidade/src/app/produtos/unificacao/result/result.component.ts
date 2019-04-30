@@ -1,14 +1,13 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FilterResult } from '../models/filter-result.model';
-import { Produto } from '../models/produto.model';
-import { Declaracao } from '../models/legendas.model';
-import { ResultItem } from '../models/result.model';
-import { Result, ResultClass } from '../models/result.model';
-import { Resumo } from '../models/legendas.model';
+import { FilterResult } from '../../shared/models/unificacao.filter.model';
+import { Produto } from '../../shared/models/produto.model';
+import { Declaracao } from '../../shared/models/legendas.model';
+import { Result, ResultItem, ResultClass } from '../../shared/models/unificacao.result.model';
+import { Resumo } from '../../shared/models/legendas.model';
 
-import { ConsultaService } from '../services/consulta.service';
-import { ResultService } from '../services/result.service';
+import { ProdutoService } from '../../shared/services/produtos.service';
+import { ResultService } from '../../shared/services/unificacao.result.service';
 
 import { ProdutosListComponent } from './produtos-list/produtos-list.component';
 
@@ -61,7 +60,7 @@ export class ResultComponent implements OnInit {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private consultaService: ConsultaService,
+        private produtoService: ProdutoService,
         private resultService: ResultService
     ) {
         this.route.queryParamMap.subscribe(paramMap => {
@@ -105,7 +104,7 @@ export class ResultComponent implements OnInit {
 
         /* End Mock */
 
-        this.consultaService.getProdutosGenerico(
+        this.produtoService.getProdutosGenerico(
             {
                 cnpjRaiz: this.filter.importers[0],
                 status: this.status,

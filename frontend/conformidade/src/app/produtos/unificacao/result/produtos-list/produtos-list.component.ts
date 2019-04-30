@@ -1,19 +1,19 @@
-import { Component, OnInit, Inject, Input, ViewChild, Directive } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatPaginator, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { Produto } from '../../models/produto.model';
+import { Produto } from '../../../shared/models/produto.model';
 import { ProdutosListDataSource } from './produtos-list-datasource';
-import { ResultItem } from '../../models/result.model';
-import { Result } from '../../models/result.model';
-import { ResultService } from '../../services/result.service';
+import { ResultItem } from '../../../shared/models/unificacao.result.model';
+import { Result } from '../../../shared/models/unificacao.result.model';
+import { ResultService } from '../../../shared/services/unificacao.result.service';
+import { FilterResult } from '../../../shared/models/unificacao.filter.model';
 import { ProdutosListDialog } from './produtos-list.dialog'
 
 import { Chart } from 'chart.js';
-import { FilterResult } from '../../models/filter-result.model';
 
 @Component({
   selector: 'app-produtos-list',
@@ -30,13 +30,10 @@ export class ProdutosListComponent implements OnInit {
     @Input() filter: FilterResult;
 
     statusOld: string[];
-
     eventTable: number = 0;
 
-    selection = new SelectionModel<Produto>(true, []);
-
     dataSource: ProdutosListDataSource;
-
+    selection = new SelectionModel<Produto>(true, []);
     displayedColumns = ['descricaoBruta', 'ncm', 'canal', 'declaracoes'];
 
     public filtroValue: ResultItem;
@@ -91,18 +88,6 @@ export class ProdutosListComponent implements OnInit {
         this.dataSource.data = [...data];
         this.dataSource.fullData = [...data];
         this.updateFiltro();
-    }
-
-    masterToggle() {
-        const visibleData = this.getVisibleData();
-        const allSelected = this.isAllSelected();
-
-        if (allSelected) {
-            this.selection.deselect(...visibleData);
-        } else {
-            this.selection.select(...visibleData);
-        }
-        return;
     }
 
     getVisibleData() {

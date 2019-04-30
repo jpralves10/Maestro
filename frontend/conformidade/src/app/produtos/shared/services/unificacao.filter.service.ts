@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { MatPaginator } from '@angular/material';
-import { ResultItem } from '../models/result.model';
-import { Result } from '../models/result.model';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Filter, FilterItem } from '../models/unificacao.filter.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ResultService {
+export class FilterService {
 
     date = new Date();
     start_date = new Date(this.date.setMonth(this.date.getMonth() - 12));
@@ -18,12 +17,12 @@ export class ResultService {
 
     /** Default Filter **/
 
-    private defaultFilter: ResultItem = {
-        produto: {numeroDI: '', descricaoBruta: '', ncm: '', status: '', cnpj: ''}
+    private defaultFilter: FilterItem = {
+        importer: {cpf_cnpj: '', name: ''}
     };
 
-    public filterSource:
-        BehaviorSubject<ResultItem> = new BehaviorSubject<ResultItem>(this.defaultFilter);
+    public filterSource: 
+        BehaviorSubject<FilterItem> = new BehaviorSubject<FilterItem>(this.defaultFilter);
 
     public filter = this.filterSource.asObservable();
 
@@ -32,7 +31,7 @@ export class ResultService {
 
     public whenUpdated: Array<MatPaginator> = [];
 
-    public changeFilter(filter: ResultItem): void {
+    public changeFilter(filter: FilterItem): void {
         this.filterSource.next(filter);
         //console.log(this.whenUpdated);
         this.whenUpdated.forEach(f2 => f2.firstPage());
@@ -44,19 +43,19 @@ export class ResultService {
 
     /** Default Filter Result **/
 
-    private readonly defaultFilterResult: Result = {
-        produtos: [],
+    private readonly defaultFilterResult: Filter = {
+        importers: [],
         data_inicio: this.start_date,
         data_fim: new Date()
     };
 
     public filterResultSource: 
-        BehaviorSubject<Result> = new BehaviorSubject<Result>(this.defaultFilterResult);
+        BehaviorSubject<Filter> = new BehaviorSubject<Filter>(this.defaultFilterResult);
 
     public filterResult: 
-        Observable<Result> = this.filterResultSource.asObservable();
+        Observable<Filter> = this.filterResultSource.asObservable();
 
-    public changeFilterResult(filter: Result) {
+    public changeFilterResult(filter: Filter) {
         this.filterResultSource.next(filter);
     }
 
@@ -64,9 +63,3 @@ export class ResultService {
         this.filterResultSource.next(this.defaultFilterResult);
     }
 }
-
-const actualDateDecremented = (): Date => {
-    const actualDate = new Date();
-    actualDate.setMonth(actualDate.getMonth() - 12);
-    return actualDate;
-};

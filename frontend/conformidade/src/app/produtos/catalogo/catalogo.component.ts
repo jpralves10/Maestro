@@ -1,8 +1,10 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { FilterResult } from '../unificacao/models/filter-result.model';
-import { ResultItem, Result, ResultClass } from '../unificacao/models/result.model';
-import { Produto } from '../unificacao/models/produto.model';
-import { ConsultaService } from '../unificacao/services/consulta.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FilterResult } from '../shared/models/unificacao.filter.model';
+import { ResultItem, Result, ResultClass } from '../shared/models/unificacao.result.model';
+import { Produto } from '../shared/models/produto.model';
+import { ProdutoService } from '../shared/services/produtos.service';
+import { ResultService } from '../shared/services/unificacao.result.service';
 import { ProdutosListComponent } from './produtos-list/produtos-list.component';
 
 @Component({
@@ -23,7 +25,7 @@ export class CatalogoComponent implements OnInit {
 
     produtos: Produto[];
     data: Result = null;
-    status: string[] = [];
+    status: string[] = ['Pendente', 'Completo', 'Aprovado', 'Integrado'];
     //importers: any = [];
 
     @Input() current_filtro: ResultItem = {
@@ -37,7 +39,10 @@ export class CatalogoComponent implements OnInit {
     };
 
     constructor(
-        private consultaService: ConsultaService,
+        private router: Router,
+        private route: ActivatedRoute,
+        private resultService: ResultService,
+        private produtoService: ProdutoService
     ) {
         this.loading = false;
         this.setDadosResult();
@@ -66,12 +71,14 @@ export class CatalogoComponent implements OnInit {
 
         /* End Mock */
 
-        this.consultaService.getProdutosGenerico(
+        let date = new Date();
+
+        this.produtoService.getProdutosGenerico(
             {
-                cnpjRaiz: this.filter.importers[0],
+                cnpjRaiz: "08532602", //this.filter.importers[0],
                 status: this.status,
-                dataInicial: this.filter.start_date,
-                dataFinal: this.filter.end_date
+                dataInicial: new Date(date.setMonth(date.getMonth() - 12)),
+                dataFinal: new Date()
             }
         ).subscribe(adicoes => {
             this.data.produtos = (adicoes as any).produtos;
@@ -104,10 +111,15 @@ export class CatalogoComponent implements OnInit {
     ngOnInit() { }
 
     childUpdateDataSource(){
-        /*if(this.childProdutosList != undefined){
+        if(this.childProdutosList != undefined){
             this.childProdutosList.updateDataSource(this.data.produtos);
-            this.childProdutosList.eventTable = 1;
-        }*/
+            //this.childProdutosList.eventTable = 1;
+        }
+    }
+
+    updateFiltro() {
+        this.resultService.changeFilter(this.current_filtro);
+        //this.childProdutosList.eventTable = 1;
     }
 
     /*agruparDeclaracoes(produtos: Produto[]){

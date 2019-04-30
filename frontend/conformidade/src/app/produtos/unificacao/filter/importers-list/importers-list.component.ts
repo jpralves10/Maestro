@@ -1,18 +1,18 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 
-import { Importer } from '../../models/importer.model';
+import { Importer } from '../../../shared/models/importer.model';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { ImportersListDataSource } from './importers-list-datasource';
-import { FilterItem } from '../../models/filter.model';
-import { Filter } from '../../models/filter.model';
-import { FilterService } from '../../services/filter.service';
+import { FilterItem } from '../../../shared/models/unificacao.filter.model';
+import { Filter } from '../../../shared/models/unificacao.filter.model';
+import { FilterService } from '../../../shared/services/unificacao.filter.service';
 
 @Component({
-  selector: 'app-importers-list',
-  templateUrl: './importers-list.component.html',
-  styleUrls: ['./importers-list.component.scss']
+    selector: 'app-importers-list',
+    templateUrl: './importers-list.component.html',
+    styleUrls: ['./importers-list.component.scss']
 })
 export class ImportersListComponent implements OnInit {
 

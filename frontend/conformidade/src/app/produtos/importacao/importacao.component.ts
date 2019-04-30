@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterResult } from '../unificacao/models/filter-result.model';
-import { Filter } from '../unificacao/models/filter.model';
+import { Filter, FilterResult } from '../shared/models/unificacao.filter.model';
 
 @Component({
   selector: 'app-importacao',

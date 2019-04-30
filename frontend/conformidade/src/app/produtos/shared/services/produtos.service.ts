@@ -3,17 +3,15 @@ import { AuthService } from '../../../utilitarios/auth.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { Filter } from '../models/filter.model';
+import { Filter } from '../models/unificacao.filter.model';
 import { Produto } from '../models/produto.model';
-import { FilterResult } from '../models/filter-result.model';
 
 import { EFICILOG_API, EFICILOG_API_HOMOLOCACAO } from '../../../utilitarios/app.api';
-import { Declaracao } from '../models/legendas.model';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ConsultaService {
+export class ProdutoService {
 
     constructor(private httpClient: HttpClient){}
 
@@ -39,5 +37,12 @@ export class ConsultaService {
         return this.httpClient.post<Produto[]>(
             `${ EFICILOG_API }/produtos/unificacao/inativos`, inativos
         );
-    }    
+    }
+    
+    //Teste
+    serverNode(): Observable<Produto> {
+        return this.httpClient.get<Produto>(
+            `http://localhost:3443/teste`
+        );
+    }
 }

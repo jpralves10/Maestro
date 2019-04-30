@@ -1,13 +1,14 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
 import { Input } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Observable, of as observableOf, merge } from 'rxjs';
-import { Produto } from '../../../../shared/models/produto.model';
-import { ResultItem } from '../../../../shared/models/unificacao.result.model';
-import { ResultService } from '../../../../shared/services/unificacao.result.service';
+import { map, filter } from 'rxjs/operators';
+import { Observable, of as observableOf, merge, from } from 'rxjs';
+import { Produto } from '../../shared/models/produto.model';
+import { ResultItem } from '../../shared/models/unificacao.result.model';
+import { FilterResult } from '../../shared/models/unificacao.filter.model';
+import { ResultService } from '../../shared/services/unificacao.result.service';
 
-export class ProdutosTwoDataSource extends DataSource<Produto> {
+export class ProdutosListDataSource extends DataSource<Produto> {
 
     @Input()
     public data: Produto[];
@@ -16,13 +17,17 @@ export class ProdutosTwoDataSource extends DataSource<Produto> {
 
     public filtro: ResultItem;
 
+    public dataObservable: Observable<any>;
+
     constructor(
+        private filter: FilterResult,
         private paginator: MatPaginator,
-        private sort?: MatSort,
-        private resultService?: ResultService,
-        data?: Produto[]
+        private sort: MatSort,
+        private resultService: ResultService,
+        data: Produto[]
     ) {
         super();
+        this.filter = filter;
         this.data = [...data];
         this.fullData = [...data];
         this.resultService.filterSource.subscribe(filtro => (this.filtro = filtro));
@@ -53,7 +58,11 @@ export class ProdutosTwoDataSource extends DataSource<Produto> {
         this.filteredData = this.getFilteredData(this.fullData);
 
         this.paginator.length = this.filteredData.length;
-        return this.getPagedData(this.getSortedData(this.filteredData));
+        var sortedProdutos = this.getPagedData(this.getSortedData(this.filteredData));
+
+        //this.produtosList.setChartList(sortedProdutos);
+
+        return sortedProdutos;
     }
 
     /**
@@ -68,11 +77,48 @@ export class ProdutosTwoDataSource extends DataSource<Produto> {
 
         let newData = data;
 
+        if (produto.numeroDI !== '') {
+            newData = newData.filter(d =>
+                d.numeroDI.includes(produto.numeroDI)
+            );
+        }
         if (produto.descricaoBruta !== '') {
             newData = newData.filter(d =>
                 d.descricaoBruta.toUpperCase().includes(produto.descricaoBruta.toUpperCase())
             );
         }
+        if (produto.ncm !== '') {
+            newData = newData.filter(d =>
+                d.ncm.includes(produto.ncm)
+            );
+        }
+        /*if (produto.status !== '') {
+            newData = newData.filter(d =>
+                d.status.toUpperCase().includes(produto.status.toUpperCase())
+            );
+        }*/
+
+        /*if(this.filter.importadores.length > 0){
+
+            var newProd = [...newData];
+
+            newProd.forEach(data => {
+
+                let existe = false;
+
+                this.filter.importadores.forEach(importer => {
+                    if(data.importadorNumero == importer.cnpj.replace(/[/\/\-\.]/g, '')){
+                        existe = true;
+                    }
+                })
+                if(!existe){
+                    newData.splice(newData.indexOf(data), 1);
+                }
+            })
+        }else{
+            newData = [];
+        }*/
+
         return [...newData];
     }
 
@@ -98,12 +144,14 @@ export class ProdutosTwoDataSource extends DataSource<Produto> {
         return data.sort((a, b) => {
             const isAsc = this.sort.direction === 'asc';
             switch (this.sort.active) {
+                /*case 'numeroDI':
+                    return compare(a.numeroDI, b.numeroDI, isAsc);*/
                 case 'descricaoBruta':
                     return compare(a.descricaoBruta, b.descricaoBruta, isAsc);
-                case 'similaridade':
-                    return compare(a.compatibilidade.similaridade, b.compatibilidade.similaridade, isAsc);
+                case 'ncm':
+                    return compare(a.ncm, b.ncm, isAsc);
                 case 'canal':
-                    return compare(a.compatibilidade.canalDominante, b.compatibilidade.canalDominante, isAsc);
+                    return compare(a.canalDominante, b.canalDominante, isAsc);
                 default:
                     return 0;
             }
