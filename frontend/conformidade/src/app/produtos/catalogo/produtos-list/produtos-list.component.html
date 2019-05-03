@@ -37,27 +37,11 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
                 Canal
             </th>
-            <td mat-cell (click)="openDialogDeclaracoes(row)" *matCellDef="let row">
+            <td mat-cell *matCellDef="let row">
 
                 <canvas id="list-{{ row._id }}"></canvas>
 
                 <!--canvas id="list-{{ row._id }}" width="100%" height="100%"></canvas-->
-            </td>
-        </ng-container>
-
-        <!-- Column -->
-        <ng-container matColumnDef="declaracoes">
-            <th mat-header-cell *matHeaderCellDef>
-                Detalhes
-            </th>
-            <td mat-cell *matCellDef="let row">
-                <button
-                    mat-button
-                    matTooltip="Ver detalhes da mercadoria"
-                    (click)="openDialogDeclaracoes(row)"
-                    style="color: #596679;">
-                    <fa-icon icon="info-circle" size="lg"></fa-icon>
-                </button>
             </td>
         </ng-container>
 

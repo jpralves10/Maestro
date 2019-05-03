@@ -107,11 +107,11 @@ export class ProdutosListComponent implements OnInit {
     }
 
     editRowProduto(row: Produto){
-        this.router.navigate([`/unificacao/produtos-edit`], {
+        this.router.navigate([`/unificacao/unificacao-edit`], {
             relativeTo: this.route,
             replaceUrl: false,
             queryParams: {
-                filterProduto: JSON.stringify({...row})
+                filterUnificacao: JSON.stringify({...row})
             }
         });
     }

@@ -28,7 +28,7 @@ export class ProdutosListComponent implements OnInit {
 
     dataSource: ProdutosListDataSource;
     selection = new SelectionModel<Produto>(true, []);
-    displayedColumns = ['descricaoBruta', 'ncm', 'canal', 'declaracoes'];
+    displayedColumns = ['descricaoBruta', 'ncm', 'canal'];
 
     public filtroValue: ResultItem;
     public currentFilter: Result;
@@ -98,11 +98,11 @@ export class ProdutosListComponent implements OnInit {
     }
 
     editRowProduto(row: Produto){
-        this.router.navigate([`/unificacao/produtos-edit`], {
+        this.router.navigate([`/catalogo/catalogo-edit`], {
             relativeTo: this.route,
             replaceUrl: false,
             queryParams: {
-                filterProduto: JSON.stringify({...row})
+                filterCatalogo: JSON.stringify({...row})
             }
         });
     }

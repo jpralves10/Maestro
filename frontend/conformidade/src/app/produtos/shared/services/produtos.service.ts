@@ -38,7 +38,7 @@ export class ProdutoService {
             `${ EFICILOG_API }/produtos/unificacao/inativos`, inativos
         );
     }
-    
+
     //Teste
     serverNode(): Observable<Produto> {
         return this.httpClient.get<Produto>(

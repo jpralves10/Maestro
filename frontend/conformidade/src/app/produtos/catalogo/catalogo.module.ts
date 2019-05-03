@@ -20,29 +20,17 @@ import { fas, faChevronDown, faFileMedical, faInfoCircle } from '@fortawesome/fr
 import { far } from '@fortawesome/free-regular-svg-icons';
 library.add(fas, far, faChevronDown, faFileMedical, faInfoCircle);
 
-import { UNIFICACAO_ROUTES } from './unificacao.routes';
+import { CATALOGO_ROUTES } from './catalogo.routes';
 
-import { FilterComponent } from './filter/filter.component';
-import { ResultComponent } from './result/result.component';
-import { ImportersListComponent } from './filter/importers-list/importers-list.component'; 
-import { ProdutosListComponent } from './result/produtos-list/produtos-list.component';
-import { ProdutosListDialog } from './result/produtos-list/produtos-list.dialog'; 
-import { ProdutosEditComponent } from './result/produtos-edit/produtos-edit.component';
-import { ProdutosOneComponent } from './result/produtos-edit/produtos-one/produtos-one.component';
-import { ProdutosTwoComponent } from './result/produtos-edit/produtos-two/produtos-two.component';
-import { ProdutosThreeComponent } from './result/produtos-edit/produtos-three/produtos-three.component';
+import { CatalogoComponent } from './catalogo.component';
+import { ProdutosListComponent } from './produtos-list/produtos-list.component';
+import { ProdutosEditComponent } from './produtos-edit/produtos-edit.component';
 
 @NgModule({
     declarations: [
-        FilterComponent,
-        ResultComponent,
-        ImportersListComponent,
+        CatalogoComponent,
         ProdutosListComponent,
-        ProdutosListDialog,
-        ProdutosEditComponent,
-        ProdutosOneComponent,
-        ProdutosTwoComponent,
-        ProdutosThreeComponent
+        ProdutosEditComponent
     ],
     imports: [
         CommonModule,
@@ -52,12 +40,11 @@ import { ProdutosThreeComponent } from './result/produtos-edit/produtos-three/pr
         FontAwesomeModule,
         ObserversModule,
         NgbModule.forRoot(),
-        RouterModule.forChild(UNIFICACAO_ROUTES),
+        RouterModule.forChild(CATALOGO_ROUTES),
         NgxMaskModule.forRoot()
-        //GoogleChartsModule.forRoot()
     ],
     entryComponents: [
-        ProdutosListDialog
+        
     ]
 })
-export class UnificacaoModule { }
+export class CatalogoModule { }

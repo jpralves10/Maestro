@@ -7,8 +7,6 @@ import { Produto } from '../../../shared/models/produto.model';
 
 import { Chart } from 'chart.js';
 
-
-
 @Component({
     selector: 'produtos-list.dialog',
     templateUrl: 'produtos-list.dialog.html',

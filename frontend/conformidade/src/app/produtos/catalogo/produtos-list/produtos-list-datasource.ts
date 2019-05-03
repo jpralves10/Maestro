@@ -92,11 +92,11 @@ export class ProdutosListDataSource extends DataSource<Produto> {
                 d.ncm.includes(produto.ncm)
             );
         }
-        /*if (produto.status !== '') {
+        if (produto.status !== '') {
             newData = newData.filter(d =>
                 d.status.toUpperCase().includes(produto.status.toUpperCase())
             );
-        }*/
+        }
 
         /*if(this.filter.importadores.length > 0){
 

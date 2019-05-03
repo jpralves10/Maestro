@@ -22,7 +22,7 @@ export class ProdutosEditComponent implements OnInit {
         private route: ActivatedRoute
     ) {
         this.route.queryParamMap.subscribe(paramMap => {
-            this.produto = JSON.parse(paramMap.get('filterProduto'));
+            this.produto = JSON.parse(paramMap.get('filterUnficacao'));
 
             this.produto.etapaUnificacao = 1;
 
@@ -40,9 +40,7 @@ export class ProdutosEditComponent implements OnInit {
         });
     }
 
-    ngOnInit() {
-
-    }
+    ngOnInit() { }
 
     ngAfterViewInit(): void {  
         $( "mat-step-header" ).attr("style","pointer-events: none !important");

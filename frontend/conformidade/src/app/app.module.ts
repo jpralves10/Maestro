@@ -10,9 +10,9 @@ import { RouterModule, PreloadAllModules } from '@angular/router';
 //import { faAdobe } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { fas, faChevronDown, faComment, faCommentAlt } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
-library.add(fas, far, faChevronDown);
+library.add(fas, far, faChevronDown, faComment, faCommentAlt);
 
 import { AppComponent } from './app.component';
 import { NavegacaoComponent } from './shared/navegacao/navegacao.component';
@@ -26,10 +26,6 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { IndicadoresComponent } from './dashboard/indicadores/indicadores.component';
 import { ImportacaoComponent } from './produtos/importacao/importacao.component';
-import { CatalogoComponent } from './produtos/catalogo/catalogo.component';
-import { ClassificacaoComponent } from './produtos/classificacao/classificacao.component';
-import { ProdutosListComponent } from './produtos/catalogo/produtos-list/produtos-list.component';
-import { ProdutosEditComponent } from './produtos/catalogo/produtos-edit/produtos-edit.component';
 
 @NgModule({
     declarations: [
@@ -37,11 +33,7 @@ import { ProdutosEditComponent } from './produtos/catalogo/produtos-edit/produto
         NavegacaoComponent,
         HomeComponent,
         IndicadoresComponent,
-        ImportacaoComponent,
-        CatalogoComponent,
-        ClassificacaoComponent,
-        ProdutosListComponent,
-        ProdutosEditComponent
+        ImportacaoComponent
     ],
     imports: [
         BrowserModule,

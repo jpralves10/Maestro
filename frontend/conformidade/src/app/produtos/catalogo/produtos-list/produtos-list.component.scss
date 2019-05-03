@@ -34,11 +34,12 @@ canvas {
 .chip-standard {
     transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
     display: inline-flex;
-    padding: 7px 12px;
+    padding: 5px 10px;
     border-radius: 16px;
     align-items: center;
-    min-height: 32px;
+    min-height: 28px;
     height: 1px;
+    margin-right: 5px;
     
     color: rgba(0,0,0,.87);
     font-size: 0.9em;
