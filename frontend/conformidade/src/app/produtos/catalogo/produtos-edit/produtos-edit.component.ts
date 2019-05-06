@@ -5,6 +5,11 @@ import { Produto } from '../../shared/models/produto.model';
 import { Atributos } from '../../shared/models/legendas.model';
 import { ProdutoService } from '../../shared/services/produtos.service';
 
+//import { FilterResult } from '../../../../shared/models/unificacao.filter.model';
+import paises from '../../../utilitarios/pais-origem.model';
+import listaNcm from '../../../utilitarios/ncm.model';
+import { msg_produtos_three } from '../../../utilitarios/mensagens.module';
+
 @Component({
     selector: 'app-produtos-edit',
     templateUrl: './produtos-edit.component.html',
@@ -13,8 +18,11 @@ import { ProdutoService } from '../../shared/services/produtos.service';
 export class ProdutosEditComponent implements OnInit {
 
     produto: Produto = null;
-    public loading = true;
-    public errored = false;
+
+    loading = true;
+    errored = false;
+    finish = false;
+    spinner = false;
 
     paises: Array<{ value: string; viewValue: string; }> = [];
     listaNcm: any = {};
@@ -23,7 +31,7 @@ export class ProdutosEditComponent implements OnInit {
     attrList: any = [];
 
     mensagem: any = {id: 0, tipo: '', class: '', lista: []};
-    
+
     listaAtributosDataSource = new MatTableDataSource<{
         codigo: string, dominio: string, descricao: string
     }>();

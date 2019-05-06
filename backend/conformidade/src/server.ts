@@ -25,7 +25,7 @@ server.use(
 
 /* Rotas */
 
-server.get("/", function(req, res){ res.send("<h1>Hello World 12<h2>"); });
+server.get("/", function(req, res){ res.send("<h1>Hello World 123456<h2>"); });
 
 server.use('/produtos/catalogo', RouterProdutos);
 
