@@ -1,18 +1,15 @@
 {
     "compilerOptions": {
-        "outDir": "dist",
-        "target": "es6",
-        "module": "commonjs",
+        "noImplicitAny": false,
+        "target": "es5",
+        "baseUrl": ".",
         "moduleResolution": "node",
         "esModuleInterop": true,
         "sourceMap": true,
         "experimentalDecorators": true,
         "allowSyntheticDefaultImports": true,
-        "noImplicitAny": false,
-        "baseUrl": ".",
-        "lib": ["dom", "es6", "es2015"]
+        "lib": ["dom", "es6", "es2017"]
     },
     "include": ["src/**/*"],
     "exclude": ["src/**/*.spec.ts", "node_modules/*"],
-    "compileOnSave": false
 }

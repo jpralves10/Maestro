@@ -11,9 +11,7 @@ export default async (req, res, next) => {
         const response = await axios.get(
             'https://auth.eficilog.com/auth/realms/eficilog.com/protocol/openid-connect/userinfo',
         {
-            headers: {
-                Authorization: req.headers['authorization']
-            }
+            headers: { Authorization: req.headers['authorization'] }
         });
 
         if ((response.data.groups as string[]).includes('/Eficilog/OEAexperts')) {

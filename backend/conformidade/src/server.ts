@@ -1,6 +1,7 @@
 import Express from 'express';
-import Https from 'https';
 import Cors from 'cors';
+
+import Https from 'https';
 import fs from 'fs';
 
 import BodyParser from 'body-parser';
@@ -24,24 +25,35 @@ server.use(
 
 /* Rotas */
 
+server.get("/", function(req, res){ res.send("<h1>Hello World 12<h2>"); });
+
 server.use('/produtos/catalogo', RouterProdutos);
 
-server.get('*', (req, res) => { res.sendStatus(404); });
+//server.get('*', (req, res) => { res.sendStatus(404); });
 
 server.use(function(err, req, res, next) { res.status(500).json(err); });
 
-server.get("/", function(req, res){ res.send("<h1>hello<h2>"); });
+/* Server Start */
 
-/*var options = {
+var options = {
 	key: fs.readFileSync("./keys/key.key"),
 	cert: fs.readFileSync("./keys/cert.crt")
 }
 
-Https.createServer(options, server).listen(3443, function () {
-    console.log('Server is running on http://localhost:3443');
-});*/
-
-server.listen(3443, () => { 
+var serverHttps = Https.createServer(options, server).listen(3443, function () {
     console.log('Server is running on http://localhost:3443');
 })
 .on('error', err => console.log(err));
+
+/* Close Server */
+
+/*serverHttps.close(() =>{
+    console.log('Finish Server!')
+})
+
+process.on('SIGTERM', () => {
+    console.log('Closing http server.');
+    serverHttps.close(() => {
+        console.log('Http server closed.');
+    });
+});*/

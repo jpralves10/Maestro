@@ -1,5 +1,6 @@
 console.log('Hello, TypeScript!');
 
+//https://desenvolvimentoparaweb.com/javascript/gulp/
 //https://www.typescriptlang.org/docs/handbook/gulp.html
 //https://medium.com/typescript/node-e-typescript-f632deabe356
 //https://blog.risingstack.com/building-a-node-js-app-with-typescript-tutorial/
