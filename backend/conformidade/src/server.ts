@@ -11,23 +11,51 @@ import RouterProdutos from './app/produtos/router';
 
 var server = Express();
 
+var request = require('request');
+var cors = require('cors')
+
 /* Middleware */
 
 server.use(Cors());
+server.options('*', Cors());
+
+server.use(function(req, res, next) {
+
+    //req.setHeader('Access-Control-Allow-Origin', '*');
+    //req.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    //req.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers,X-Access-Token,XKey,Authorization');
+    //req.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+    /*req.setHeader('Access-Control-Request-Method', 'GET');
+    req.setHeader('Access-Control-Request-Headers', 'origin, x-requested-with, accept');
+    req.setHeader('Origin', 'https://localhost:3443');
+
+    res.setHeader('Access-Control-Allow-Origin', 'https://localhost:3443');
+    res.setHeader('Access-Control-Allow-Methods', 'GET');*/
+
+    /*res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");*/
+
+    next();
+});
+
 server.use(BodyParser.json());
 server.use(Auth);
 
 server.use(
-  BodyParser.urlencoded({
-    extended: true
-  })
+    BodyParser.urlencoded({
+        extended: true
+    })
 );
 
 /* Rotas */
 
-server.get("/", function(req, res){ res.send("<h1>Hello World 123456<h2>"); });
+server.get("/", async function(req, res){ 
+    res.send("<h1>Hello World 123456<h2>");
+});
 
-server.use('/produtos/catalogo', RouterProdutos);
+server.use('/produtos/', RouterProdutos);
 
 //server.get('*', (req, res) => { res.sendStatus(404); });
 
