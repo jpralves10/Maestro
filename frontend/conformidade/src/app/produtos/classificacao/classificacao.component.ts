@@ -17,7 +17,7 @@ export class ClassificacaoComponent implements OnInit {
     ngOnInit() { }
 
     ngAfterViewInit() {
-        this.validaFormGoogle();
+        //this.validaFormGoogle();
 
         /*var frame = document.querySelector('#frameForms') as any;
         frame.onload = () => {
@@ -26,7 +26,6 @@ export class ClassificacaoComponent implements OnInit {
             x[0].innerHTML = "Hello World!";
             alert(x);
         }*/
-
     }
 
     frameGoogle(event: any){
@@ -46,7 +45,6 @@ export class ClassificacaoComponent implements OnInit {
             console.log(teste)
         });
 
-
         //$( "#next-two" ).prop("disabled", true);
         //$( "#next-two" ).attr("style", "background-color:#673AB7; color:#fff;");
 
@@ -57,8 +55,14 @@ export class ClassificacaoComponent implements OnInit {
 
         //$( this ).text( htmlString );
 
-
         $( "#next-two" ).prop("disabled", false);
     }
 
+    openForm(){
+        document.getElementById("myForm").style.display = "block";
+    }
+
+    closeForm(){
+        document.getElementById("myForm").style.display = "none";
+    }
 }

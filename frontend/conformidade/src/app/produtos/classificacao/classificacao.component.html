@@ -1,11 +1,60 @@
-<iframe 
-    src="https://docs.google.com/forms/d/e/1FAIpQLSd47R95CoXdU6IfIZ6zwB6kpvu-uG1v7PJp1MmjZZAKvsSfhw/viewform?embedded=true" 
+
+<iframe
+    src="https://docs.google.com/forms/d/e/1FAIpQLScRaga2_Hptwn4Gh_4mqzn-axQoAX_Ai1b2VGuzZnSSKlQwuA/viewform?embedded=true" 
     id="frameForms"
-    width="640" 
-    height="1058" 
+    width="640"
+    height="1058"
     frameborder="0" 
-    marginheight="0" 
+    marginheight="0"
     marginwidth="0"
-    style="margin: 10px;">
+    class="iframe-google">
     Carregando…
 </iframe>
+
+<button class="open-button" (click)="openForm()">
+    <div class="comment-content">
+        <div class="comment-title">
+            Inserir Comentário
+        </div>
+        <div class="comment-icon">
+            <!--fa-icon icon="minus-square" size="fa-sm"></fa-icon-->
+            <fa-icon icon="plus-square" size="fa-sm"></fa-icon> 
+        </div>
+    </div>
+</button>
+
+<mat-card class="mat-elevation-z5 chat-popup" id="myForm">
+    <mat-card-content class="form-container">
+        <mat-card-title>
+        </mat-card-title>
+
+        <mat-form-field style="width: 100%;">
+            <mat-label>Campo</mat-label>
+            <mat-select>
+                <mat-option>
+                    Aqui
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="fields-textarea">
+            <mat-form-field>
+                <textarea
+                    matInput
+                    placeholder="Comentário"
+                    class="produto-descricao">
+                </textarea>
+            </mat-form-field>
+        </div>
+
+        <button
+            mat-button
+            matTooltip="Inserir comentário"
+            class="button-add"
+            style="color: #596679; float: right;"
+            (click)="closeForm()">
+            Enviar
+        </button>
+
+    </mat-card-content>
+</mat-card>
