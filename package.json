@@ -1,0 +1,14 @@
+{
+    "name": "conformidade",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/server.js",
+    "scripts": {
+        "gulp": "gulp",
+        "minify": "gulp minify",
+        "start": "node backend/conformidade/dist/server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC"
+}
