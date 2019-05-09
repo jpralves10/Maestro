@@ -49,10 +49,32 @@ export const form = async (req: Request, res: Response) => {
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");*/
 
         res.set(res1.headers);
+        res.set("Access-Control-Allow-Origin", "*");
+        res.set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
         //res.send({'aqui': 'a'});
         res.send(res1.body);
     });
+
+    //https://www.gstatic.com/recaptcha/api2/v1555968629716/recaptcha__pt_br.js
+
+    /*let formsResp = await request({
+        headers: headers,
+        uri: 'https://www.gstatic.com/recaptcha/api2/v1555968629716/recaptcha__pt_br.js',
+        method: 'GET'
+    }, (err, res1, body) => {
+        if (err) { return console.log(err); }
+
+        //it works!
+
+        res.set(res1.headers);
+        res.set("Access-Control-Allow-Origin", "*");
+        res.set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+        //res.send({'aqui': 'a'});
+        res.send(res1.body);
+    });*/
+
 
     console.log('formsResp: ' + formsResp);
 };

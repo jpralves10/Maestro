@@ -59,10 +59,10 @@ export class ClassificacaoComponent implements OnInit {
     }
 
     openForm(){
-        document.getElementById("myForm").style.display = "block";
+        document.getElementById("chatComment").style.display = "block";
     }
 
     closeForm(){
-        document.getElementById("myForm").style.display = "none";
+        document.getElementById("chatComment").style.display = "none";
     }
 }

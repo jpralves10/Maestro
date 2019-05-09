@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-comentarios-edit',
-  templateUrl: './comentarios-edit.component.html',
-  styleUrls: ['./comentarios-edit.component.scss']
+    selector: 'app-comentarios-edit',
+    templateUrl: './comentarios-edit.component.html',
+    styleUrls: ['./comentarios-edit.component.scss']
 })
 export class ComentariosEditComponent implements OnInit {
 

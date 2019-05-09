@@ -1,4 +1,3 @@
-
 <iframe
     src="https://docs.google.com/forms/d/e/1FAIpQLScRaga2_Hptwn4Gh_4mqzn-axQoAX_Ai1b2VGuzZnSSKlQwuA/viewform?embedded=true" 
     id="frameForms"
@@ -11,20 +10,42 @@
     Carregando…
 </iframe>
 
-<button class="open-button" (click)="openForm()">
+<div class="open-button">
     <div class="comment-content">
         <div class="comment-title">
             Inserir Comentário
         </div>
-        <div class="comment-icon">
-            <!--fa-icon icon="minus-square" size="fa-sm"></fa-icon-->
-            <fa-icon icon="plus-square" size="fa-sm"></fa-icon> 
+        <div>
+            <fa-icon
+                (click)="openForm()"
+                icon="plus-square"
+                size="fa-sm"
+                class="comment-icon">
+            </fa-icon>
         </div>
     </div>
-</button>
+</div>
 
-<mat-card class="mat-elevation-z5 chat-popup" id="myForm">
+<mat-card id="chatComment" class="mat-elevation-z5 chat-popup">
+
+    <div class="open-button-chat">
+        <div class="comment-content">
+            <div class="comment-title">
+                Inserir Comentário
+            </div>
+            <div>
+                <fa-icon
+                    (click)="closeForm()"
+                    icon="minus-square"
+                    size="fa-sm"
+                    class="comment-icon">
+                </fa-icon>
+            </div>
+        </div>
+    </div>
+
     <mat-card-content class="form-container">
+
         <mat-card-title>
         </mat-card-title>
 
