@@ -73,10 +73,10 @@ export class ProdutosThreeComponent implements OnInit {
 
     ngOnInit() {
         this.loading = false;
-        this.initDatasSources();
+        this.initDataSources();
     }
 
-    private initDatasSources(){
+    private initDataSources(){
         this.listaAtributos = [];
         this.carregarAtributos();
         this.carregarCodigoInterno();
@@ -194,7 +194,7 @@ export class ProdutosThreeComponent implements OnInit {
                 if(this.mensagem != null){
 
                     this.mensagem.lista = [];
-                    this.mensagem.lista.push({chave: 0, valor: 'Mercadoria cadastrada com sucesso!'});
+                    this.mensagem.lista.push({chave: 0, valor: 'Produto cadastrado com sucesso!'});
 
                     this.finish = true;
                 

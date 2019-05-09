@@ -22,7 +22,7 @@ export class ProdutosEditComponent implements OnInit {
         private route: ActivatedRoute
     ) {
         this.route.queryParamMap.subscribe(paramMap => {
-            this.produto = JSON.parse(paramMap.get('filterUnficacao'));
+            this.produto = JSON.parse(paramMap.get('filterUnificacao'));
 
             this.produto.etapaUnificacao = 1;
 

@@ -40,21 +40,21 @@ export class FilterComponent implements OnInit {
         this.filterService.resetFilter();
 
         /* Mock */
-        
+        /*
         this.data = this.getMockDados();
         window.sessionStorage.setItem('filter', JSON.stringify(this.data));
         this.loading = false;
 
         /* End Mock */
 
-        /*this.produtoService.getDadosFiltro().subscribe(
+        this.produtoService.getDadosFiltro().subscribe(
             data => {
                 this.data = this.getDataTransformed(data);
                 window.sessionStorage.setItem('filter', JSON.stringify(this.data));
                 this.loading = false;
             },
             error => { this.errored = true; }
-        );*/
+        );
 
         this.filterService.clearFilter();
     }

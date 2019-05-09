@@ -4,7 +4,7 @@
 </div>
 
 <div *ngIf="!loading" class="produtos-container">
-    <h3>Adições da DI</h3>
+    <h3>Unificar Produtos</h3>
 
     <div class="mat-card-list">
 
@@ -45,7 +45,7 @@
 
                 <div>
                     <span class="mat-card-title">
-                        Quantidade de Declarações (DI)
+                        Declarações (DI)
                     </span>
                     <div class="mat-cad-body declaracoes">
                         {{resumo.qtdDeclaracoes}}
@@ -66,7 +66,7 @@
 
                 <div>
                     <span class="mat-card-title">
-                        Quantidade de Mercadorias
+                        Itens
                     </span>
                     <div class="mat-cad-body total">
                         {{resumo.qtdItens}}
@@ -87,7 +87,7 @@
 
                 <div>
                     <span class="mat-card-title">
-                        Quantidade de Mercadorias Cadastrados
+                        Produtos Cadastrados
                     </span>
                     <div class="mat-cad-body cadastrados">
                         {{resumo.qtdItensCadastrados}}
@@ -103,14 +103,14 @@
 
             <div class="table-head clearfix">
                 <span class="table-title">
-                    Mercadorias 
-                    ({{resumo.periodoInicial.toLocaleDateString()}} a
-                    {{resumo.periodoFinal.toLocaleDateString()}})
+                    Período: 
+                    {{resumo.periodoInicial.toLocaleDateString()}} a
+                    {{resumo.periodoFinal.toLocaleDateString()}}
                 </span>
 
                 <!--button
                     mat-raised-button
-                    (click)="addMercadoria()"
+                    (click)="addProdutos()"
                     class="add-button">
                     <fa-icon icon="plus" size="lg" style="font-size: 10px;"></fa-icon>
                     Add Item

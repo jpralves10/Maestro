@@ -3,7 +3,7 @@ export const msg_produtos_two = [
         id: 0,
         tipo: 'message-alert-warning',
         class: 'alert alert-danger',
-        lista: ['Atenção: Campo \'Descrição da Mercadoria\' não pode ser vazio!']
+        lista: ['Atenção: Campo \'Descrição do Produto\' não pode ser vazio!']
     }
 ]
 

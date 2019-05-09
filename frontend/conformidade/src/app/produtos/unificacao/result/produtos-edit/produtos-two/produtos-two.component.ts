@@ -109,7 +109,7 @@ export class ProdutosTwoComponent implements OnInit {
                     }
                 });
 
-                window.sessionStorage.setItem('mercadorias', JSON.stringify(this.data));
+                window.sessionStorage.setItem('produtos', JSON.stringify(this.data));
                 this.setDataSource();
                 this.eventTable = 1;
             },

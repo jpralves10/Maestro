@@ -4,7 +4,7 @@
 </div>
 
 <div class="produtos-container">
-    <h3>Verificar Versões da Mercadoria</h3>
+    <h3>Verificar Versões do Produto</h3>
 
     <div *ngIf="mensagem !== null" class="{{mensagem.class}}">
         <div *ngFor="let msg of mensagem.lista" class="mat-card-content-div">
@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <mat-card class="mat-elevation-z5 filtro-card">
+    <!--mat-card class="mat-elevation-z5 filtro-card">
         <mat-card-content class="form-container">
             <mat-card-title>
                 <fa-icon
@@ -23,11 +23,11 @@
                 Atenção!
             </mat-card-title>
             <div class="info-etapa">
-                <p>1º - Utilize a lista de mercadorias abaixo para preencher corretamente a descrição!</p>
+                <p>1º - Utilize a lista de produtos abaixo para preencher corretamente a descrição!</p>
                 <p>2º - Descarte as versões que não terão mais utilidade!</p>
             </div>            
         </mat-card-content>
-    </mat-card>
+    </mat-card-->
 
     <mat-card class="mat-elevation-z5 filtro-card">
         <mat-card-content class="form-container">
@@ -54,7 +54,7 @@
     <mat-card class="mat-elevation-z5 filtro-card">
         <mat-card-content class="form-container">
 
-            <h5>Digíte a descrição da mercadoria a ser considerada:</h5>
+            <h5>Digíte a descrição do produto a ser considerada:</h5>
                 
             <div class="step-content descricao-fields">
                 <div class="step-content-form">
@@ -66,7 +66,7 @@
                             class="textarea-style">
                         </textarea>
                         <mat-hint class="step-hint">
-                            Descrição da mercadoria a ser considerada
+                            Descrição do produto a ser considerada
                         </mat-hint>
                     </mat-form-field>
                 </div>
@@ -82,7 +82,7 @@
                 <mat-form-field>
                     <input
                         matInput
-                        placeholder="Descrição da Mercadoria"
+                        placeholder="Descrição do Produto"
                         [(ngModel)]="current_filtro.produto.descricaoBruta"
                         (ngModelChange)="updateFiltro()" />
                 </mat-form-field>
@@ -121,11 +121,11 @@
                     <!-- Column -->
                     <ng-container matColumnDef="descricaoBruta">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                            Descrição da Mercadoria
+                            Descrição do Produto
                         </th>
                         <td
                             [ngClass]="{'descarte-row': row.status === 'Inativo'}"
-                            mat-cell 
+                            mat-cell
                             *matCellDef="let row">
                                 {{ row.descricaoBruta }}
                         </td>
@@ -137,8 +137,9 @@
                             Similaridade (%)
                         </th>
                         <td
-                            mat-cell 
-                            *matCellDef="let row">
+                            mat-cell
+                            *matCellDef="let row"
+                            style="text-align:center;">
                                 {{ row.compatibilidade.similaridade }}%
                         </td>
                     </ng-container>

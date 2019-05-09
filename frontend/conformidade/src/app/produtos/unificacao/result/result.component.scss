@@ -35,7 +35,6 @@
 
 .filtro-panel-content {
     max-height: 300px;
-    overflow-y: auto;
     padding: 0 15px 15px;
 }
 
@@ -104,10 +103,6 @@
 
 .cadastrados {
     color: #638ca5!important;
-}
-
-.table-head {
-    margin-bottom: 10px;
 }
 
 .add-button {
